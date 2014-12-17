@@ -1,4 +1,4 @@
-=== Custom Registration Form Builder with Submission Manager ===
+=== Custom User Registration Form Builder ===
 Contributors: CMSHelpLive
 Donate link: http://cmshelplive.com/
 Tags: custom registration, custom form fields, custom registration fields, multiple registration forms
@@ -12,14 +12,14 @@ Simple yet powerful custom registration form builder that allows you to create u
 
 == Description ==
 
-Have you ever wanted an easy to use form creator that allows you to build forms quickly and easily without confusing you with lot of options, that you would probably never use? Well, the answer is here - we have built Custom Registration Form Builder with Submission Manager from ground up with usability in mind. What's more, there is built in submission manager that allows you to track form submissions right from the dashboard! So you no longer have to worry if you did not received an email with form submission notification or just want to have a quick look.
+Have you ever wanted an easy to use form creator that allows you to build forms quickly and easily without confusing you with lot of options, that you would probably never use? Well, the answer is here - we have built Custom User Registration Form Builder from ground up with usability in mind. What's more, there is built in submission manager that allows you to track form submissions right from the dashboard! So you no longer have to worry if you did not received an email with form submission notification or just want to have a quick look.
 
 Created unlimited custom fields, drag and drop to sort fields, track submissions and much more!
 
 
 == Installation ==
 
-1. Download Custom Registration Form Builder with Submission Manager
+1. Download Custom User Registration Form Builder with Submission Manager
 
 2. Go to your Dashboard and locate Plugins tab. Click on Upload Plugin and specify the path of downloaded plugin in the text box.
 
