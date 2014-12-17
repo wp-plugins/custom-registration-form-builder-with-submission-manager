@@ -1,0 +1,845 @@
+html {
+	font-size: 100% !important;
+}
+#upb-form {
+	/*	font-family: Georgia, "Times New Roman", Arial;*/
+ color: #8a8a8a;
+	float: left;
+	width: 100%;
+}
+/*---------------main page color----------------*/
+#main-upb-form {
+	background-color: #F9F9F9;
+	float: left;
+	width: 100%;
+	padding: 26px 0px 26px 0px;
+	border-top: 8px solid #000;
+}
+/*---------------main page color end----------------*/
+.UltimatePB-Button-area {
+	background-color: #F9F9F9;
+	float: left;
+	width: 100%;
+	padding: 26px 0px 26px 0px;
+	margin-top: 13px;
+	text-align: center;
+}
+#main-upb-form .box-view-main {
+	padding: 26px;
+	padding-top: 0px;
+}
+#main-upb-form .main-edit-profile {
+	padding: 26px;
+}
+.margin-left2 {
+	width: 51%;
+}
+.Login-Success {
+	width: 68%;
+}
+.alreadylogged-in {
+	width: 80%;
+	margin: 0px auto;
+}
+.margin-left3 {
+	width: 66%;
+	margin: 0px auto;
+}
+.UPB-margin-left3 {
+	width: 40%;
+	margin: 0px auto;
+}
+#main-upb-form .UPB-margin-left3 a {
+	text-align: center;
+}
+.toggleDiv img {
+	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2) !important;
+}
+.updated-successfully-upb-device .margin-left2 {
+	width: 57%;
+	margin: 0px auto;
+}
+.updated-successfully-upb-device {
+	text-align: center
+}
+.profile-updated-succ {
+	text-align: left;
+	float: left;
+	width: 100%;
+}
+.formtable {
+	width: 100%;
+	float: left;
+	padding-bottom: 10px
+}
+.formtable .lable-text {
+	width: 40%;
+	float: left;
+	padding-right: 25px;
+	text-align: right;
+}
+.formtable .input-box {
+	width: 54%;
+	float: left;
+}
+.formtable .input-box input {
+	background-color: #fff;
+	border: 1px solid #ebebeb;
+	border-radius: 5px;
+	width: 65%;
+	color: #8a8a8a;
+	font-size: 11px;
+	font-style: italic;
+	float: left;
+}
+.formtable .input-box input[type="checkbox"] {
+	width: 29px;
+	margin-top: 9px;
+}
+#password_info {
+	background-color: #ffe5e5;
+	border: 1px solid #fadbdb;
+	border-radius: 5px;
+	color: #fea7a7;
+	font-size: 11px;
+	padding: 3px;
+	margin-top: 6px;
+	float: left;
+	width: 80%;
+}
+.reg_frontErr {
+	background-color: #ffe5e5;
+	border: 1px solid #fadbdb;
+	border-radius: 5px;
+	color: #fea7a7;
+	font-size: 11px;
+	padding: 3px;
+	margin-top: 6px;
+	float: left;
+	width: 80%;
+}
+.formtable .input-box #complexity {
+	float: left;
+	width: 27%;
+	margin-left: -3px;
+	height: 27px;
+	margin-top: 2px;
+}
+.default {
+	background-color: #fea7a7;
+}
+.weak {
+	background-color: #ffe5e5;
+	border: 1px solid #fadbdb!important;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px !important;
+	color: #fea7a7 !important;
+	line-height: 24px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-left: 5px;
+}
+.strong {
+	background-color: #ffffd8;
+	border: 1px solid #f2e5c8!important;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	color: #ffd863 !important;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-left: 5px;
+}
+.stronger {
+	background-color: #e6ffe5;
+	border: 1px solid #e6efdc!important;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	color: #9ae197 !important;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-left: 5px;
+}
+.strongest {
+	background-color: #ffffd8;
+	border: 1px solid #f2e5c8 !important;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-left: 5px;
+}
+.formtable .input-box .reg_frontErr {
+	background-color: #FFE5E5;
+	border: 1px solid #FADBDB;
+	border-radius: 5px;
+	color: #FEA7A7;
+	font-size: 11px;
+	padding: 3px;
+	margin-top: 6px;
+	float: left;
+	width: 80%;
+	margin: 0px auto;
+}
+.upb-check-text {
+	float: left;
+}
+.viewselector .listview {
+	float: left;
+	background-image: url(../../ultimate-profile-builder-pro/images/viewicon.gif);
+	width: 40px;
+	height: 39px;
+}
+.viewselector .gridview {
+	float: left;
+	background-image: url(../../ultimate-profile-builder-pro/images/viewicon.gif);
+	width: 40px;
+	height: 39px;
+	background-position: right;
+}
+.top-part .profile-user-name {
+	float: left;
+}
+.top-part .member_search {
+	float: right;
+}
+.viewselector {
+	float: left;
+}
+.box-view-main .listview_header {
+ width: 97%  float: left;
+	padding-left: 15px;
+}
+.box-view-main .listview_header div {
+	float: left;
+	width: 25%;
+}
+.box-view-main .listview_header div:last-child {
+	text-align: center;
+}
+.box-view-main .list-box {
+	width: 96%;
+	float: left;
+	background-color: #FFF;
+	border-top: 1px solid #EBEBEB;
+	border-left: 1px solid #EBEBEB;
+	border-right: 1px solid #EBEBEB;
+	padding: 13px;
+}
+.box-view-main .list-box div {
+	float: left;
+	width: 25%;
+}
+.box-view-main .list-box div:last-child {
+	text-align: center;
+}
+.box-view-main .box-view .box-view-img img {
+	height: 112px;
+}
+.box-view-main .box-view {
+	float: left;
+	background-color: #FFF;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #EFEFEF;
+}
+.box-view-name {
+	float: left;
+	width: 100%;
+	min-height: 60px;
+}
+.box-view .profile-dec {
+	float: left;
+	width: 100%;
+	min-height: 105px;
+	font-size: 12px;
+	padding-top: 9px;
+	text-align: left;
+}
+.box-view .box-view-name a {
+	text-decoration: none;
+}
+.box-view .box-view-post-num a {
+	text-decoration: none;
+}
+.clear_seprator {
+	width: 100%;
+	float: left;
+	height: 10px;
+}
+.UltimatePB-forgot-pass {
+	text-align: center;
+	width: 100%;
+	text-align: center;
+	float: left;
+	padding-top: 7px;
+}
+#main-upb-form .main-edit-profile .left-img-part {
+	width: 50%;
+	float: left;
+}
+#main-upb-form .main-edit-profile .left-img-part div {
+	float: left;
+	background-color: #FFF;
+	padding: 14px;
+}
+.profile-about-me {
+	width: 100%;
+	float: left;
+	margin-top: 18px;
+}
+#main-upb-form .main-edit-profile .right-profile-info {
+	width: 50%;
+	float: left;
+	text-align: right;
+}
+#main-upb-form .main-edit-profile .right-profile-info div {
+	font-style: italic;
+}
+.view-container {
+	float: left;
+	width : 100%;
+}
+.UltimatePB-Button-inp {
+	width: 25%;
+	margin: 0px auto;
+}
+.login-info {
+	width: 98%;
+	text-align: center;
+}
+.formtable .input-box .radio_option {
+	float: left;
+}
+.formtable .input-box input[type="radio"] {
+	margin-top: 9px;
+	float: left;width: 29px!important;
+}
+#main-upb-form .my-post {
+	padding: 26px;
+}
+#upb-form .custom_fields {
+	width: 100%;
+	margin-top: 10px;
+	float: left;
+	background-color: #f2f7fc;
+	border: 1px solid #DAEDFF;
+}
+#upb-form .custom_fields .user-custom_field {
+	float: left;
+	width: 95.5%;
+	padding: 15px;
+	border-bottom: 1px solid #daedff;
+	padding-bottom: 6px;
+	padding-top: 6px;
+	font-weight: bold;
+	color: #010101;
+}
+#upb-form .custom_fields .user-custom_field .field_label {
+	float: left;
+	padding-right: 18px;
+	text-transform: capitalize;
+	width: 34%;
+}
+#upb-form .custom_fields .user-custom_field .field_value {
+	float: left;
+	padding-right: 11px;
+	text-transform: capitalize;
+}
+#upb-form .custom_fields .user-custom_field:last-child {
+	border-bottom: 4px solid #DAEDFF;
+}
+#upb-form .custom_fields .user-custom_field .field_value .field_mulitple_value {
+	float: left;
+	margin-right: 12px;
+}
+#upb-form .custom_fields .user-custom_field .field_value .field_mulitple_value {
+	position: relative;
+	margin: 3px 0 3px 5px;
+	padding: 8px 15px 8px 14px;
+	border: 0px solid #AAA;
+	border-radius: 3px;
+	background-color: #e1eefb;
+	border: 1px solid #C8E1FA;
+	color: #9BC2E9;
+	line-height: 13px;
+	cursor: default;
+	font-weight: normal;margin-left: 0px;
+margin-right: 8px;
+}
+.top-part {
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+.top-part a {
+	float: right;
+}
+.top-part .profile-user-name {
+	font-size: 30px;
+	color: #000;
+}
+.UltimatePB-Button, #upb-form input[type="submit"], #upb-form input[type="reset"] {
+	margin-bottom: 10px;
+}
+#upb-form a {
+	text-decoration: none !important;
+}
+
+/*-----------------------------------Responsive css Start-----------------------------------*/
+
+@media screen and (max-width: 640px) {
+#main-upb-form {
+	background-color: #F9F9F9;
+	float: left;
+	width: 100%;
+	padding: 0px;
+	border-top: 8px solid #000;
+}
+#main-upb-form .allready-regis-device {
+	float: left;
+	width: 83% !important;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.formtable .lable-text {
+	width: 100%;
+	text-align: center;
+}
+.formtable .input-box {
+	width: 100%;
+	text-align: center
+}
+.formtable .input-box input {
+	float: none;
+	margin: 0px auto;
+}
+#password_info {
+	float: none;
+	width: 77%;
+	margin: 10px auto;
+	text-align: center;
+	margin-bottom: 0px;
+}
+.formtable .input-box input[type="checkbox"] {
+	width: 3px;
+	margin-top: 9px;
+	float: left;
+}
+.formtable .input-box {
+	text-align: center;
+}
+.formtable .input-box .reg_frontErr {
+	margin: 0px auto;
+	margin-top: 10px;
+	float: none !important;
+}
+.formtable .input-box #complexity {
+	margin: 0px auto;
+	width: 32%;
+	float: none !important;
+}
+}
+
+@media screen and (max-width: 480px) {
+.top-part .profile-user-name {
+	width: 100%;
+	float: left;
+	text-align: center;
+}
+#upb-form .top-part a {
+
+	text-align: center;
+	margin-right: 4px;
+}
+#upb-form .top-part a .UltimatePB-Button {
+	float: none;
+	margin: 0px;
+}
+.UltimatePB-Button-inp {
+	width: 35%;
+	margin: 0px auto;
+}
+.box-view-main .box-view {
+	width: 71% !important;
+}
+#main-upb-form .log-need {
+	width: 89% !important;
+}
+.UltimatePB-Button, #upb-form input[type="submit"], #upb-form input[type="reset"] {
+	margin-bottom: 10px;
+	float: none !important;
+	margin: 6px auto;
+}
+.margin-left2 {
+	width: 100%;
+}
+.UPB-Search-Members {
+	text-align: center;
+}
+#main-upb-form .all-log-device.margin-left2 a {
+	float: none !important;
+}
+#upb-form .edit-info .upb-name {
+	width: 100%;
+	text-align: center;
+}
+#upb-form .edit-info .upb-button {
+	width: 100%;
+	text-align: center;
+}
+#upb-form .top-part .profile-user-button {
+	width: 83%;
+	float: left;
+	text-align: center;
+}
+
+.default_profile_pic {width: 57% !important;height: 72px;line-height: 38px !important;font-size: 38px !important;height: 72px!important;}
+
+.UltimatePB-Button-inp input {margin-left: 0px !important; }
+
+.formtable .input-box input[type="checkbox"] {
+width: 32px !important;
+float: none !important;
+}
+
+#registerform .formtable .input-box input[type="checkbox"] {
+width: 42% !important;
+float: none !important;
+}
+
+.upb-check-text {
+float: left !important;
+width: 50% !important;
+text-align: center;
+}
+
+
+
+.member_search #form1 input#search {width: 100%;}
+
+.upb-search-from-left{width: 59%;
+float: left;
+margin-right: 18px;}
+
+
+.viewselector {
+float: left;
+width: 34%;margin-top: 25px;
+}
+
+#main-upb-form .main-edit-profile .left-img-part {
+width: 100% !important;
+float: left;
+}
+
+#progressbar {
+width: 100% !important;
+
+}
+
+#main-upb-form .main-edit-profile .left-img-part .default_profile_pic {width: 73% !important;
+height: 97px !important;
+font-size: 81px !important;
+padding-top: 72px;}
+
+#main-upb-form .main-edit-profile .right-profile-info {
+width: 100% !important;
+float: left;
+text-align: right;
+margin-top: 20px;
+}
+
+#upb-form .custom_fields .user-custom_field {width: 87% !important;}
+
+#upb-form .custom_fields .user-custom_field .field_label {width: 100% !important; padding-right:0px !important;}
+
+}
+
+@media all and (min-width: 240px) and (max-width: 320px) {
+.UltimatePB-Button-inp input {
+	padding: 2px 11px !important;
+}
+.UltimatePB-Button, #upb-form input[type="submit"], #upb-form input[type="reset"] {
+	margin-left: 5px !important;
+}
+#main-upb-form .log-need {
+	width: 100% !important;
+}
+.UPB-Search-Members {
+	text-align: center;
+}
+#main-upb-form .UPB-margin-left3 a {
+	text-align: center;
+	font-size: 11px;
+}
+#upb-form .top-part .profile-user-button a {
+	width: 100%;
+	margin-bottom: 5px;
+}
+#upb-form .top-part .profile-user-button {
+	width: 100%;
+}
+
+
+.formtable .input-box input[type="checkbox"] {
+width: 32px !important;
+
+}
+
+
+
+}
+
+@media all and (min-width: 480px) and (max-width: 640px) {
+#main-upb-form .allready-regis-device {
+	margin-top: 34px;
+	float: none !important;
+}
+.UltimatePB-Button, #upb-form input[type="submit"], #upb-form input[type="reset"] {
+	float: none !important;
+	margin: 0px auto;
+}
+.UPB-margin-left3 {
+	width: 73%;
+	margin: 0px auto;
+}
+.UPB-margin-left3 .UltimatePB-Button {
+	margin-bottom: 20px;
+}
+#main-upb-form .all-log-device.margin-left2 a {
+	float: left !important;
+	margin-bottom: 9px;
+	width: 100%;
+}
+.all-log-device.margin-left2 {
+	width: 64%;
+}
+
+.default_profile_pic {width: 62% !important;line-height: 109px;
+height: 62% !important;}
+
+
+.formtable .input-box input[type="checkbox"] {
+width: 32px !important;float: none !important;
+
+}
+
+
+#registerform .formtable .input-box input[type="checkbox"] {
+width: 32px !important;
+float: left !important;
+}
+
+.upb-check-text {
+float: left;
+padding-left: 12px;
+}
+
+#progressbar {width: 49% !important;}
+
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+.UPB-margin-left3 {
+	width: 59%;
+	margin: 0px auto;
+}
+.all-log-device.margin-left2 {
+	width: 72%;
+}
+
+
+.allready-regis-device.all-log-device.margin-left2 {
+width: 91% !important;
+}
+.box-view-main .box-view {width: 35% !important;}
+
+#main-upb-form .main-edit-profile .left-img-part .default_profile_pic {width: 151px !important;}
+
+#upb-form .custom_fields .user-custom_field {width: 93% !important;}
+
+#progressbar {width: 49% !important;}
+
+}
+
+@media all and (min-width: 1024px) and (max-width: 1200px) {
+.UPB-margin-left3 {
+	width: 59%;
+	margin: 0px auto;
+}
+.all-log-device.margin-left2 {
+	width: 72%;
+}
+
+
+.allready-regis-device.all-log-device.margin-left2 {
+width: 71%;
+}
+
+
+}
+
+
+
+/*-----------------------------------Responsive css End-----------------------------------*/
+
+/*-----------------------------------Removeble css css start-----------------------------------*/
+
+.site-content article {
+	border-bottom: 0px double #EDEDED !important;
+}
+/*-----------------------------------Removeble css css End-----------------------------------*/
+
+.UltimatePB-Button-inp.upb-success-page a {
+	background: #FA0;
+	border-top: 1px solid #FFC600;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FFC600), to(#FA0));
+	background: -webkit-linear-gradient(top, #FFC600, #FA0);
+	background: -moz-linear-gradient(top, #ffc600, #ffaa00);
+	background: -ms-linear-gradient(top, #ffc600, #ffaa00);
+	background: -o-linear-gradient(top, #ffc600, #ffaa00);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-shadow: 0px -1px 0px #E09A00;
+	padding: 7px 23px;
+	color: #FFF !important;
+	font-size: 16px;
+	font-family: Arial, "Helvetica LT Std", Tahoma;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-left: 20px;
+	line-height: 25px;
+}
+.UltimatePB-Button-inp.upb-success-page a:hover {
+	background: #F1B900;
+	color: #FFF;
+	border-top-color: #F1B900;
+	text-shadow: 0px 0px 0px #E09A00;
+}
+#upb-form .edit-info .upb-name {
+	float: left;
+	font-weight: bold;
+	font-size: 100%;
+}
+#upb-form .edit-info .upb-button {
+	float: right;
+}
+.formtable .lable-text label span {
+	font-size: 70%;
+}
+.UltimatePB-Button, #upb-form input[type="submit"], #upb-form input[type="reset"] {
+	float: none !important;
+}
+.upb-margin-left3 {
+	width: 91%;
+	margin: 0px auto;
+}
+#main-upb-form .all-log-device.margin-left2 a {
+	float: left;
+}
+.UPB-Additional-Information {
+	width: 100%;
+	text-align: left;
+	padding-left: 15px;
+	font-weight: bold;
+	float: left;
+}
+.allready-regis-device.all-log-device.margin-left2 {
+	width: 58%;
+}
+
+.UltimatePB-Button-inp1.change_avatar_button input[type="submit"] { margin-left:0px !important;}
+
+
+.upb-success-page.UltimatePB-Button-inp {
+	width: 30%;
+}
+.main-edit-profile .margin-left a {
+	text-decoration: none;
+}
+.default_profile_pic {
+	width: 155px;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 60px;
+	background-color: #f1f1f1 !important;
+	line-height: 150px;
+	height: 155px;
+}
+.default_profile_pic_listview {
+	width: 38px !important;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 14px;
+	background-color: #f1f1f1 !important;
+	line-height: 38px;
+	height: 38px;
+}
+.default_profile_pic_boxview {
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 200%;
+	float: left;
+	background-color: #f1f1f1 !important;
+	line-height: 380%;
+	height: 100%;
+}
+.left-img-part {
+	height: 211px;
+	overflow: hidden;
+}
+.change_profile_image {
+	float: none !important;
+	text-align: center;
+	display: block !important;
+	color: #000;
+	margin-top: -0px;
+	width: 183px;
+	background: #FFF;
+	opacity: 0.5;
+	z-index: 10;
+	background-image: url(../../ultimate-profile-builder-pro/images/camera.png);
+	background-repeat: no-repeat;
+	background-position: 5px 10px;
+}
+.box-view-main .list-box .listview-proflle-name {
+	text-transform: capitalize;
+}
+
+
+#main-upb-form .pagination ul.paginate li {margin: 0 0 0 3px !important;} 
+.upb_heading { width:100%; text-align:center;}
+
+.formtable.upb_heading h1 {padding: 0px;
+margin: 0px;}
+
+.box-view-img#userviewimg {} 
+
+.upb_box_wrapper { width:100%; float:left;}
+
+.updated-successfully-upb-device .margin-left2.updated-successfully {
+width: 68%;
+margin: 0px auto;
+}
+
+#main-upb-form #your-profile .formtable.edit_profile_image_div {width: 80%;}
+#main-upb-form #your-profile .formtable.edit_profile_image_div .input-box  { width:50%;}
+#main-upb-form #your-profile .formtable.edit_profile_image_div .input-box input {width: 100%;}
+
+.UltimatePB-Button-inp1.change_avatar_button {float: left;
+margin: 0px;
+padding: 0px;}
+
+.remove_current_avatar {float: left;
+text-align: center;
+width: 100%;}
+
+/*----------------------Browser Css IE9 -------------*/
+
+@media screen\0 {
+	#upb-form .custom_fields .user-custom_field { width:95% !important; }
+	
+}
