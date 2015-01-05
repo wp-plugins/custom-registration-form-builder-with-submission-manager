@@ -45,11 +45,18 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.1 =
+* Bug Fixes
+* Added Banner
+
 = 1.0 =
 * First Release
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.1 =
+Minor Changes
 
 = 1.0 =
 Initial Release
