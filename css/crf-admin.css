@@ -890,3 +890,10 @@ ul.crf_entries li.alternate {
 	outline: none;
 	box-shadow: inset 0 0px 0 #fff;
 }
+.ucf_pro_banner{width: 100%;
+max-width: 883px;
+float: left;
+margin-bottom: -20px;
+margin-left: 30px;
+margin-top:30px;
+overflow: hidden;}

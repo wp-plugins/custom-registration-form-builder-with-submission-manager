@@ -3,7 +3,7 @@
 	Plugin Name:  Custom User Registration Form Builder
 	Plugin URI: http://cmshelplive.com
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.0
+	Version: 1.1
 	Author: CMSHelpLive Team
 	Author URI: http://cmshelplive.com/
 	License: GPLv2
