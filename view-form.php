@@ -83,7 +83,7 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 			$entry['user_pass'] =  $_POST['inputPassword'];
 			if(isset($content['role']))
 			{
-			$entry['role']	= $content['role'];
+			$entry['role']	= 'Subscriber';
 			}
 			else
 			{
@@ -131,7 +131,7 @@ $user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates
 
 if(is_array($content) && $content['role']!="")
 {
-	$role = $content['role'];//Assigns the new user a role based on registration form shortcode
+	$role = 'subscriber';//Assigns the new user a role based on registration form shortcode
 }
 else
 {
@@ -165,7 +165,7 @@ if(is_array($content) && $content['role']!="")
 	{
 		$role =  $content['role'];	
 	}
-	$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
+	$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => 'subscriber' ) );
 }
 }
 else

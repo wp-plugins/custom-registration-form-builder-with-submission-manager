@@ -8,7 +8,7 @@ if(isset($_REQUEST['saveoption']))
 {
 	if(!isset($_REQUEST['enable_captcha'])) $_REQUEST['enable_captcha']='no';
 	if(!isset($_REQUEST['autogenerate_pass'])) $_REQUEST['autogenerate_pass']='no';
-	if(!isset($_REQUEST['user_auto_approval'])) $_REQUEST['user_auto_approval']='no';
+	if(!isset($_REQUEST['user_auto_approval'])) $_REQUEST['user_auto_approval']='yes';
 	crf_add_option( 'enable_captcha', $_REQUEST['enable_captcha']);
 	crf_add_option( 'public_key', $_REQUEST['publickey']);
 	crf_add_option( 'private_key', $_REQUEST['privatekey']);
@@ -73,17 +73,7 @@ $private_key = $wpdb->get_var($qry);
         <label for="autogenerate_pass"></label>
       </div>
     </div>
-    <div class="option-main crf-form-setting">
-      <div class="user-group crf-form-left-area">
-        <div class="crf-label">
-          <?php _e( 'User Registration Auto approval:', $textdomain ); ?>
-        </div>
-      </div>
-      <div class="user-group-option crf-form-right-area">
-        <input name="user_auto_approval" id="user_auto_approval" type="checkbox" class="upb_toggle" value="yes" <?php if (checkfieldname("userautoapproval","yes")==true){ echo "checked";}?> style="display:none;"/>
-        <label for="user_auto_approval"></label>
-      </div>
-    </div>
+    
     <br>
     <br>
     <div class="crf-form-footer">
