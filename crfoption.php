@@ -24,7 +24,7 @@ $private_key = $wpdb->get_var($qry);
 
 <div class="crf-main-form">
   <div class="crf-form-heading">
-    <h1><?php _e( 'Form Settings', $textdomain ); ?></h1>
+    <h1><?php _e( 'Global Settings', $textdomain ); ?></h1>
   </div>
   <form method="post">
     <div class="option-main crf-form-setting">
@@ -79,6 +79,7 @@ $private_key = $wpdb->get_var($qry);
     <div class="crf-form-footer">
       <div class="crf-form-button">
         <input type="submit"  class="button-primary" value="Save" name="saveoption" id="saveoption" />
+        <a href="admin.php?page=crf_manage_forms" class="cancel_button">Cancel</a>
       </div>
     </div>
   </form>

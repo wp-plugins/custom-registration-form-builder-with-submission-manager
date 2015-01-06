@@ -77,7 +77,7 @@ if(empty($entries))
 {
 ?>
       <li class="rows">
-        <div class="cols"><?php _e('Sorry! There is no submission for this form yet.', $textdomain ); ?></div>
+        <div class="cols"><?php _e('No submissions for this form have been recorded.', $textdomain ); ?></div>
       </li>
       <?php
 }

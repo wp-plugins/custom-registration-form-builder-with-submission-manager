@@ -46,11 +46,11 @@ input.upb_toggle + label:after {
 }
 input.upb_toggle:checked + label:before {
 	width: 50px;
-	background: orange;
+	background: #ff6c6c;
 }
 input.upb_toggle:checked + label:after {
 	left: 20px;
-	box-shadow: inset 0 0 0 1px orange, 0 2px 4px rgba(0,0,0,.2);
+	box-shadow: inset 0 0 0 1px #ff6c6c, 0 2px 4px rgba(0,0,0,.2);
 }
 /* toggle swich css end */
 
@@ -157,7 +157,7 @@ height: 28px;
 	padding: 20px;
 }
 .crf-form-setting .crf-form-left-area {
-	width: 20%;
+	width: 21%;
 	float: left
 }
 .crf-form-setting .crf-form-left-area .crf-label {
@@ -286,7 +286,6 @@ height: 28px;
 	color: #BDBDBD;
 	font-size: 18px;
 	font-family: 'Roboto', sans-serif;
-	text-transform: capitalize;
 }
 #sortable .rows .cols.check-box {
 	width: 6%;
@@ -725,7 +724,7 @@ ul.crf_entries li.alternate {
 	color: #78B0BE;
 	font-family: 'Roboto', sans-serif;
 	font-weight: normal;
-	border-bottom: 1px solid;
+	/*border-bottom: 1px solid;*/
 	float: left;
 	margin-bottom: 0px;
 	padding-bottom: 17px;
@@ -847,7 +846,6 @@ ul.crf_entries li.alternate {
 	float: left;
 	text-align: center;
 	margin-left: 10px;
-	padding-left: 0px;
 	cursor: pointer;
 }
 .crf-main-form .fields_container .standard_fields input.button:hover {
@@ -897,3 +895,18 @@ margin-bottom: -20px;
 margin-left: 30px;
 margin-top:30px;
 overflow: hidden;}
+
+/*final css */
+.crf-form-shortcode-type,.crf-form-shortcode{ padding-top:3px;}
+.crf-add-new-button{ padding-top:5px;}
+.crf-form-footer .crf-form-button .cancel_button{
+background-color: rgba(0, 0, 0, 0);
+border: 0px;
+color: #ff6c6c;
+font-size: 18px;
+font-weight: 300;
+padding-top: 3px;
+margin-top: 1px;
+margin-left: 31px;
+text-decoration:none;
+}

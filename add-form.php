@@ -181,6 +181,7 @@ $args = array(
         <input type="hidden" name="form_id" id="form_id" value="<?php if(isset($_REQUEST['id'])) echo $_REQUEST['id']?>" />
         <input type="submit" value="Save" name="submit_form" id="submit_form" tabindex="14" />
         <input type="reset" />
+        <a href="admin.php?page=crf_manage_forms" class="cancel_button">Cancel</a>
       </div>
     </div>
   </form>

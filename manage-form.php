@@ -85,10 +85,10 @@ foreach($entries as $row)
       <div class="crf-form-name">
         <?php 
 $length = strlen($row->form_name);
-if($length<=15){echo $row->form_name;}
+if($length<=12){echo $row->form_name;}
 else
 {
-$Valuehalf = substr($row->form_name, 0, 15);
+$Valuehalf = substr($row->form_name, 0, 12);
 echo $Valuehalf.'...';
 }
 ?>
@@ -163,7 +163,7 @@ if($next!=false)
 </script>
 <script>
     function popup() {
-        a = confirm("<?php _e('Are you sure you want to remove?', $textdomain ); ?>");
+        a = confirm("<?php _e('This will delete the form(s) permanently. Please confirm.', $textdomain ); ?>");
         if (a == true) {
             return true;
         } else {

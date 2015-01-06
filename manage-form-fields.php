@@ -110,7 +110,7 @@ echo $fieldnamehalf.'...';
 		{
 			echo '<ul id="sortable" class="crf_entries">
             <li class="rows">
-        <div class="cols">'.__('This form does not has any editable fields.',$textdomain).'</div>
+        <div class="cols">'.__('This form does not have any custom fields yet.',$textdomain).'</div>
       </li>
           </ul>';	
 		}

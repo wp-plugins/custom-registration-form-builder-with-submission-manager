@@ -307,7 +307,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
     </div>
     <div class="crf-form-setting">
       <div class="toggle_button crf-form-left-area">
-        <div class="crf-label"><?php _e( 'Advance Option', $textdomain ); ?></div>
+        <div class="crf-label"><?php _e( 'Advance Options', $textdomain ); ?></div>
         <span class="show_hide" id="plus"><?php _e( '+', $textdomain ); ?></span></div>
     </div>
     <div class="slidingDiv">
@@ -407,7 +407,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
         <input type="hidden" name="form_id" id="form_id" value="<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>" />
         <input type="hidden" name="field_id" id="field_id" value="<?php if(isset($_REQUEST['id'])) echo $_REQUEST['id']?>" />
         <input type="submit" value="Save" name="field_submit" id="field_submit" />
-        <input type="button" value="Back" class="crf-back-button" name="field_back" id="field_back" onClick="backtoform(<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>)"  />
+        <input type="button" value="Cancel" class="crf-back-button" name="field_back" id="field_back" onClick="backtoform(<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>)"  />
       </div>
       <div class="customupberror" style="display:none;"></div>
     </div>
