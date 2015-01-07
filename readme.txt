@@ -82,6 +82,26 @@ Here’s quick overview of features:
 
 == Frequently Asked Questions ==
 
+= Is there a limit to the number of forms I can create? =
+
+No, there is no limit. You can create as many forms as you like.
+
+= How can I show forms on my website or blog? =
+
+Just copy the shortcode for a form on it’s card in forms manager and paste it inside the page or post you want to show the form on.
+
+= How can I add custom fields to my form? =
+
+Click “Fields” button on a form card to go to fields manager for that form. Here you can add, edit and sort the fields.
+
+= Where can I access form submissions? =
+
+Either click the number counter on a form’s card or go to “Custom Registration Form -> Submission” on the left menu.
+
+= Can I set autoresponder for a form? =
+
+Yes, you can set autoresponder for a form by clicking “Edit” button on a form card and turning the autoresponder toggle on. 2 New fields will appear below it to set Subject and Message.
+
 = Can I rearrange fields in my forms? =
 
 Yes, you can change field order of custom fields by drag and drop method in dashboard
