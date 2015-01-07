@@ -1,7 +1,7 @@
 === Custom User Registration Form Builder ===
 Contributors: CMSHelpLive
 Donate link: http://cmshelplive.com/
-Tags: custom registration, custom form fields, custom registration fields, multiple registration forms, wordpress registration form, customize wordpress registration form, advance registration form for wordpress, registration form manager
+Tags: custom registration, custom form fields, custom registration fields, multiple registration forms, wordpress registration form, customize wordpress registration form, advance registration form for wordpress, registration form manager, wordpress custom fields, wordpress custom contact, form autoresponder, terms and conditions checkbox, form terms and conditions, form required fields, auto generate password, simple contact form, simple registration form, easy contact form, easy registration form, wordpress form save, save form submissions, wordpress simple registration form, wordpress simple contact form, form success message, wordpress form redirect, wordpress form success message,wordpress form manager, create wordpress forms 
 
 Requires at least: 3.5
 Tested up to: 4.1
