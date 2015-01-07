@@ -51,21 +51,21 @@ Here’s quick overview of features:
 * Fully customizable forms.
 * Elegant user interface focussed on ease of use
 * Forms displayed as cards with at a glance information. 
-Cards display form Name, Submissions Counter, Shortcode, Type and Editing buttons.
-Individual submission tracker for each form with all form submission details.
-Each submission entry displays captured data from the form.
-Multi-select duplicate and delete option for forms.
-Option to set redirection for each form to a page or URL.
-Option to set auto-responder with custom subject and message
-Set success message on form submission.
-Add reCaptcha to block out pesky SPAM.
-Multiple custom field types including text, headings, paragraphs, select box, radio buttons, check boxes, date picker with calendar etc.
-Mark any field as required
-Set default value for any field
-Set visibility for any field
-Show Terms and Conditions checkbox
-Advance field options like CSS and character length.
-View and Delete individual submission entries
+* Cards display form Name, Submissions Counter, Shortcode, Type and Editing buttons.
+* Individual submission tracker for each form with all form submission details.
+* Each submission entry displays captured data from the form.
+* Multi-select duplicate and delete option for forms.
+* Option to set redirection for each form to a page or URL.
+* Option to set auto-responder with custom subject and message
+* Set success message on form submission.
+* Add reCaptcha to block out pesky SPAM.
+* Multiple custom field types including text, headings, paragraphs, select box, radio buttons, check boxes, date picker with calendar etc.
+* Mark any field as required
+* Set default value for any field
+* Set visibility for any field
+* Show Terms and Conditions checkbox
+* Advance field options like CSS and character length.
+* View and Delete individual submission entries
 
 
 
