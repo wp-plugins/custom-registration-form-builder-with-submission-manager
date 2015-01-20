@@ -1,7 +1,7 @@
 <?php
 /*Controls manage fields in the dashboard area*/
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
 $path =  plugin_dir_url(__FILE__);
@@ -68,6 +68,15 @@ echo $Valuehalf.'...';
             <input type="button" id="email" name="email" value="email" class="button" onClick="add_field(this.value)">
             <input type="button" id="number" name="number" value="number" class="button" onClick="add_field(this.value)">
             <input type="button" id="term_checkbox" name="term_checkbox" value="term_checkbox" class="button" onClick="add_field(this.value)">
+            <?php
+			/*file addon start */
+			if ( is_plugin_active('file-upload-addon/file-upload.php') ) {
+				?>
+             	<input type="button" id="file" name="file" value="file" class="button" onClick="add_field(this.value)">
+                <?php
+        	 }
+			 /*file addon end */
+			?>
           </div>
         </div>
       </div>

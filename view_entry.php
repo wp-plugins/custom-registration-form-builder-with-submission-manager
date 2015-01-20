@@ -1,13 +1,20 @@
 <?php
 /*Controls registration form behavior on the front end*/
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
 $path =  plugin_dir_url(__FILE__);
 $crf_option=$wpdb->prefix."crf_option";
 $crf_entries =$wpdb->prefix."crf_entries";
 $entry = $wpdb->get_row( "SELECT * FROM $crf_entries where id=".$_REQUEST['id'] );
+
+$qry="select `value` from $crf_option where fieldname='from_email'";
+$from_email_address = $wpdb->get_var($qry);
+if($from_email_address=="")
+{
+	$from_email_address = get_option('admin_email');	
+}
 
 if(isset($_REQUEST['delete_entry']) && isset($_REQUEST['id']))
 {
@@ -99,12 +106,15 @@ if(isset($_REQUEST['user_enable']) && isset($_REQUEST['id']))
 
 	  $qry = "update $crf_entries set user_approval = 'yes' where id=".$entry->id;
 	  $wpdb->query($qry);
-	  wp_mail( $user_email, $subject, $message );//Sends email to user on successful registration
+	  $headers = 'From:'.$from_email_address. "\r\n"; 
+	  wp_mail( $user_email, $subject, $message,$headers);//Sends email to user on successful registration
 	  wp_redirect('admin.php?page=crf_entries&form_id='.$entry->form_id);exit;
 	  }
 }
 ?>
-
+<style>
+.crf-single-entry-content .entry_Value img{ max-height:auto; max-width:100px;}
+</style>
 <div class="crf-main-form">
   <div class="crf-main-form-top-area">
     <div class="crf-form-name-heading">
@@ -148,6 +158,15 @@ if($entry->form_type=='reg_form' && $entry->user_approval=='no')
       <?php
 if(!empty($value))
 {
+	/*file addon start */
+	if ( is_plugin_active('file-upload-addon/file-upload.php')) 
+		{
+			global $fileuploadfunctionality;
+			$fileuploadfunctionality = new fileuploadfuncitonality();
+			$attachment_html = $fileuploadfunctionality->view_entry($entry);
+		}
+	/*file addon end */
+	
 	foreach($value as $key => $val) 
 	{
 		if(is_array($val))
@@ -155,12 +174,23 @@ if(!empty($value))
 			$val = implode(',',$val);	
 		}
 		$Customfield = str_replace("_"," ",$key);
+		/*file addon start */
+		global $filefields; 
+		if(isset($filefields) && in_array($key,$filefields)) continue;
+		/*file addon end */
 		if($key!="user_pass"):
   		?>
       <p><span class="entry_heading"><?php echo $Customfield; ?> : </span><span class="entry_Value"><?php echo $val; ?></span></p>
       <?php
 		endif;
 	}
+	/*file addon start */
+	if(isset($attachment_html))
+	{
+		echo $attachment_html;	
+	}
+	/*file addon end */
+	
 }
 ?>
     </div>

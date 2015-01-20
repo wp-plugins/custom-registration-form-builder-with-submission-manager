@@ -1,7 +1,7 @@
 <?php
 /*Controls custom field creation in the dashboard area*/
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $path =  plugin_dir_url(__FILE__); 
 if(isset($_POST['submit_form']) && trim($_POST['form_name'])!="")

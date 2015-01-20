@@ -1,7 +1,8 @@
 <?php
 /*Controls registration form behavior on the front end*/
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
 $path =  plugin_dir_url(__FILE__);
@@ -13,6 +14,16 @@ $qry="select `custom_text` from $crf_forms where id=".$content['id'];
 $custom_text = $wpdb->get_var($qry);
 $qry="select `form_type` from $crf_forms where id=".$content['id'];
 $form_type = $wpdb->get_var($qry);
+$qry="select `form_name` from $crf_forms where id=".$content['id'];
+$form_name = $wpdb->get_var($qry);
+
+$qry="select `value` from $crf_option where fieldname='from_email'";
+$from_email_address = $wpdb->get_var($qry);
+if($from_email_address=="")
+{
+	$from_email_address = get_option('admin_email');	
+}
+
 if($form_type=='reg_form')
 {
 wp_enqueue_script( 'mocha.js',  plugin_dir_url(__FILE__) . 'js/mocha.js');	
@@ -78,17 +89,11 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 	
 	if($form_type=='reg_form')
 	{
+			$user_email = $_POST['user_email'];
 			$entry['user_name'] =  $_POST['user_name'];
 			$entry['user_email'] =  $_POST['user_email'];
 			$entry['user_pass'] =  $_POST['inputPassword'];
-			if(isset($content['role']))
-			{
-			$entry['role']	= 'Subscriber';
-			}
-			else
-			{
 			$entry['role']	= 'Subscriber';	
-			}
 	}
 	
 	if(!empty($reg1))
@@ -97,11 +102,23 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 	 {
 		if(!empty($row1))
 		{
+			/*file addon start */
 			$Customfield = str_replace(" ","_",$row1->Name);
-			if(isset($_POST[$Customfield]))
+			
+			if ( is_plugin_active('file-upload-addon/file-upload.php') && $row1->Type=='file') 
 			{
-			$entry[$Customfield] =  $_POST[$Customfield];
+				global $fileuploadfunctionality;
+				$filefield = $_FILES[$Customfield];
+				$fileuploadfunctionality = new fileuploadfuncitonality();
+				$attach_id = $fileuploadfunctionality->save_form($filefield);
+				$entry[$Customfield] =  $attach_id;
 			}
+			else
+			if(isset($_POST[$Customfield]))
+			{	
+				$entry[$Customfield] =  $_POST[$Customfield];
+			}
+			/*file addon end */
 		}
 	 }
 	}
@@ -128,15 +145,7 @@ if ( !$user_id and email_exists($user_email) == false )//Creates password if pas
 		$random_password = $inputPassword;
 	}
 $user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
-
-if(is_array($content) && $content['role']!="")
-{
-	$role = 'subscriber';//Assigns the new user a role based on registration form shortcode
-}
-else
-{
-	$role = 'subscriber';//Defines default role if there is not shortcode in registration form
-}
+$role = 'subscriber';
 /*Insert custom field values if displayed in registration form*/
 $qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
 $reg1 = $wpdb->get_results($qry1);
@@ -155,18 +164,8 @@ if(!empty($reg1))
 }
 
 /*Assigns user role to newly registered user*/
-if(is_array($content) && $content['role']!="")
-{		 
-	if($content['role']=='Subscriber' || $content['role']=='Administrator' || $content['role']=='Editor' || $content['role']=='Author' || $content['role']=='Contributor')
-	{
-		$role = strtolower($content['role']);
-	}
-	else
-	{
-		$role =  $content['role'];	
-	}
-	$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => 'subscriber' ) );
-}
+$role = 'subscriber';
+$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
 }
 else
 {
@@ -247,7 +246,7 @@ else
 		  $message = __('Thank you for your submission.',$textdomain);//Auto inserts this text as email body if it is not defined in dashboard settings
 	  }
 	  
-	  if($pwd_show != "no" && $form_type=='reg_form')//Inserts password into registration email body if auto-generation of password is enabled
+	  if($pwd_show != "no" && $form_type=='reg_form' && $autoapproval=='yes')//Inserts password into registration email body if auto-generation of password is enabled
 	  {
 		$message .= __('You can use following details for login.',$textdomain);
 		$message .= __('Username : ',$textdomain).$user_name;
@@ -261,9 +260,45 @@ else
 		 $emailfield = str_replace(" ","_",$row1->Name);
 		 $user_email =  $_POST[$emailfield];  
 	  }
-	  
-	  wp_mail( $user_email, $subject, $message );//Sends email to user on successful registration
+	  $headers = 'From:'.$from_email_address. "\r\n"; 
+	  wp_mail( $user_email, $subject, $message, $headers );//Sends email to user on successful registration
 	  }
+	  /*admin notification start */
+	  $qry="select `value` from $crf_option where fieldname='adminnotification'";
+	  $admin_notification = $wpdb->get_var($qry);
+	  if($admin_notification=='yes')
+	  {
+		$qry="select `value` from $crf_option where fieldname='adminemail'";
+	  	$admin_email = $wpdb->get_var($qry); 
+		$notification_message = "";
+		if(!empty($entry))
+		{
+			$notification_message .= '<html><body><table cellpadding="10">';
+			foreach($entry as $key => $val) 
+			{
+				if(is_array($val))
+				{
+					$val = implode(',',$val);	
+				}
+				$entryval = str_replace("_"," ",$key);
+				if($key!="user_pass"):
+				
+			  $notification_message .= '<tr><td><strong>'.$entryval.'</strong>: </td><td>'.$val.'</td></tr>';
+				endif;
+			}
+			$notification_message .= '</table></body></html>';
+		}
+		
+			/*$headers = "From: " . $user_email . "\r\n";
+			$headers .= "Reply-To: ".$user_email. "\r\n";*/
+			$headers2 = 'From:'.$from_email_address. "\r\n"; 
+			$headers2 .= "MIME-Version: 1.0\r\n";
+			$headers2 .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+		
+		wp_mail( $admin_email,$form_name.' New Submission Notification', $notification_message,$headers2 );//Sends email to user on successful registration
+		 
+	  }
+	  /*admin notification end */
 }
 else
 {
@@ -339,7 +374,7 @@ else
 <?php endif; ?>
 <!--HTML for displaying registration form-->
 <div id="upb-form">
-  <form method="post" action="" id="registerform" name="registerform">
+  <form enctype="multipart/form-data" method="post" action="" id="registerform" name="registerform">
     <div class="info-text"><?php echo $custom_text;?></div>
     <div id="main-upb-form"  >
       <?php if($form_type=='reg_form'): ?>
@@ -556,17 +591,6 @@ if($row1->Type=='term_checkbox')
           </div>
         </div>
         <?php }
-			if($row1->Type=='file')
-			{?>
-        <div class="formtable">
-          <div class="lable-text">
-            <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
-          </div>
-          <div class="input-box">
-            <input type="file" class="regular-text <?php echo $row1->Class;?>" value="" id="<?php echo $key;?>" name="<?php echo $key;?>">
-          </div>
-        </div>
-        <?php }
 		
 	   if($row1->Type=='select')
 	   {?>
@@ -589,6 +613,14 @@ if($row1->Type=='term_checkbox')
           </div>
         </div>
         <?php }
+		/*file addon start */
+		if ( is_plugin_active('file-upload-addon/file-upload.php') && $row1->Type=='file' ) 
+		{
+			global $fileuploadfunctionality;
+			$fileuploadfunctionality = new fileuploadfuncitonality();
+			$fileuploadfunctionality->fileuploadhtml($row1,$key);
+		}
+		/*file addon end */
 		 }
 		 ?>
       </div>
@@ -676,6 +708,22 @@ if($row1->Type=='term_checkbox')
                 jQuery(this).children('.custom_error').show();
             }
         });
+		/*file addon start */
+		 jQuery('.upb_file').each(function (index, element) {
+			var val = jQuery(this).children('input').val().toLowerCase();
+			var allowextensions = jQuery(this).children('input').attr('data-filter-placeholder');
+			if(allowextensions=='')
+			{
+				allowextensions = '<?php echo get_option('ucf_allowfiletypes','jpg|jpeg|png|gif|doc|pdf|docx|txt|psd'); ?>';
+			}
+			var regex = new RegExp("(.*?)\.(" + allowextensions + ")$");
+			if(!(regex.test(val))) {
+			
+				jQuery(this).children('.custom_error').html('<?php _e('This file type is not allowed.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+			}
+        });
+		/*file addon end */
         jQuery('.upb_number').each(function (index, element) { //Validation for number type custom field
             var number = jQuery(this).children('input').val();
             var isnumber = jQuery.isNumeric(number);

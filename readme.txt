@@ -1,11 +1,11 @@
 === Custom User Registration Form Builder ===
 Contributors: CMSHelpLive
 Donate link: http://cmshelplive.com/
-Tags: custom registration, custom form fields, custom registration fields, multiple registration forms, wordpress registration form, customize wordpress registration form, advance registration form for wordpress, registration form manager, wordpress custom fields, wordpress custom contact, form autoresponder, terms and conditions checkbox, form terms and conditions, form required fields, auto generate password, simple contact form, simple registration form, easy contact form, easy registration form, wordpress form save, save form submissions, wordpress simple registration form, wordpress simple contact form, form success message, wordpress form redirect, wordpress form success message,wordpress form manager, create wordpress forms 
+Tags: custom registration, custom form fields, custom registration fields, multiple registration forms, wordpress registration form, customize wordpress registration form, advance registration form for wordpress, registration form manager, wordpress custom fields, wordpress custom contact, form autoresponder, terms and conditions checkbox, form terms and conditions, form required fields, auto generate password, simple contact form, simple registration form, easy contact form, easy registration form, wordpress form save, save form submissions, wordpress simple registration form, wordpress simple contact form, form success message, wordpress form redirect, wordpress form success message,wordpress form manager, create wordpress forms, wordpress user registration plugin, wordpress new user registration, new user registration wordpress, registration form wordpress, wordpress user registration captcha, user registration plugin for wordpress, wordpress plugin for registration form, custom contact, custom contact form fields, custom contact fields, multiple contact forms, wordpress contact form, customize wordpress contact form, advance contact form for wordpress, contact form manager, 
 
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Custom User Registration Form Builder is an easy to use form creating system tha
 
 As soon as you activate the plugin and go to “Custom Registration Form” link in the left menu, you see our elegant forms manager to manager all your WordPress forms. When you fist visit the page, forms area will be empty and you will see “Add New” button on top bar to start creating WordPress forms. When you click it, you will be taken to a new page with following fields:
 
-Type: Radio box for deciding if the form will be a normal contact form or Registration form to allow visitors to register as users on your WordPress site. Registration form will already have mandatory username and password fields, while contact form will require all fields to be added from forms manager page.
+== Type: == Radio box for deciding if the form will be a normal contact form or Registration form to allow visitors to register as users on your WordPress site. Registration form will already have mandatory username and password fields, while contact form will require all fields to be added from forms manager page.
 
 Note - Password field will not appear if you chose “Auto Generate Password” in Global Settings.
 
@@ -117,6 +117,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.2 =
+* Added From Email feature
+* Bug fixes related to notifications
+* File Addon support added
+
 = 1.1.1 =
 * UI Improvements
 
@@ -129,6 +134,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.2 =
+* Added From Email feature
+* Bug fixes related to notifications
+* File Addon support added
 
 = 1.1.1 =
 * UI Improvements

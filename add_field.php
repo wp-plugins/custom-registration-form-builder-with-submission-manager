@@ -1,6 +1,6 @@
 <?php
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
 $path =  plugin_dir_url(__FILE__); 
@@ -186,11 +186,25 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
                 jQuery('#optionsfield').hide();
                 jQuery('#valuefield').hide();
             }
+			/*file addon start */
+			if(a=='file')
+			{
+				jQuery('#optionsfield .crf-label').html('Define allowed file types (file extensions). <small style="float:left;">(Separate multiple values by “|”. For example PDF|JPEG|XLS)</small>');
+				jQuery('#optionsfield').show();
+				
+			}
+			
+			if(a != 'file')
+			{
+				jQuery('#optionsfield .crf-label').html('Options: <small style="float:left;">(value seprated by comma ",")</small>');	
+			}
+			/*file addon end */
             if (a != 'term_checkbox') {
                 jQuery('#desfield label').html('Description');
                 jQuery('#namefield label').html('Label');
                 jQuery('.info').hide();
             }
+			
             if (a == 'term_checkbox') {
                 jQuery('#desfield .crf-label').html('<?php _e( 'Terms & Conditions', $textdomain ); ?>');
                 jQuery('#namefield .crf-label').html('<?php _e( 'Name', $textdomain ); ?>');
@@ -271,6 +285,15 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
           <option value="email" <?php if(isset($str) && $str=='email') echo 'selected'; ?>><?php _e( 'Email', $textdomain ); ?></option>
           <option value="number" <?php if(isset($str) && $str=='number') echo 'selected'; ?>><?php _e( 'Number', $textdomain ); ?></option>
           <option value="term_checkbox" <?php if(isset($str) && $str=='term_checkbox') echo 'selected'; ?>><?php _e( 'Terms & Conditions Checkbox', $textdomain ); ?></option>
+          	<?php
+			/*file addon start */
+			if ( is_plugin_active('file-upload-addon/file-upload.php') ) {
+			?>
+			<option value="file" <?php if(isset($str) && $str=='file') echo 'selected'; ?>><?php _e( 'File', $textdomain ); ?></option>                <?php
+			}
+			/*file addon end */
+			?>
+          
         </select>
       </div>
     </div>

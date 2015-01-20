@@ -1,6 +1,6 @@
 <?php
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
 $path =  plugin_dir_url(__FILE__); 

@@ -2,7 +2,7 @@
 /*Used during custom field creation - Cross checks if the custom field being created already exists or not*/
 global $wpdb;
 $crf_forms =$wpdb->prefix."crf_forms";
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_fields =$wpdb->prefix."crf_fields";
 
 if (!preg_match('/^[a-zA-Z0-9 ]+$/', $_POST['name'])) {

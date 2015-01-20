@@ -1,7 +1,7 @@
 <?php
 /*Controls custom field creation in the dashboard area*/
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_entries =$wpdb->prefix."crf_entries";
 $path =  plugin_dir_url(__FILE__); 
@@ -37,9 +37,6 @@ $entries = $wpdb->get_results( "SELECT * FROM $crf_forms order by id asc LIMIT $
 ?>
 
 <form name="forms" id="forms" method="post" action="admin.php?page=crf_manage_forms" >
-<div class="ucf_pro_banner">
-<a target="_blank" href="http://cmshelplive.com/custom-user-registration-form-builder-pro.html"><img src="<?php echo $path;?>images/UCF_Banner.png" /></a>
-</div>
   <div class="crf-main-form">
     <div class="crf-main-form-top-area">
       <div class="crf-form-name-heading">

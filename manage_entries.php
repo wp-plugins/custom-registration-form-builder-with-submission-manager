@@ -1,7 +1,7 @@
 <?php
 /*Controls custom field creation in the dashboard area*/
 global $wpdb;
-$textdomain = 'custom-registration-form-with-submission-manager';
+$textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_entries =$wpdb->prefix."crf_entries";
 $crf_fields =$wpdb->prefix."crf_fields";
 $crf_forms =$wpdb->prefix."crf_forms";
@@ -30,10 +30,11 @@ if(!empty($_POST['selected']) && isset($_POST['remove']))
     <div class="crf-form-name-heading-Submissions">
       <h1><?php _e('Submissions', $textdomain ); ?></h1>
     </div>
-    <div  class="crf-add-remove-field-submissions">
-      <div class="crf-remove-field" style="display:none;">
+    <div  class="crf-add-remove-field-submissions crf-new-buttons">
+      <div class="crf-remove-field" style="display:none;padding-top: 2px;">
         <input type="submit" name="remove" id="remove" value="Delete" onClick="return popup()"/>
       </div>
+      
       <select name="form_id" id="form_id" onChange="redirectform(this.value)">
         <?php
     $qry = "select * from $crf_forms";
@@ -88,7 +89,7 @@ else
         <div class="cols" style="width:30px;"></div>
         <div class="cols" style="width:30px;">#</div>
         <?php
-	$qry = "select * from $crf_fields where form_id ='".$_REQUEST['form_id']."' and Type not in('heading','paragraph') order by ordering asc";
+	$qry = "select * from $crf_fields where form_id ='".$_REQUEST['form_id']."' and Type not in('heading','paragraph','file') order by ordering asc";
 	$reg = $wpdb->get_results($qry);
 	$count_field = count($reg);
 	if($count_field >=4)
