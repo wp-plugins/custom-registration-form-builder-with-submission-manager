@@ -18,7 +18,7 @@ if(isset($_POST['remove']))
     <div id="fields-contain">
       <div class="crf-main-form">
         <div class="crf-form-name-heading">
-          <h1><?php _e( 'Forms Fields', $textdomain ); ?></h1>
+          <h1><?php _e( 'Form Fields', $textdomain ); ?></h1>
         </div>
         <div class="crf-form-name-buttons">
           <div class="crf-setting"><a href="admin.php?page=crf_add_form&id=<?php echo $_REQUEST['form_id'];?>"><img src="<?php echo $path; ?>images/edit-button.png"></a></div>
@@ -58,7 +58,7 @@ echo $Valuehalf.'...';
             <input type="button" id="text" name="text" value="text" class="button" onClick="add_field(this.value)">
             <input type="button" id="heading" name="heading" value="heading" class="button" onClick="add_field(this.value)">
             <input type="button" id="paragraph" name="paragraph" value="paragraph" class="button" onClick="add_field(this.value)">
-            <input type="button" id="select" name="select" value="select" class="button" onClick="add_field(this.value)">
+            <input type="button" id="select" name="select" value="Drop Down" class="button" onClick="add_field('select')">
             <input type="button" id="radio" name="radio" value="radio" class="button" onClick="add_field(this.value)">
             <input type="button" id="textarea" name="textarea" value="textarea" class="button" onClick="add_field(this.value)">
           </div>
@@ -68,16 +68,20 @@ echo $Valuehalf.'...';
             <input type="button" id="email" name="email" value="email" class="button" onClick="add_field(this.value)">
             <input type="button" id="number" name="number" value="number" class="button" onClick="add_field(this.value)">
             <input type="button" id="term_checkbox" name="term_checkbox" value="term_checkbox" class="button" onClick="add_field(this.value)">
-            <?php
+            
+          </div>
+         
+          <?php
 			/*file addon start */
 			if ( is_plugin_active('file-upload-addon/file-upload.php') ) {
 				?>
-             	<input type="button" id="file" name="file" value="file" class="button" onClick="add_field(this.value)">
-                <?php
+          <div class="advanced_fields premium_fields" style="margin-top:6px;"> <span><?php _e( 'Premium Fields', $textdomain ); ?></span>
+          <input type="button" id="file" name="file" value="file" class="button" onClick="add_field(this.value)">
+          </div>
+           <?php
         	 }
 			 /*file addon end */
 			?>
-          </div>
         </div>
       </div>
       <div id="users">

@@ -1,7 +1,7 @@
 === Custom User Registration Form Builder ===
 Contributors: CMSHelpLive
 Donate link: http://cmshelplive.com/
-Tags: custom registration, custom form fields, custom registration fields, multiple registration forms, wordpress registration form, customize wordpress registration form, advance registration form for wordpress, registration form manager, wordpress custom fields, wordpress custom contact, form autoresponder, terms and conditions checkbox, form terms and conditions, form required fields, auto generate password, simple contact form, simple registration form, easy contact form, easy registration form, wordpress form save, save form submissions, wordpress simple registration form, wordpress simple contact form, form success message, wordpress form redirect, wordpress form success message,wordpress form manager, create wordpress forms, wordpress user registration plugin, wordpress new user registration, new user registration wordpress, registration form wordpress, wordpress user registration captcha, user registration plugin for wordpress, wordpress plugin for registration form, custom contact, custom contact form fields, custom contact fields, multiple contact forms, wordpress contact form, customize wordpress contact form, advance contact form for wordpress, contact form manager, 
+Tags: custom registration, custom form fields, custom registration fields, multiple registration forms, wordpress registration form, customize wordpress registration form, advance registration form for wordpress, registration form manager, wordpress custom fields, wordpress custom contact, form autoresponder, terms and conditions checkbox, form terms and conditions, form required fields, auto generate password, simple contact form, simple registration form, easy contact form, easy registration form, wordpress form save, save form submissions, wordpress simple registration form, wordpress simple contact form, form success message, wordpress form redirect, wordpress form success message,wordpress form manager, create wordpress forms, wordpress user registration plugin, wordpress new user registration, new user registration wordpress, registration form wordpress, wordpress user registration captcha, user registration plugin for wordpress, wordpress plugin for registration form, custom contact, custom contact form fields, custom contact fields, multiple contact forms, wordpress contact form, customize wordpress contact form, advance contact form for wordpress, contact form manager, form IP capture, form browser capture, form submit user location, 
 
 Requires at least: 3.5
 Tested up to: 4.1
@@ -66,6 +66,9 @@ Here’s quick overview of features:
 * Show Terms and Conditions checkbox
 * Advance field options like CSS and character length.
 * View and Delete individual submission entries
+* Option to capture IP location of the form submitter
+* Option to capture Browser and OS information of the form submitter
+* View Geo Location through Submission details
 
 
 
@@ -117,6 +120,16 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3 =
+* GUI Improvements
+* Email notification issues fixed
+* Some CSS issues fixed
+* Pagination bug fixed
+* Added IP capture and browser capture option in global settings
+* Added quick link to view geo location of the IP captured
+* Added View button submission manager
+
+
 = 1.2 =
 * Added From Email feature
 * Bug fixes related to notifications
@@ -134,6 +147,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.3 =
+* Multiple changes and improvements. Recommended Update.
 
 = 1.2 =
 * Added From Email feature

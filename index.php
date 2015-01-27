@@ -3,20 +3,20 @@
 	Plugin Name: Custom User Registration Form Builder
 	Plugin URI: https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.2
-	Author: CMSHelpLive Team
+	Version: 1.3
+	Author: CMSHelpLive
 	Author URI: https://profiles.wordpress.org/cmshelplive
 	License: gpl2
 */
 ob_start();
 /*Plugin activation hook*/
 global $crf_db_version;
-$crf_db_version = 1.2;
+$crf_db_version = 1.3;
 
 register_activation_hook ( __FILE__, 'activate_custom_registration_form_with_sm_plugin' );
 function activate_custom_registration_form_with_sm_plugin()
 {
-	add_option('crf_db_version','1.2');
+	add_option('crf_db_version','1.3');
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
 	$crf_option=$wpdb->prefix."crf_option";
@@ -40,7 +40,8 @@ function activate_custom_registration_form_with_sm_plugin()
 		(5, 'userautoapproval', 'yes'),
 		(6, 'adminemail', ''),
 		(7, 'adminnotification', 'no'),
-		(8, 'from_email', '')";
+		(8, 'from_email', ''),
+		(9, 'userip', 'no')";
 		$wpdb->query($insert);
 
 	$sqlcreate = "CREATE TABLE IF NOT EXISTS $crf_entries
@@ -108,6 +109,11 @@ function crf_update_db_check()
 		$insert="INSERT INTO $crf_option VALUES
 		(8, 'from_email', '')";
 		$wpdb->query($insert);
+		
+		$insert="INSERT INTO $crf_option VALUES
+		(9, 'userip', 'no')";
+		$wpdb->query($insert);
+		
 		update_option( "crf_db_version", $crf_db_version );
 	}
 }
@@ -143,6 +149,12 @@ function custom_registration_form_with_sm_menu()
 	add_submenu_page("","Manage Form Fields","Manage Form Fields","manage_options","crf_manage_form_fields","crf_manage_form_fields");
 	add_submenu_page("","View Entry","View Entry","manage_options","crf_view_entry","crf_view_entry");
 	add_submenu_page("","Add Field","Add Field","manage_options","crf_add_field","crf_add_field");
+	add_submenu_page("crf_manage_forms","Pro Features","Pro Features","manage_options","crf_Pro","crf_Pro");
+}
+
+function crf_Pro()
+{
+	include 'pro_features.php';	
 }
 
 function crf_settings()
@@ -178,11 +190,6 @@ function crf_entries()
 function crf_manage_form_fields()
 {
 	include 'manage-form-fields.php';
-}
-
-function crf_export_submission()
-{
-	include 'export-submission-list.php';	
 }
 
 add_shortcode( 'CRF_Form', 'CRF_view_form_fun' );

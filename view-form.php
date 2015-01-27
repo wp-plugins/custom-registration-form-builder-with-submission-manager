@@ -17,6 +17,9 @@ $form_type = $wpdb->get_var($qry);
 $qry="select `form_name` from $crf_forms where id=".$content['id'];
 $form_name = $wpdb->get_var($qry);
 
+$qry="select `value` from $crf_option where fieldname='userip'";
+$userip = $wpdb->get_var($qry);
+
 $qry="select `value` from $crf_option where fieldname='from_email'";
 $from_email_address = $wpdb->get_var($qry);
 if($from_email_address=="")
@@ -122,71 +125,79 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		}
 	 }
 	}
+	
+	if($userip=='yes')
+	{
+		$entry['user_ip'] = $_SERVER['REMOTE_ADDR'];
+		$entry['browser'] = $_SERVER['HTTP_USER_AGENT'];	
+	}
 	$entries = serialize($entry);
+	
 	$insert_entries = "insert into $crf_entries values('','".$content['id']."','".$form_type."','".$autoapproval."','".$entries."')";
 	$wpdb->query($insert_entries);
 	
 	if($form_type=='reg_form' && $autoapproval=='yes')
 	{
-$user_name = $_POST['user_name']; // receiving username
-$user_email = $_POST['user_email']; // receiving email address
-$inputPassword = $_POST['inputPassword']; // receiving password
-$user_confirm_password = $_POST['user_confirm_password']; // receiving confirm password
-$user_id = username_exists( $user_name ); // Checks if username is already exists.
+		$user_name = $_POST['user_name']; // receiving username
+		$user_email = $_POST['user_email']; // receiving email address
+		$inputPassword = $_POST['inputPassword']; // receiving password
+		$user_confirm_password = $_POST['user_confirm_password']; // receiving confirm password
+		$user_id = username_exists( $user_name ); // Checks if username is already exists.
 
-if ( !$user_id and email_exists($user_email) == false )//Creates password if password auto-generation is turned on in the settings
-{
-	if($pwd_show != "no")
-	{
-		$random_password = $inputPassword;
+		if ( !$user_id and email_exists($user_email) == false )//Creates password if password auto-generation is turned on in the settings
+		  {
+			  if($pwd_show != "no")
+			  {
+				  $random_password = $inputPassword;
+			  }
+			  else
+			  {
+				  $random_password = $inputPassword;
+			  }
+		  $user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
+		  $role = 'subscriber';
+		  /*Insert custom field values if displayed in registration form*/
+		  $qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
+		  $reg1 = $wpdb->get_results($qry1);
+		  if(!empty($reg1))
+		  {
+		   foreach($reg1 as $row1)
+		   {
+			  if(!empty($row1))
+			  {
+				  $Customfield = str_replace(" ","_",$row1->Name);
+				  if(!isset($prev_value)) $prev_value='';
+				  add_user_meta( $user_id, $Customfield, $_POST[$Customfield], true );
+				  update_user_meta( $user_id, $Customfield, $_POST[$Customfield], $prev_value );
+			  }
+		   }
+		  }
+		  
+		  /*Assigns user role to newly registered user*/
+		  $role = 'subscriber';
+		  $user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
+		  }
+		  else
+		  {
+			  $random_password = __('User already exists.  Password inherited.',$textdomain);
+		  ?>
+		  <!--HTML for displaying error when username already exists (This is different from error shown by jQuery validation.)-->
+		  <div id="upb-form">
+			<div id="main-upb-form">
+			  <div class="main-edit-profile" align="center"><?php _e( 'Sorry, the username or e-mail is already taken.', $textdomain ); ?><br />
+				<br />
+				<div align="center" style="width:430px;"> <a href="javascript:void(0);" onclick="javascript:history.back();" title="Registration">
+				  <div class="UltimatePB-Button"><?php _e( 'Go back to Registration.', $textdomain ); ?></div>
+				  </a> &nbsp; <a href="<?php echo site_url(); ?>">
+				  <div class="UltimatePB-Button"><?php _e( 'Go back to Home-Page.', $textdomain ); ?></div>
+				  </a> </div>
+			  </div>
+			</div>
+		  </div>
+		  <?php
+			  }
 	}
-	else
-	{
-		$random_password = $inputPassword;
-	}
-$user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
-$role = 'subscriber';
-/*Insert custom field values if displayed in registration form*/
-$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
-$reg1 = $wpdb->get_results($qry1);
-if(!empty($reg1))
-{
- foreach($reg1 as $row1)
- {
-	if(!empty($row1))
-	{
-		$Customfield = str_replace(" ","_",$row1->Name);
-		if(!isset($prev_value)) $prev_value='';
-		add_user_meta( $user_id, $Customfield, $_POST[$Customfield], true );
-		update_user_meta( $user_id, $Customfield, $_POST[$Customfield], $prev_value );
-	}
- }
-}
-
-/*Assigns user role to newly registered user*/
-$role = 'subscriber';
-$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
-}
-else
-{
-	$random_password = __('User already exists.  Password inherited.',$textdomain);
-?>
-<!--HTML for displaying error when username already exists (This is different from error shown by jQuery validation.)-->
-<div id="upb-form">
-  <div id="main-upb-form">
-    <div class="main-edit-profile" align="center"><?php _e( 'Sorry, the username or e-mail is already taken.', $textdomain ); ?><br />
-      <br />
-      <div align="center" style="width:430px;"> <a href="javascript:void(0);" onclick="javascript:history.back();" title="Registration">
-        <div class="UltimatePB-Button"><?php _e( 'Go back to Registration.', $textdomain ); ?></div>
-        </a> &nbsp; <a href="<?php echo site_url(); ?>">
-        <div class="UltimatePB-Button"><?php _e( 'Go back to Home-Page.', $textdomain ); ?></div>
-        </a> </div>
-    </div>
-  </div>
-</div>
-<?php
-	}
-	}
+	
 	$qry="SELECT success_message FROM $crf_forms WHERE id=".$content['id'];
 	$success_message = $wpdb->get_var($qry);
 	
@@ -194,6 +205,7 @@ else
 	{
 		$success_message = __('Thank you for your submission.',$textdomain);
 	}
+	
 	$qry="SELECT redirect_option FROM $crf_forms WHERE id=".$content['id'];
 	$redirect_option = $wpdb->get_var($qry);
 	

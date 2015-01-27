@@ -37,10 +37,25 @@ $entries = $wpdb->get_results( "SELECT * FROM $crf_forms order by id asc LIMIT $
 ?>
 
 <form name="forms" id="forms" method="post" action="admin.php?page=crf_manage_forms" >
-<div class="ucf_pro_banner">
-<a target="_blank" href="http://cmshelplive.com/custom-user-registration-form-builder-pro.html"><img src="<?php echo $path;?>images/UCF_Banner.jpg" /></a>
+<div class="ucf_pro_banner" style="margin-bottom:0 !important; overflow:visible;">
+
+	<div class="banner" id="bannerclose">
+       <div  class="shap">
+      <h3>Welcome to Custom Registration Form Builder!</h3> 
+    <p>If you like it, <span><a href="https://wordpress.org/support/view/plugin-reviews/custom-registration-form-builder-with-submission-manager" style="color:#fff;" target="_blank">please rate it</a></span> on WordPress.org. Your few kind words mean a lot to us.</p>
+     <span class="close"><a onClick="bannertoggle()">Close</a></span>
+    </div>
+        <div class="bottem-shap">
+        <div class="shap-bottem">
+        <p>Find exciting new features in Premium version. <a href="admin.php?page=crf_Pro"><strong>Explore now!</strong></a></p>
+        </div>
+        </div>
+     </div>
+
+
 </div>
-  <div class="crf-main-form">
+
+  <div class="crf-main-form" style=" margin-top:15px;">
     <div class="crf-main-form-top-area">
       <div class="crf-form-name-heading">
         <h1><?php _e( 'All Forms', $textdomain ); ?></h1>
@@ -53,9 +68,29 @@ $entries = $wpdb->get_results( "SELECT * FROM $crf_forms order by id asc LIMIT $
       <input type="submit" name="copy" id="copy" value="Duplicate" >
       </span> <span class="crf-remove-button" style="display:none;">
       <input type="submit" name="delete" id="delete" value="Remove" onClick="return popup()">
-      </span></div>
+      </span>
+      
+      
+      </div>
   </div>
   <div class="crf-row-result-main">
+   <!--HTML when there is not create any form--> 
+      <div class="crf-row-result">
+      <div class="add-new-form">
+        <a href="admin.php?page=crf_add_form">
+          <div class="theme-screenshot">
+            <span></span>
+           
+          </div>
+           <h2 class="theme-name">Add A <br> New Form</h2>
+          
+        </a>
+      </div>
+      </div>
+   
+    <!--HTML when there is not create any form--> 
+  
+  
     <?php
 if(empty($entries))
 {
@@ -114,15 +149,25 @@ echo $Valuehalf.'...';
 }
 }
 
-$page_links = paginate_links( array(
-    'base' => add_query_arg( 'pagenum', '%#%' ),
-    'format' => '',
-	'type'=>'array',
-    'prev_text' => __( 'Prev', $textdomain ),
-    'next_text' => __( 'Next', $textdomain ),
-    'total' => $num_of_pages,
-    'current' => $pagenum
-) );
+$args = array(
+	'base'               => add_query_arg( 'pagenum', '%#%' ),
+	'format'             => '',
+	'total'              => $num_of_pages,
+	'current'            => $pagenum,
+	'show_all'           => False,
+	'end_size'           => 1,
+	'mid_size'           => 2,
+	'prev_next'          => True,
+	'prev_text'          => __('Prev'),
+	'next_text'          => __('Next'),
+	'type'               => 'array',
+	'add_args'           => False,
+	'add_fragment'       => '',
+	'before_page_number' => '',
+	'after_page_number'  => ''
+);
+
+$page_links = paginate_links( $args );
 
 $count	= count($page_links);
 $prev = strpos($page_links[0],'Prev');
@@ -131,7 +176,7 @@ $next = strpos($page_links[$count-1],'Next');
 if($prev!=false)
 {
 ?>
-    <div class="crf-row-result pagination prev"> <?php echo $page_links['0']; ?> </div>
+    <div class="crf-row-result pagination prev"> <?php echo $page_links[0]; ?> </div>
     <?php
 }
 if($next!=false)
@@ -160,6 +205,25 @@ if($next!=false)
             jQuery('.crf-remove-button').hide(500);
         }
     });
+	jQuery('.crf-row-result-main a').mouseover(function() {
+	jQuery(this).children('h2').css('color','#fff');
+}).mouseleave(function() {
+	jQuery(this).children('h2').css('color','#ff6c6c');
+});
+
+jQuery('.add-new-form').mouseover(function() {
+	jQuery(this).children('h2').css('color','#fff');
+}).mouseleave(function() {
+	jQuery(this).children('h2').css('color','#ff6c6c');
+});
+	
+	
+	jQuery(".add-new-form span").mouseover(function() {
+	jQuery(this).children('h2').css('color','#fff');
+}).mouseleave(function() {
+	jQuery(this).children('h2').css('color','#ff6c6c');
+});
+	
 </script>
 <script>
     function popup() {
@@ -170,4 +234,13 @@ if($next!=false)
             return false;
         }
     }
+	
+function bannertoggle()
+{
+	a = jQuery('#bannerclose .close a').text();
+	if(a=='Close'){jQuery('#bannerclose .close a').text('Open');}else{jQuery('#bannerclose .close a').text('Close');}
+	jQuery('.bottem-shap').toggle(500);
+	return false;
+}
 </script>
+

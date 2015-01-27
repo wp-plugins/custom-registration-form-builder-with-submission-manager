@@ -107,7 +107,7 @@ else
 	{
 	if($field<=$show_field):
 	?>
-        <div class="cols" style="width:21%">
+        <div class="cols" style="width:19%">
           <?php 
 		$fieldnamelength = strlen($row->Name);
 if($fieldnamelength<=15){echo $row->Name;}
@@ -159,7 +159,7 @@ echo $fieldnamehalf.'...';
 		$result = implode(',',$result);
 	}
 	?>
-        <div class="cols" style="width:21%">
+        <div class="cols" style="width:19%">
           <?php 
 	  $Valuehalf = substr($result, 0, 15);
 	  if(strlen($result) < 15)
@@ -177,6 +177,7 @@ echo $fieldnamehalf.'...';
 	endif;
 	} 
 	 ?>
+     <div class="cols" style="width:50px"><a href="admin.php?page=crf_view_entry&id=<?php echo $entry->id;?>">View</a></div>
       </li>
       <?php 
 $i++;
@@ -185,14 +186,26 @@ $i++;
 ?>
     </ul>
     <?php
-$page_links = paginate_links( array(
-    'base' => add_query_arg( 'pagenum', '%#%' ),
-    'format' => '',
-    'prev_text' => __( '&laquo;', 'text-domain' ),
-    'next_text' => __( '&raquo;', 'text-domain' ),
-    'total' => $num_of_pages,
-    'current' => $pagenum
-) );
+	
+	$args = array(
+	'base'               => add_query_arg( 'pagenum', '%#%' ),
+	'format'             => '',
+	'total'              => $num_of_pages,
+	'current'            => $pagenum,
+	'show_all'           => False,
+	'end_size'           => 1,
+	'mid_size'           => 2,
+	'prev_next'          => True,
+	'prev_text'          => __('&laquo;', 'text-domain' ),
+	'next_text'          => __('&raquo;', 'text-domain'),
+	'type'               => 'plain',
+	'add_args'           => False,
+	'add_fragment'       => '',
+	'before_page_number' => '',
+	'after_page_number'  => ''
+);
+
+$page_links = paginate_links( $args );
 
 if ( $page_links ) {
     echo '<div class="tablenav crfpagination"><div class="tablenav-pages" style="margin: 1em 0">' . $page_links . '</div></div>';

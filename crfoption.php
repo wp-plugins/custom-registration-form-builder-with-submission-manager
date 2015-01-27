@@ -10,6 +10,7 @@ if(isset($_REQUEST['saveoption']))
 	if(!isset($_REQUEST['autogenerate_pass'])) $_REQUEST['autogenerate_pass']='no';
 	if(!isset($_REQUEST['user_auto_approval'])) $_REQUEST['user_auto_approval']='yes';
 	if(!isset($_REQUEST['admin_notification'])) $_REQUEST['admin_notification']='no';
+	if(!isset($_REQUEST['userip'])) $_REQUEST['userip']='no';
 	crf_add_option( 'enable_captcha', $_REQUEST['enable_captcha']);
 	crf_add_option( 'public_key', $_REQUEST['publickey']);
 	crf_add_option( 'private_key', $_REQUEST['privatekey']);
@@ -18,6 +19,7 @@ if(isset($_REQUEST['saveoption']))
 	crf_add_option( 'adminnotification', $_REQUEST['admin_notification']);
 	crf_add_option( 'adminemail', $_REQUEST['admin_email']);
 	crf_add_option( 'from_email', $_REQUEST['from_email']);	
+	crf_add_option( 'userip', $_REQUEST['userip']);	
 }
 
 $qry="SELECT `value` FROM $crf_option WHERE fieldname='public_key'";
@@ -82,11 +84,22 @@ $from_email = $wpdb->get_var($qry);
       </div>
     </div>
     
+    <div class="option-main crf-form-setting">
+      <div class="user-group crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Capture IP and Browser Info:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="user-group-option crf-form-right-area">
+        <input name="userip" id="userip" type="checkbox" class="upb_toggle" value="yes" <?php if (checkfieldname("userip","yes")==true){ echo "checked";}?> style="display:none;" />
+        <label for="userip"></label>
+      </div>
+    </div>
     
     <div class="option-main crf-form-setting">
       <div class="user-group crf-form-left-area">
         <div class="crf-label">
-          <?php _e( 'Email Notification:', $textdomain ); ?>
+          <?php _e( 'Admin Email Notification:', $textdomain ); ?>
         </div>
       </div>
       <div class="user-group-option crf-form-right-area">
@@ -98,7 +111,7 @@ $from_email = $wpdb->get_var($qry);
     <div class="option-main crf-form-setting">
       <div class="user-group crf-form-left-area">
         <div class="crf-label">
-          <?php _e( 'Email Address:', $textdomain ); ?>
+          <?php _e( 'Admin Email:', $textdomain ); ?>
         </div>
       </div>
       <div class="user-group-option crf-form-right-area">
@@ -110,7 +123,7 @@ $from_email = $wpdb->get_var($qry);
     <div class="option-main crf-form-setting">
       <div class="user-group crf-form-left-area">
         <div class="crf-label">
-          <?php _e( 'From Email Address:', $textdomain ); ?>
+          <?php _e( 'From Email:', $textdomain ); ?>
         </div>
       </div>
       <div class="user-group-option crf-form-right-area">
