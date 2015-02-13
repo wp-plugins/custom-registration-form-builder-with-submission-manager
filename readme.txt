@@ -73,7 +73,7 @@ Each form card also displays “shortcode” required to display the forms on yo
 
 = Pro version =
 
-[Check out our Pro page](http://cmshelplive.com/custom-user-registration-form-builder-pro.html) offers these handy extras:
+[Check out our Pro page](http://cmshelplive.com/custom-user-registration-form-builder-pro.html) which offers these handy extras:
 
 * Ability to download form submissions as excel file
 * File upload field for allowing visitors to add attachments with the form
