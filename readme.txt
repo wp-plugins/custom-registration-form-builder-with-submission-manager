@@ -23,13 +23,13 @@ Note - Password field will not appear if you chose “Auto Generate Password” 
 
 = Unique Name: = This is the name of your form. It will help you identify the form on forms manager page. Unique Name is not visible on the front end of your website.
 
-Form Description: Administrative field to describe the form. Not visible on the front end.
+= Form Description: = Administrative field to describe the form. Not visible on the front end.
 
 = Redirection: = Option to redirect visitors to a specific page already created on your website or to a specific URL. Handy to show information related to contact or registration once the form is submitted.
 
 = Header Text: = This is the text you want to show above your form to your site visitors.
 
-Auto-Responder Toggle: Allows you to create and send an automatic message to form submitter. You can decide message subject and text. If it is off, no message will be sent.
+= Auto-Responder Toggle: = Allows you to create and send an automatic message to form submitter. You can decide message subject and text. If it is off, no message will be sent.
 
 = Success Message: = Message displayed to the user after successfully submitting the form. This is different from redirection. Success message stays for 5 seconds before redirecting the visiter. 
 
