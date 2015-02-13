@@ -17,7 +17,7 @@ Custom User Registration Form Builder is an easy to use form creating system tha
 
 As soon as you activate the plugin and go to “Custom Registration Form” link in the left menu, you see our elegant forms manager to manager all your WordPress forms. When you fist visit the page, forms area will be empty and you will see “Add New” button on top bar to start creating WordPress forms. When you click it, you will be taken to a new page with following fields:
 
-Type: Radio box for deciding if the form will be a normal contact form or Registration form to allow visitors to register as users on your WordPress site. Registration form will already have mandatory username and password fields, while contact form will require all fields to be added from forms manager page.
+= Type: = Radio box for deciding if the form will be a normal contact form or Registration form to allow visitors to register as users on your WordPress site. Registration form will already have mandatory username and password fields, while contact form will require all fields to be added from forms manager page.
 
 Note - Password field will not appear if you chose “Auto Generate Password” in Global Settings.
 
@@ -45,7 +45,7 @@ A small gear icon takes you to Global Settings. You can enable/ disable reCaptch
 
 Each form card also displays “shortcode” required to display the forms on your site. Copy the short code and paste it inside a page, post or custom widget to display the form on your WordPress website.
 
-Here’s quick overview of features:
+= Here’s quick overview of features: = 
 
 * Forms Manager to create, edit and manage your WordPress forms with few simple clicks.
 * Fully customizable forms.
@@ -71,6 +71,13 @@ Here’s quick overview of features:
 * View Geo Location through Submission details
 
 
+= Pro version =
+
+[Check out our Pro page](http://cmshelplive.com/custom-user-registration-form-builder-pro.html) offers these handy extras:
+
+* Ability to download form submissions as excel file
+* File upload field for allowing visitors to add attachments with the form
+* Assigning user roles to registration forms for accepting registrations for specific user roles.
 
 
 == Installation ==
