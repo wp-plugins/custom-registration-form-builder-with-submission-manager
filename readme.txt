@@ -127,6 +127,10 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3.2 =
+* Added a new theme “Default”. Old theme renamed as “Classic”. Default theme now picks form elements from active site template for a more uniformed look. Theme settings can be accessed from settings link.
+* Fixed a bug with recaptcha
+
 = 1.3.1 =
 * Global Settings are now easier to access
 
@@ -158,7 +162,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Upgrade Notice ==
 
-= 1.3 =
+= 1.3.2 =
+* Added a new theme “Default”. Old theme renamed as “Classic”. Default theme now picks form elements from active site template for a more uniformed look. Theme settings can be accessed from settings link.
+* Fixed a bug with recaptcha
+
+= 1.3.1 =
 * Global Settings moved to menu
 
 = 1.3 =

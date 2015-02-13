@@ -3,7 +3,7 @@
 	Plugin Name: Custom User Registration Form Builder
 	Plugin URI: https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.3.1
+	Version: 1.3.2
 	Author: CMSHelpLive
 	Author URI: https://profiles.wordpress.org/cmshelplive
 	License: gpl2
@@ -11,12 +11,12 @@
 ob_start();
 /*Plugin activation hook*/
 global $crf_db_version;
-$crf_db_version = 1.3;
+$crf_db_version = 1.4;
 
 register_activation_hook ( __FILE__, 'activate_custom_registration_form_with_sm_plugin' );
 function activate_custom_registration_form_with_sm_plugin()
 {
-	add_option('crf_db_version','1.3');
+	add_option('crf_db_version','1.4');
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
 	$crf_option=$wpdb->prefix."crf_option";
@@ -41,7 +41,8 @@ function activate_custom_registration_form_with_sm_plugin()
 		(6, 'adminemail', ''),
 		(7, 'adminnotification', 'no'),
 		(8, 'from_email', ''),
-		(9, 'userip', 'no')";
+		(9, 'userip', 'no'),
+		(10, 'crf_theme','simple')";
 		$wpdb->query($insert);
 
 	$sqlcreate = "CREATE TABLE IF NOT EXISTS $crf_entries
@@ -114,6 +115,10 @@ function crf_update_db_check()
 		(9, 'userip', 'no')";
 		$wpdb->query($insert);
 		
+		$insert="INSERT INTO $crf_option VALUES
+		(10, 'crf_theme', 'default')";
+		$wpdb->query($insert);
+		
 		update_option( "crf_db_version", $crf_db_version );
 	}
 }
@@ -122,7 +127,7 @@ add_action( 'wp_enqueue_scripts', 'crf_frontend_script' );
 add_action( 'admin_init', 'crf_admin_script' );
 /*Defines enqueue style/ script for front end*/
 function crf_frontend_script() {
-	wp_enqueue_style( 'crf-style.css', plugin_dir_url(__FILE__) . 'css/crf-style.css');
+	//wp_enqueue_style( 'crf-style.css', plugin_dir_url(__FILE__) . 'css/crf-style.css');
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script('jquery-ui-datepicker');
 	wp_enqueue_style('jquery-style', 'http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css');

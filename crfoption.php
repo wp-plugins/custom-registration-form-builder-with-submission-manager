@@ -20,6 +20,7 @@ if(isset($_REQUEST['saveoption']))
 	crf_add_option( 'adminemail', $_REQUEST['admin_email']);
 	crf_add_option( 'from_email', $_REQUEST['from_email']);	
 	crf_add_option( 'userip', $_REQUEST['userip']);	
+	crf_add_option( 'crf_theme', $_REQUEST['crf_theme']);
 }
 
 $qry="SELECT `value` FROM $crf_option WHERE fieldname='public_key'";
@@ -30,6 +31,8 @@ $qry="SELECT `value` FROM $crf_option WHERE fieldname='adminemail'";
 $admin_email = $wpdb->get_var($qry);
 $qry="SELECT `value` FROM $crf_option WHERE fieldname='from_email'";
 $from_email = $wpdb->get_var($qry);
+$qry="SELECT `value` FROM $crf_option WHERE fieldname='crf_theme'";
+$crf_theme = $wpdb->get_var($qry);
 ?>
 
 <div class="crf-main-form">
@@ -37,6 +40,20 @@ $from_email = $wpdb->get_var($qry);
     <h1><?php _e( 'Global Settings', $textdomain ); ?></h1>
   </div>
   <form method="post">
+  <div class="option-main crf-form-setting">
+      <div class="user-group crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Theme:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="user-group-option crf-form-right-area">
+        <select name="crf_theme" id="crf_theme">
+        <option value="default" <?php if($crf_theme=='default')echo 'selected';?>>Classic</option>
+        <option value="simple" <?php if($crf_theme=='simple')echo 'selected';?>>Default</option>
+        </select>
+      </div>
+    </div>
+    
     <div class="option-main crf-form-setting">
       <div class="user-group crf-form-left-area">
         <div class="crf-label">
