@@ -5,7 +5,7 @@ Tags: custom registration, custom form fields, custom registration fields, multi
 
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.3.1
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,14 +127,14 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
-= 1.3.21 =
+= 1.3.3 =
 * Made left menu link to the plugin more accessible
 
 = 1.3.2 =
 * Added a new theme “Default”. Old theme renamed as “Classic”. Default theme now picks form elements from active site template for a more uniformed look. Theme settings can be accessed from settings link.
 * Fixed a bug with recaptcha
 
-= 1.3.1 =
+= 1.3.3 =
 * Global Settings are now easier to access
 
 = 1.3 =
