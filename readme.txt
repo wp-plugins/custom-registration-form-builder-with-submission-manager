@@ -127,6 +127,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3.21 =
+* Made left menu link to the plugin more accessible
+
 = 1.3.2 =
 * Added a new theme “Default”. Old theme renamed as “Classic”. Default theme now picks form elements from active site template for a more uniformed look. Theme settings can be accessed from settings link.
 * Fixed a bug with recaptcha
@@ -161,6 +164,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.3.21 =
+* Made left menu link to the plugin more accessible
 
 = 1.3.2 =
 * Added a new theme “Default”. Old theme renamed as “Classic”. Default theme now picks form elements from active site template for a more uniformed look. Theme settings can be accessed from settings link.
