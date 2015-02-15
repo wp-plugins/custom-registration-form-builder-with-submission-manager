@@ -173,8 +173,8 @@ else
 	$random_password = __('User already exists.  Password inherited.',$textdomain);
 ?>
 <!--HTML for displaying error when username already exists (This is different from error shown by jQuery validation.)-->
-<div id="upb-form">
-  <div id="main-upb-form">
+<div id="crf-form">
+  <div id="main-crf-form">
     <div class="main-edit-profile" align="center"><?php _e( 'Sorry, the username or e-mail is already taken.', $textdomain ); ?><br />
       <br />
       <div align="center" style="width:430px;"> <a href="javascript:void(0);" onclick="javascript:history.back();" title="Registration">
@@ -216,8 +216,8 @@ else
 		header('refresh: 5; url='.$url);
 	}
 	?>
-<div id="upb-form">
-  <div id="main-upb-form">
+<div id="crf-form">
+  <div id="main-crf-form">
     <div class="main-edit-profile"><?php echo $success_message;?><br />
       <br />
     </div>
@@ -381,7 +381,7 @@ else
 </script>
 <?php endif; ?>
 <!--HTML for displaying registration form-->
-<div id="upb-form">
+<div id="crf-form">
   <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
     <div class="info-text"><?php echo $custom_text;?></div>
     <div class="crf_contact_form">
@@ -477,15 +477,15 @@ $reg1 = $wpdb->get_results($qry1);
 		 $value = $row1->Value;
 		 if($row1->Type=='heading')
 		 {?>
-        <div class="formtable upb_heading">
+        <div class="formtable crf_heading">
           <h1 name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Value;?></h1>
         </div>
         <?php 
 		}
 		if($row1->Type=='paragraph')
 		 {?>
-        <div class="formtable upb_paragraph">
-          <p name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Value;?></p>
+        <div class="formtable crf_paragraph">
+          <p name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
         </div>
         <?php }
 if($row1->Type=='term_checkbox')
@@ -527,7 +527,7 @@ if($row1->Type=='term_checkbox')
           <div class="crf_label">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="crf_input upb_email">
+          <div class="crf_input crf_email">
             <input type="text" class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
@@ -539,8 +539,8 @@ if($row1->Type=='term_checkbox')
           <div class="crf_label">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="crf_input upb_number">
-            <input type="text" class="upb_number regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
+          <div class="crf_input crf_number">
+            <input type="text" class="crf_number regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
@@ -638,7 +638,7 @@ if($row1->Type=='term_checkbox')
       <?php endif; ?>
       <br class="clear">
     </div>
-    <div class="customupberror crf_error_text" style="display:none"></div>
+    <div class="customcrferror crf_error_text" style="display:none"></div>
     <div class="UltimatePB-Button-area crf_input crf_input_submit" >
       <input type="submit" value="Submit" class="crf_contact_submit" id="submit" name="submit"  <?php if($form_type=='reg_form'): ?>  onClick="return validateRegister()" <?php endif; ?> >
      
@@ -706,8 +706,8 @@ if($row1->Type=='term_checkbox')
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         jQuery('.custom_error').html('');
         jQuery('.custom_error').hide();
-        jQuery('.customupberror').html('');
-        jQuery('.upb_email').each(function (index, element) {
+        jQuery('.customcrferror').html('');
+        jQuery('.crf_email').each(function (index, element) {
             var email = jQuery(this).children('input').val();
             var isemail = regex.test(email);
             if (isemail == false && email != "") {
@@ -716,7 +716,7 @@ if($row1->Type=='term_checkbox')
             }
         });
 		/*file addon start */
-		 jQuery('.upb_file').each(function (index, element) {
+		 jQuery('.crf_file').each(function (index, element) {
 			var val = jQuery(this).children('input').val().toLowerCase();
 			var allowextensions = jQuery(this).children('input').attr('data-filter-placeholder');
 			if(allowextensions=='')
@@ -731,7 +731,7 @@ if($row1->Type=='term_checkbox')
 			}
         });
 		/*file addon end */
-        jQuery('.upb_number').each(function (index, element) { //Validation for number type custom field
+        jQuery('.crf_number').each(function (index, element) { //Validation for number type custom field
             var number = jQuery(this).children('input').val();
             var isnumber = jQuery.isNumeric(number);
             if (isnumber == false && number != "") {
@@ -743,9 +743,9 @@ if($row1->Type=='term_checkbox')
         b = jQuery('.custom_error').each(function () {
             var a = jQuery(this).html();
             b = a + b;
-            jQuery('.customupberror').html(b);
+            jQuery('.customcrferror').html(b);
         });
-        var error = jQuery('.customupberror').html();
+        var error = jQuery('.customcrferror').html();
         if (error == '') {
             return true;
         } else {

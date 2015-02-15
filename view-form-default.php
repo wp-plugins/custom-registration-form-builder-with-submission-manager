@@ -485,7 +485,7 @@ $reg1 = $wpdb->get_results($qry1);
 		if($row1->Type=='paragraph')
 		 {?>
         <div class="formtable upb_paragraph">
-          <p name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Value;?></p>
+          <p name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
         </div>
         <?php }
 if($row1->Type=='term_checkbox')

@@ -222,6 +222,9 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
             }
             if (a == 'paragraph') {
                 jQuery('.info').html('This Paragraph field is working only for "Registration" and "Edit Profile" page.');
+				jQuery('#optionsfield .crf-label').html('Paragraph Text');
+				jQuery('#valuefield').hide();
+				jQuery('#optionsfield').show();
                 jQuery('.info').show();
             }
             if (a == 'email' || a == 'number') {
