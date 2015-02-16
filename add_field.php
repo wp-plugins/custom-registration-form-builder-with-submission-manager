@@ -244,6 +244,23 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
                 jQuery('#optionsfield').hide();
                 jQuery('#valuefield').hide();
             }
+			if (a == 'country') {
+                jQuery('#namefield').show();
+                jQuery('#classfield').show();
+                jQuery('#desfield').hide();
+                jQuery('#requirefield').show();
+                jQuery('#visibilityfield').show();
+                jQuery('#rulesfield').show();
+                jQuery('#readonlyfield').hide();
+                jQuery('#registrationformfield').show();
+                jQuery('#submit_field').show();
+                jQuery('#orderingfield').show();
+                jQuery('#maxlenghtfield').hide();
+                jQuery('#colsfield').hide();
+                jQuery('#rowsfield').hide();
+                jQuery('#optionsfield').hide();
+                jQuery('#valuefield').hide();
+            }
         }
         /*Field selection ends*/
 </script>
@@ -287,6 +304,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
           <option value="DatePicker" <?php if(isset($str) && $str=='DatePicker') echo 'selected'; ?>><?php _e( 'Date Picker', $textdomain ); ?></option>
           <option value="email" <?php if(isset($str) && $str=='email') echo 'selected'; ?>><?php _e( 'Email', $textdomain ); ?></option>
           <option value="number" <?php if(isset($str) && $str=='number') echo 'selected'; ?>><?php _e( 'Number', $textdomain ); ?></option>
+          <option value="country" <?php if(isset($str) && $str=='country') echo 'selected'; ?>><?php _e( 'Country', $textdomain ); ?></option>
           <option value="term_checkbox" <?php if(isset($str) && $str=='term_checkbox') echo 'selected'; ?>><?php _e( 'Terms & Conditions Checkbox', $textdomain ); ?></option>
           	<?php
 			/*file addon start */

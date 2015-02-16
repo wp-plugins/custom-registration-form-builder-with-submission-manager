@@ -431,7 +431,7 @@ if($pwd_show == "no")//Shows password field if the user is allowed to chose pass
         </div>
         <div class="crf_input">
           <input id="user_confirm_password" name="user_confirm_password" type="password"/>
-          <div class="reg_frontErr crf_error_text" id="divuser_confirm_password" style="display:none;"><?php _e('Please enter a confirm password',$textdomain);?></div>
+          <div class="reg_frontErr crf_error_text" id="divuser_confirm_password" style="display:none;"><?php _e('Enter the password again to confirm',$textdomain);?></div>
         </div>
       </div>
       <?php
@@ -459,7 +459,7 @@ else//If auto password generation is enabled then this will create a random pass
         </div>
         <div class="crf_input">
           <input id="user_confirm_password" name="user_confirm_password" value="<?php echo $random_password; ?>" type="hidden"/>
-          <div class="reg_frontErr crf_error_text" id="divuser_confirm_password" style="display:none;margin: -27px 0 23px !important; "><?php _e('Please enter a confirm password.',$textdomain);?></div>
+          <div class="reg_frontErr crf_error_text" id="divuser_confirm_password" style="display:none;margin: -27px 0 23px !important; "><?php _e('Enter the password again to confirm.',$textdomain);?></div>
         </div>
       </div>
       <?php
@@ -620,6 +620,21 @@ if($row1->Type=='term_checkbox')
           </div>
         </div>
         <?php }
+		/* country field */
+		if($row1->Type=='country')
+	   {?>
+        <div class="formtable">
+          <div class="crf_label">
+            <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
+          </div>
+          <div class="crf_input crf_select crf_country">
+            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?> <?php if($row1->Require==1) echo 'required';?>>
+			<?php include 'country_option_list.php'; ?>
+            </select>
+          </div>
+        </div>
+        <?php }
+		
 		/*file addon start */
 		if ( is_plugin_active('file-upload-addon/file-upload.php') && $row1->Type=='file' ) 
 		{

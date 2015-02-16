@@ -127,6 +127,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3.6 =
+* Added country list field type
+
 = 1.3.5 =
 * Made it easier to add forms from WordPress default top menu by clicking the New link.
 * Made Paragraph a Text Area field for adding multiple lines of text.
@@ -169,6 +172,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.3.6 =
+* Added country list field type
 
 = 1.3.5 =
 * Made it easier to add forms from WordPress default top menu by clicking the New link.

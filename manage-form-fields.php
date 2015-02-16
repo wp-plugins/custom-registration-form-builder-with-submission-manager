@@ -67,6 +67,7 @@ echo $Valuehalf.'...';
             <input type="button" id="DatePicker" name="DatePicker" value="DatePicker" class="button" onClick="add_field(this.value)">
             <input type="button" id="email" name="email" value="email" class="button" onClick="add_field(this.value)">
             <input type="button" id="number" name="number" value="number" class="button" onClick="add_field(this.value)">
+            <input type="button" id="country" name="country" value="country" class="button" onClick="add_field(this.value)">
             <input type="button" id="term_checkbox" name="term_checkbox" value="term_checkbox" class="button" onClick="add_field(this.value)">
             
           </div>
