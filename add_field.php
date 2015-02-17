@@ -244,7 +244,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
                 jQuery('#optionsfield').hide();
                 jQuery('#valuefield').hide();
             }
-			if (a == 'country') {
+			if (a == 'country' || a=='timezone') {
                 jQuery('#namefield').show();
                 jQuery('#classfield').show();
                 jQuery('#desfield').hide();
@@ -305,6 +305,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
           <option value="email" <?php if(isset($str) && $str=='email') echo 'selected'; ?>><?php _e( 'Email', $textdomain ); ?></option>
           <option value="number" <?php if(isset($str) && $str=='number') echo 'selected'; ?>><?php _e( 'Number', $textdomain ); ?></option>
           <option value="country" <?php if(isset($str) && $str=='country') echo 'selected'; ?>><?php _e( 'Country', $textdomain ); ?></option>
+          <option value="timezone" <?php if(isset($str) && $str=='timezone') echo 'selected'; ?>><?php _e( 'Timezone', $textdomain ); ?></option>
           <option value="term_checkbox" <?php if(isset($str) && $str=='term_checkbox') echo 'selected'; ?>><?php _e( 'Terms & Conditions Checkbox', $textdomain ); ?></option>
           	<?php
 			/*file addon start */

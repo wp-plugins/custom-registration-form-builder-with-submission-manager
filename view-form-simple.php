@@ -635,6 +635,21 @@ if($row1->Type=='term_checkbox')
         </div>
         <?php }
 		
+		/* timezone field */
+		if($row1->Type=='timezone')
+	   {?>
+        <div class="formtable">
+          <div class="crf_label">
+            <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
+          </div>
+          <div class="crf_input crf_select crf_country">
+            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?> <?php if($row1->Require==1) echo 'required';?>>
+			<?php include 'time_zone_option_list.php'; ?>
+            </select>
+          </div>
+        </div>
+        <?php }
+		
 		/*file addon start */
 		if ( is_plugin_active('file-upload-addon/file-upload.php') && $row1->Type=='file' ) 
 		{
