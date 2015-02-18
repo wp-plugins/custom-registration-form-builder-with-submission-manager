@@ -152,7 +152,7 @@
 <option value="America/Montevideo">Montevideo</option>
 <option value="America/Montserrat">Montserrat</option>
 <option value="America/Nassau">Nassau</option>
-<option value="America/New_York">New York</option>
+<option value="America/New_York" selected>New York</option>
 <option value="America/Nipigon">Nipigon</option>
 <option value="America/Nome">Nome</option>
 <option value="America/Noronha">Noronha</option>

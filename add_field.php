@@ -261,6 +261,9 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
                 jQuery('#optionsfield').hide();
                 jQuery('#valuefield').hide();
             }
+			if (a == 'text') {
+                jQuery('#valuefield').show();
+            }
         }
         /*Field selection ends*/
 </script>
