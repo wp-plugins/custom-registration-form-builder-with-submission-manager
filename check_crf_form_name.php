@@ -5,10 +5,10 @@ $crf_forms =$wpdb->prefix."crf_forms";
 $textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_fields =$wpdb->prefix."crf_fields";
 
-if (!preg_match('/^[a-zA-Z0-9 ]+$/', $_POST['name'])) {
+/*if (!preg_match('/^[a-zA-Z0-9 ]+$/', $_POST['name'])) {
     //Rejected String
 	echo '<div style=" color:red">'.__('Warning! Special characters are not allowed in Form Labels.',$textdomain ).'</div>';	
-}
+}*/
 if(isset($_POST['name']) && trim($_POST['name'])=="")
 {
 	echo '<div style=" color:red">'.__('Warning! Form label is required. Please enter a unique label.',$textdomain ).'</div>';		

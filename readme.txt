@@ -127,6 +127,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3.9 =
+* Now you can add special characters in field labels
+* Bug fixes
 
 = 1.3.8 =
 * Added default value option for text fields
@@ -181,6 +184,10 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.3.9 =
+* Now you can add special characters in field labels
+* Bug fixes
 
 = 1.3.8 =
 * Added default value option for text fields

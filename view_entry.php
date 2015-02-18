@@ -178,13 +178,13 @@ if(!empty($value))
 		global $filefields; 
 		if(isset($filefields) && in_array($key,$filefields)) continue;
 		/*file addon end */
-		if($key!="user_pass" && $key!="user_ip"):
+		if($key!="user_pass" && $key!="User_IP" && $key!="user_ip"):
   		?>
       <p><span class="entry_heading"><?php echo $Customfield; ?> : </span><span class="entry_Value"><?php echo $val; ?></span></p>
       <?php
 		endif;
 		
-		if($key=="user_ip"):
+		if($key=="User_IP" || $key=="user_ip"):
   		?>
       <p><span class="entry_heading"><?php echo $Customfield; ?> : </span><span class="entry_Value" ><?php echo $val; ?></span><span class="entry_Value" style="padding-left:10px;"><a style="color:#ff6c6c;" target="_blank" href="http://www.geoiptool.com/?IP=<?php echo $val; ?>">View Location</a></span></p>
       <?php

@@ -18,6 +18,9 @@ $form_type = $wpdb->get_var($qry);
 $qry="select `form_name` from $crf_forms where id=".$content['id'];
 $form_name = $wpdb->get_var($qry);
 
+$qry="select `value` from $crf_option where fieldname='userip'";
+$userip = $wpdb->get_var($qry);
+
 $qry="select `value` from $crf_option where fieldname='from_email'";
 $from_email_address = $wpdb->get_var($qry);
 if($from_email_address=="")
@@ -123,6 +126,13 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		}
 	 }
 	}
+	
+	if($userip=='yes')
+	{
+		$entry['User_IP'] = $_SERVER['REMOTE_ADDR'];
+		$entry['Browser'] = $_SERVER['HTTP_USER_AGENT'];	
+	}
+	
 	$entries = serialize($entry);
 	$insert_entries = "insert into $crf_entries values('','".$content['id']."','".$form_type."','".$autoapproval."','".$entries."')";
 	$wpdb->query($insert_entries);
