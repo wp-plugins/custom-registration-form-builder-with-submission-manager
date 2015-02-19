@@ -504,7 +504,8 @@ if($row1->Type=='term_checkbox')
           <div class="crf_label">
             <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>" <?php if($row1->Require==1)echo 'required';?>>
           
-            <label for="<?php echo $key;?>"><?php echo $row1->Description;?></label>
+            <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
+            <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
             <div class="reg_frontErr crf_error_text" style="display:none;"></div>
           </div>
         </div>

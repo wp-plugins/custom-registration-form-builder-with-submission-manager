@@ -505,7 +505,8 @@ if($row1->Type=='term_checkbox')
             <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>" <?php if($row1->Require==1)echo 'required';?>>
           </div>
           <div class="input-box">
-            <label for="<?php echo $key;?>"><?php echo $row1->Description;?></label>
+            <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
+            <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
             <div class="reg_frontErr" style="display:none;"></div>
           </div>
         </div>

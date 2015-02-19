@@ -5,7 +5,7 @@ Tags: custom registration, custom form fields, custom registration fields, multi
 
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.3.8
+Stable tag: 1.3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3.10 =
+* Terms and Conditions field is now configurable and easier to use.
+
 = 1.3.9 =
 * Now you can add special characters in field labels
 * Bug fixes
@@ -184,6 +187,9 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.3.10 =
+* Terms and Conditions field is now configurable and easier to use.
 
 = 1.3.9 =
 * Now you can add special characters in field labels
