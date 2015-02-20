@@ -314,97 +314,21 @@ else
 else
 {
 ?>
-<?php if($form_type=='reg_form'): ?>
-<script type="text/javascript">
-    function validateRegister() //Validation for registration form fields
-        {
-            var user_name = document.getElementById("user_name").value;
-            var inputPassword = document.getElementById("inputPassword").value;
-            var user_confirm_password = document.getElementById("user_confirm_password").value;
-            var user_email = document.getElementById('user_email').value;
-            <?php if($enable_captcha=='yes'):?>
-            var recaptcha_response_field = document.getElementById('recaptcha_response_field').value;
-			<?php endif; ?>
-            if (user_name == null || user_name == "") {
-                document.getElementById('divuser_name').style.display = 'block';
-                document.getElementById("user_name").focus();
-                return false;
-            } else if (user_email == null || user_email == "") {
-                document.getElementById('divuser_email').style.display = 'block';
-                document.getElementById('divuser_name').style.display = 'none';
-                document.getElementById("user_email").focus();
-                return false;
-            } else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user_email))) {
-                document.getElementById('divuser_email').innerHTML = "<?php _e('Please enter a proper e-mail address.',$textdomain);?>";
-                document.getElementById('divuser_email').style.display = 'block';
-                document.getElementById('divuser_name').style.display = 'none';
-                document.getElementById("user_email").focus();
-                return false;
-            } else if (inputPassword == null || inputPassword == "") {
-                document.getElementById('divinputPassword').style.display = 'block';
-                document.getElementById('divinputPassword').style.margin = '-27px 0 23px !important';
-                document.getElementById('divuser_name').style.display = 'none';
-                document.getElementById('divuser_email').style.display = 'none';
-                document.getElementById("inputPassword").focus();
-                return false;
-            } else if (user_confirm_password == null || user_confirm_password == "") {
-                document.getElementById('divuser_confirm_password').style.display = 'block';
-                document.getElementById('divuser_confirm_password').style.margin = '-27px 0 23px !important';
-                document.getElementById('divinputPassword').style.display = 'none';
-                document.getElementById('divuser_name').style.display = 'none';
-                document.getElementById('divuser_email').style.display = 'none';
-                document.getElementById("user_confirm_password").focus();
-                return false;
-            } else if (inputPassword != user_confirm_password) {
-                with(document.getElementById('divuser_confirm_password')) {
-                    innerHTML = "<?php _e('Password and confirm password do not match.',$textdomain);?>";
-                    with(style) {
-                        display = 'block';
-                    }
-                }
-                document.getElementById('divinputPassword').style.display = 'none';
-                document.getElementById('divuser_name').style.display = 'none';
-                document.getElementById('divuser_email').style.display = 'none';
-                document.getElementById("user_confirm_password").focus();
-                return false;
-            } 
-			<?php if($enable_captcha=='yes'):?>
-			else if (recaptcha_response_field == null || recaptcha_response_field == "") {
-                with(document.getElementById('divrecaptcha_response_field')) {
-                    style.display = 'block';
-                    style.width = '299px';
-                    style.marginLeft = '170px';
-                }
-				
-                document.getElementById('divuser_confirm_password').style.display = 'none';
-                document.getElementById('divinputPassword').style.display = 'none';
-                document.getElementById('divuser_name').style.display = 'none';
-                document.getElementById('divuser_email').style.display = 'none';
-                document.getElementById("recaptcha_response_field").focus();
-                return false;
-            } 
-			<?php endif; ?>
-			else {
-                return true;
-            }
-        }
-</script>
-<?php endif; ?>
 <!--HTML for displaying registration form-->
 <div id="upb-form">
-  <form enctype="multipart/form-data" method="post" action="" id="registerform" name="registerform">
+  <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
     <div class="info-text"><?php echo $custom_text;?></div>
-    <div id="main-upb-form"  >
+    
+   <div class="crf_contact_form" id="main-upb-form">
       <?php if($form_type=='reg_form'): ?>
       <div class="formtable">
         <div class="lable-text">
           <label for="user_login"><?php _e('Username',$textdomain);?><br>
           </label>
         </div>
-        <div class="input-box">
-          <input type="text" size="20" onblur="javascript:validete_userName();" onkeyup="javascript:validete_userName();" onfocus="javascript:validete_userName();" onchange="javascript:validete_userName();" value="<?php echo (!empty($_POST['user_name']))?  $_POST['user_name']: ''; ?>" class="input" id="user_name" name="user_name" required>
-          <div class="" id="nameErr"></div>
-          <div class="reg_frontErr" id="divuser_name" style="display:none;"><?php _e('Please enter a username.',$textdomain);?></div>
+        <div class="input-box crf_required">
+          <input type="text" size="20" onblur="javascript:validete_userName();" onkeyup="javascript:validete_userName();" onfocus="javascript:validete_userName();" onchange="javascript:validete_userName();" value="<?php echo (!empty($_POST['user_name']))?  $_POST['user_name']: ''; ?>" class="input" id="user_name" name="user_name">
+          <div class="reg_frontErr crf_error_text custom_error" style="display:none;" id="nameErr"></div>
         </div>
       </div>
       <div class="formtable">
@@ -412,10 +336,9 @@ else
           <label for="user_email"><?php _e('E-mail',$textdomain);?><br>
           </label>
         </div>
-        <div class="input-box">
-          <input type="text" onblur="javascript:validete_email();" onkeyup="javascript:validete_email();" onfocus="javascript:validete_email();" onchange="" size="25" value="<?php echo (!empty($_POST['user_email']))?  $_POST['user_email']: ''; ?>" class="input" id="user_email" name="user_email" required>
-          <div class="" id="emailErr"></div>
-          <div class="reg_frontErr" id="divuser_email" style="display:none;"><?php _e('Please enter an email address.',$textdomain);?></div>
+        <div class="input-box crf_required crf_email">
+          <input type="text" onblur="javascript:validete_email();" onkeyup="javascript:validete_email();" onfocus="javascript:validete_email();" onchange="" size="25" value="<?php echo (!empty($_POST['user_email']))?  $_POST['user_email']: ''; ?>" class="input" id="user_email" name="user_email">
+          <div class="reg_frontErr crf_error_text custom_error" style="display:none;" id="emailErr"></div>
         </div>
       </div>
       <?php
@@ -427,11 +350,12 @@ if($pwd_show == "no")//Shows password field if the user is allowed to chose pass
           <label for="user_password"><?php _e('Password',$textdomain);?><br>
           </label>
         </div>
-        <div class="input-box">
+        <div class="input-box crf_required crf_password">
           <input id="inputPassword" name="inputPassword" type="password" onfocus="javascript:document.getElementById('user_confirm_password').value = '';" />
           <div id="complexity" class="default" style="display:none;"></div>
           <div id="password_info" class="password-pro"><?php _e('At least 7 characters please!',$textdomain);?></div>
-          <div class="reg_frontErr" id="divinputPassword" style="display:none;"><?php _e('Please enter a password.',$textdomain);?></div>
+          <div class="reg_frontErr crf_error_text custom_error" style="display:none;"></div>
+          
         </div>
       </div>
       <div class="formtable">
@@ -439,9 +363,10 @@ if($pwd_show == "no")//Shows password field if the user is allowed to chose pass
           <label for="user_confirm_password"><?php _e('Confirm Password',$textdomain);?><br>
           </label>
         </div>
-        <div class="input-box">
+        <div class="input-box crf_required crf_confirmpassword">
           <input id="user_confirm_password" name="user_confirm_password" type="password"/>
-          <div class="reg_frontErr" id="divuser_confirm_password" style="display:none;"><?php _e('Enter the password again to confirm',$textdomain);?></div>
+          <div class="reg_frontErr crf_error_text custom_error" style="display:none;"></div>
+          <!--<div class="reg_frontErr crf_error_text" id="divuser_confirm_password" style="display:none;"><?php _e('Enter the password again to confirm',$textdomain);?></div>-->
         </div>
       </div>
       <?php
@@ -450,34 +375,14 @@ else//If auto password generation is enabled then this will create a random pass
 {
 	$random_password = wp_generate_password( $length=12, $include_standard_special_chars=false );
 ?>
-      <div class="formtable" style="display:none;">
-        <div class="lable-text">
-          <label for="user_password"><?php _e('Password',$textdomain);?><br>
-          </label>
-        </div>
-        <div class="input-box">
-          <input id="inputPassword" name="inputPassword" type="hidden" value="<?php echo $random_password; ?>" />
-        </div>
-        <div id="complexity" class="default" style="display:none;"></div>
-        <div id="password_info" class="password-pro"><?php _e('At least 7 characters please!',$textdomain);?></div>
-        <div class="reg_frontErr" id="divinputPassword" style="display:none;margin: -27px 0 23px !important; margin-left: 258px !important;"><?php _e('Please enter a password.',$textdomain);?></div>
-      </div>
-      <div class="formtable" style="display:none;">
-        <div class="lable-text">
-          <label for="user_confirm_password"><?php _e('Confirm Password',$textdomain);?><br>
-          </label>
-        </div>
-        <div class="input-box">
+          <input id="inputPassword" name="inputPassword" type="hidden" value="<?php echo $random_password; ?>" />             
           <input id="user_confirm_password" name="user_confirm_password" value="<?php echo $random_password; ?>" type="hidden"/>
-          <div class="reg_frontErr" id="divuser_confirm_password" style="display:none;margin: -27px 0 23px !important; "><?php _e('Enter the password again to confirm.',$textdomain);?></div>
-        </div>
-      </div>
-      <?php
+<?php
 }
 ?>
      <?php endif;  ?>      
       <!-- HTML for displaying custom fields in Registration form -->
-      <div class="input_box">
+      
         <?php 
 $qry1 = "select * from $crf_fields where Form_Id = '".$content['id']."' order by ordering asc";
 $reg1 = $wpdb->get_results($qry1);
@@ -487,27 +392,30 @@ $reg1 = $wpdb->get_results($qry1);
 		 $value = $row1->Value;
 		 if($row1->Type=='heading')
 		 {?>
-        <div class="formtable upb_heading">
+        <div class="formtable crf_heading">
           <h1 name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Value;?></h1>
         </div>
         <?php 
 		}
 		if($row1->Type=='paragraph')
 		 {?>
-        <div class="formtable upb_paragraph">
+        <div class="formtable crf_paragraph">
+
           <p name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
         </div>
         <?php }
 if($row1->Type=='term_checkbox')
 		 {?>
         <div class="formtable">
-          <div class="lable-text">
-            <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>" <?php if($row1->Require==1)echo 'required';?>>
+        <div class="lable-text">
+            <label>&nbsp;</label>
           </div>
-          <div class="input-box">
+          <div class="input-box <?php if($row1->Require==1)echo 'crf_checkboxrequired';?>">
+            <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>">
+          
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
             <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
-            <div class="reg_frontErr" style="display:none;"></div>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -517,8 +425,9 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box">
-            <input type="text" class="MyDate regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
+          <div class="input-box <?php if($row1->Require==1)echo 'crf_required';?>">
+            <input type="text" class="MyDate regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?>>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -528,8 +437,9 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box">
-            <input type="text" class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
+          <div class="input-box <?php if($row1->Require==1)echo 'crf_required';?>">
+            <input type="text" class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?>>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -539,9 +449,9 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box upb_email">
-            <input type="text" class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
-            <div class="reg_frontErr custom_error" style="display:none;"></div>
+          <div class="input-box crf_email <?php if($row1->Require==1)echo 'crf_required';?>">
+            <input type="text" class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?>>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -551,9 +461,9 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box upb_number">
-            <input type="text" class="upb_number regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>>
-            <div class="reg_frontErr custom_error" style="display:none;"></div>
+          <div class="input-box crf_number <?php if($row1->Require==1)echo 'crf_required';?>">
+            <input type="text" class="crf_number regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" value="<?php echo $value;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?>>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -564,8 +474,9 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box">
-            <textarea  class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" cols="<?php echo $row1->Cols;  ?>" rows="<?php echo $row1->Rows;  ?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?> <?php if($row1->Require==1)echo 'required';?>><?php echo $value; ?></textarea>
+          <div class="input-box <?php if($row1->Require==1)echo 'crf_textarearequired';?>">
+            <textarea  class="regular-text <?php echo $row1->Class;?>" maxlength="<?php echo $row1->Max_Length;?>" cols="<?php echo $row1->Cols;  ?>" rows="<?php echo $row1->Rows;  ?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'readonly';?>><?php echo $value; ?></textarea>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -577,7 +488,7 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box">
+          <div class="input-box <?php if($row1->Require==1)echo 'crf_radiorequired';?>">
             <?php 
 									$arr_radio = explode(',',$row1->Option_Value);
 									foreach($arr_radio as $radio)
@@ -585,6 +496,8 @@ if($row1->Type=='term_checkbox')
             <div class="radio_option"><?php echo $radio; ?></div>
             <input type="radio" class="regular-text  <?php echo $row1->Class;?>" value="<?php echo $radio;?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> id="<?php echo $key;?>" style="width:50px;" name="<?php echo $key;?>"  <?php if($row1->Readonly==1)echo 'disabled';?>>
             <?php } ?>
+            <br class="clear">
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -597,16 +510,18 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name; ?></label>
           </div>
-          <div class="input-box">
+          <div class="input-box crf_checkbox <?php if($row1->Require==1)echo 'crf_checkboxrequired';?>">
             <?php 
 			$arr_radio = explode(',',$row1->Option_Value);
 			$radio_count = 1;
 			foreach($arr_radio as $radio)
 			{?>
-            <div  class="upb-check-text"><?php echo $radio; ?> </div>
+            <div class="upb-check-text"><?php echo $radio; ?></div>
             <input type="checkbox" class="regular-text <?php echo $row1->Class;?>" value="<?php echo $radio;?>" id="<?php echo $key;?>"  name="<?php echo $row1->Name.'[]';?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> <?php if($row1->Readonly==1)echo 'disabled';?>>
             <?php $radio_count++; 
 			} ?>
+             <br class="clear">
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -617,8 +532,8 @@ if($row1->Type=='term_checkbox')
           <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box>">
-            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?> <?php if($row1->Require==1) echo 'required';?>>
+          <div class="input-box crf_select <?php if($row1->Require==1)echo 'crf_select_required';?>">
+            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?>>
               <?php
 			  $arr = explode(',',$row1->Option_Value);
 			  foreach($arr as $ar)
@@ -629,6 +544,7 @@ if($row1->Type=='term_checkbox')
 			  }
 			  ?>
             </select>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -636,13 +552,14 @@ if($row1->Type=='term_checkbox')
 		if($row1->Type=='country')
 	   {?>
         <div class="formtable">
-          <div class="crf_label">
+          <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="crf_input crf_select crf_country">
-            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?> <?php if($row1->Require==1) echo 'required';?>>
+          <div class="input-box crf_select crf_country <?php if($row1->Require==1)echo 'crf_select_required';?>">
+            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?>>
 			<?php include 'country_option_list.php'; ?>
             </select>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -651,13 +568,14 @@ if($row1->Type=='term_checkbox')
 		if($row1->Type=='timezone')
 	   {?>
         <div class="formtable">
-          <div class="crf_label">
+          <div class="lable-text">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="crf_input crf_select crf_country">
-            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?> <?php if($row1->Require==1) echo 'required';?>>
+          <div class="input-box crf_select crf_country <?php if($row1->Require==1)echo 'crf_select_required';?>">
+            <select class="regular-text <?php echo $row1->Class;?>" id="<?php echo $key;?>" name="<?php echo $key;?>" <?php if($row1->Readonly==1)echo 'disabled';?>>
 			<?php include 'time_zone_option_list.php'; ?>
             </select>
+            <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
         </div>
         <?php }
@@ -672,17 +590,22 @@ if($row1->Type=='term_checkbox')
 		/*file addon end */
 		 }
 		 ?>
-      </div>
+      
       <!-- Custom fields in Registration form ends -->
       <?php if($enable_captcha=='yes') : ?>
-      <div class="formtable" align="center"> <?php echo recaptcha_get_html($publickey, $error); ?> </div>
-      <div class="reg_frontErr" id="divrecaptcha_response_field" style="display:none;width: 299px !important; margin-left: 170px !important;"> <?php _e('Please fill this to prove you aren\'t a robot.',$textdomain);?> </div>
+      <div class="formtable" align="center"> <div class="lable-text">
+            <label>&nbsp;</label>
+          </div>
+       <div class="input-box input-box_captcha"> <?php echo recaptcha_get_html($publickey, $error); ?> </div></div>
+      <div class="reg_frontErr custom_error crf_error_text" id="divrecaptcha_response_field" style="display:none;"></div>
+      <?php /*?><div class="reg_frontErr"  style="display:none;width: 299px !important; margin-left: 170px !important;"> <?php _e('Please fill this to prove you aren\'t a robot.',$textdomain);?> </div><?php */?>
       <?php endif; ?>
       <br class="clear">
     </div>
-    <div class="customupberror" style="display:none"></div>
+    
+    <div class="customcrferror" style="display:none"></div>
     <div class="UltimatePB-Button-area" >
-      <input type="submit" value="Submit" class="button button-primary button-large" id="submit" name="submit"  <?php if($form_type=='reg_form'): ?>  onClick="return validateRegister()" <?php endif; ?> >
+      <input type="submit" value="Submit" class="button button-primary button-large" id="submit" name="submit">
       <input type="reset" value="Reset" class="button button-primary button-large" id="reset" name="reset" />
     </div>
   </form>
@@ -742,14 +665,34 @@ if($row1->Type=='term_checkbox')
             dateFormat: 'yy-mm-dd'
         });
     });
-    jQuery('#registerform').submit(function () {
+    jQuery('#crf_contact_form').submit(function () {
         //email validation start for custom field	
         var email_val = "";
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         jQuery('.custom_error').html('');
         jQuery('.custom_error').hide();
-        jQuery('.customupberror').html('');
-        jQuery('.upb_email').each(function (index, element) {
+        jQuery('.customcrferror').html('');
+		
+		<?php if($pwd_show == "no" && $form_type=='reg_form'): ?>
+		var password = jQuery('#inputPassword').val();
+		var confirmpassword = jQuery('#user_confirm_password').val();
+		var passwordlength = password.length;
+		if(password !="")
+		{
+			if(passwordlength < 7)
+			{
+				jQuery('.crf_password').children('.custom_error').html('<?php _e('Your password should be at least 7 characters long.',$textdomain);?>');
+				jQuery('.crf_password').children('.custom_error').show();
+			}
+			if(password != confirmpassword)
+			{
+				jQuery('.crf_confirmpassword').children('.custom_error').html('<?php _e('Password and confirm password do not match.',$textdomain);?>');
+				jQuery('.crf_confirmpassword').children('.custom_error').show();
+			}
+		}
+		<?php endif; ?>
+		
+        jQuery('.crf_email').each(function (index, element) {
             var email = jQuery(this).children('input').val();
             var isemail = regex.test(email);
             if (isemail == false && email != "") {
@@ -757,8 +700,10 @@ if($row1->Type=='term_checkbox')
                 jQuery(this).children('.custom_error').show();
             }
         });
+		
+		
 		/*file addon start */
-		 jQuery('.upb_file').each(function (index, element) {
+		 jQuery('.crf_file').each(function (index, element) {
 			var val = jQuery(this).children('input').val().toLowerCase();
 			var allowextensions = jQuery(this).children('input').attr('data-filter-placeholder');
 			if(allowextensions=='')
@@ -773,7 +718,7 @@ if($row1->Type=='term_checkbox')
 			}
         });
 		/*file addon end */
-        jQuery('.upb_number').each(function (index, element) { //Validation for number type custom field
+        jQuery('.crf_number').each(function (index, element) { //Validation for number type custom field
             var number = jQuery(this).children('input').val();
             var isnumber = jQuery.isNumeric(number);
             if (isnumber == false && number != "") {
@@ -781,13 +726,65 @@ if($row1->Type=='term_checkbox')
                 jQuery(this).children('.custom_error').show();
             }
         });
+		
+		jQuery('.crf_required').each(function (index, element) { //Validation for number type custom field
+            var value = jQuery(this).children('input').val();
+			var value2 = jQuery.trim(value);
+            if (value == "" || value2== "") {
+                jQuery(this).children('.custom_error').html('<?php _e('This is a required field.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+            }
+        });
+		
+		jQuery('.crf_select_required').each(function (index, element) { //Validation for number type custom field
+            var value = jQuery(this).children('select').val();
+			var value2 = jQuery.trim(value);
+            if (value == "" || value2== "") {
+                jQuery(this).children('.custom_error').html('<?php _e('This is a required field.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+            }
+        });
+		
+		jQuery('.crf_textarearequired').each(function (index, element) { //Validation for number type custom field
+            var value = jQuery(this).children('textarea').val();
+			var value2 = jQuery.trim(value);
+            if (value == "" || value2== "") {
+                jQuery(this).children('.custom_error').html('<?php _e('This is a required field.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+            }
+        });
+		
+		jQuery('.crf_checkboxrequired').each(function (index, element) { //Validation for number type custom field
+		var checkboxlenght = jQuery(this).children('input[type="checkbox"]:checked');
+		
+        var atLeastOneIsChecked = checkboxlenght.length > 0;
+        if (atLeastOneIsChecked == true) {
+		}else{
+                jQuery(this).children('.custom_error').html('<?php _e('This is a required field.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+            }
+		
+		});
+		
+		jQuery('.crf_radiorequired').each(function (index, element) { //Validation for number type custom field
+		var radiolenght = jQuery(this).children('input[type="radio"]:checked');
+		
+        var atLeastOneIsChecked = radiolenght.length > 0;
+        if (atLeastOneIsChecked == true) {
+		}else{
+                jQuery(this).children('.custom_error').html('<?php _e('This is a required field.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+            }
+		
+		});
+		
         var b = '';
         b = jQuery('.custom_error').each(function () {
             var a = jQuery(this).html();
             b = a + b;
-            jQuery('.customupberror').html(b);
+            jQuery('.customcrferror').html(b);
         });
-        var error = jQuery('.customupberror').html();
+        var error = jQuery('.customcrferror').html();
         if (error == '') {
             return true;
         } else {
