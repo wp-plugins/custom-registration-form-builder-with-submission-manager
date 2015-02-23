@@ -7,6 +7,7 @@ $textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
 $path =  plugin_dir_url(__FILE__);
+$crf_stats =$wpdb->prefix."crf_stats";
 $crf_option=$wpdb->prefix."crf_option";
 $crf_entries =$wpdb->prefix."crf_entries";
 $select="select `value` from $crf_option where fieldname='enable_captcha'";
@@ -87,6 +88,17 @@ else
 }
 if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pressed or not
 {
+			
+	$stats = $wpdb->get_row( "SELECT * FROM $crf_stats where form_id ='".$content['id']."' and stats_key='".$_POST['crf_key']."'");
+	$stats_details = @unserialize($stats->details);
+	$stats_details['submitted'] = "yes";
+	$stats_details['submit_time'] = time();
+	$stats_details['total_time'] = $stats_details['submit_time']-$stats_details['timestamp'];
+	$stats_final_details = serialize($stats_details);
+	$stats_update = "update $crf_stats set details ='".$stats_final_details."' where id=".$stats->id;
+	$wpdb->query($stats_update);
+	
+
 	$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
 	$reg1 = $wpdb->get_results($qry1);
 	$entry= array();
@@ -313,17 +325,29 @@ else
 }
 else
 {
+$detail = array();
+$detail['User_IP'] = $_SERVER['REMOTE_ADDR'];
+$detail['Browser'] = $_SERVER['HTTP_USER_AGENT'];
+$detail['timestamp'] = time();
+$detail['key'] = time().$content['id'];
+$details = serialize($detail);
+$insert="INSERT INTO $crf_stats VALUES('','".$content['id']."','".$detail['key']."','".$details."')";
+$wpdb->query($insert);
+
+
 ?>
 <!--HTML for displaying registration form-->
 <div id="upb-form">
   <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
+      <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
+  <input type="hidden" value="<?php echo $detail['key'];?>" name="crf_key" />
     <div class="info-text"><?php echo $custom_text;?></div>
     
    <div class="crf_contact_form" id="main-upb-form">
       <?php if($form_type=='reg_form'): ?>
       <div class="formtable">
         <div class="lable-text">
-          <label for="user_login"><?php _e('Username',$textdomain);?><br>
+          <label for="user_login"><?php _e('Username',$textdomain);?>
           </label>
         </div>
         <div class="input-box crf_required">
@@ -333,7 +357,7 @@ else
       </div>
       <div class="formtable">
         <div class="lable-text">
-          <label for="user_email"><?php _e('E-mail',$textdomain);?><br>
+          <label for="user_email"><?php _e('E-mail',$textdomain);?>
           </label>
         </div>
         <div class="input-box crf_required crf_email">
@@ -347,7 +371,7 @@ if($pwd_show == "no")//Shows password field if the user is allowed to chose pass
 ?>
       <div class="formtable">
         <div class="lable-text">
-          <label for="user_password"><?php _e('Password',$textdomain);?><br>
+          <label for="user_password"><?php _e('Password',$textdomain);?>
           </label>
         </div>
         <div class="input-box crf_required crf_password">
@@ -360,7 +384,7 @@ if($pwd_show == "no")//Shows password field if the user is allowed to chose pass
       </div>
       <div class="formtable">
         <div class="lable-text">
-          <label for="user_confirm_password"><?php _e('Confirm Password',$textdomain);?><br>
+          <label for="user_confirm_password"><?php _e('Confirm Password',$textdomain);?>
           </label>
         </div>
         <div class="input-box crf_required crf_confirmpassword">
@@ -410,12 +434,13 @@ if($row1->Type=='term_checkbox')
         <div class="lable-text">
             <label>&nbsp;</label>
           </div>
-          <div class="input-box <?php if($row1->Require==1)echo 'crf_checkboxrequired';?>">
+          <div class="input-box <?php if($row1->Require==1)echo 'crf_termboxrequired';?>">
             <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>">
           
-            <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
-            <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
+            <label for="<?php echo $key;?>"><?php echo $row1->Name;?><?php if($row1->Require==1)echo '<sup class="crf_estric">*</sup>';?></label>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
+            <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
+            
           </div>
         </div>
         <?php }
@@ -626,11 +651,11 @@ if($row1->Type=='term_checkbox')
             success: function (serverResponse) {
                 if (serverResponse == "true") {
                     jQuery("#nameErr").html("<?php _e('Sorry, username already exist',$textdomain);?>");
-                    jQuery("#nameErr").addClass("reg_frontErr");
+                    jQuery("#nameErr").css('display','block');
                     jQuery("#submit").attr('disabled', true);
                 } else {
                     jQuery("#nameErr").html('');
-                    jQuery("#nameErr").removeClass("reg_frontErr");
+                    jQuery("#nameErr").css('display','none');
                     jQuery("#submit").attr('disabled', false);
                 }
             }
@@ -646,12 +671,12 @@ if($row1->Type=='term_checkbox')
                     if (serverResponse == "true") {
                         email = false;
                         jQuery("#emailErr").html("<?php _e('Sorry, email already exist',$textdomain);?>");
-                        jQuery("#emailErr").addClass("reg_frontErr");
+                        jQuery("#emailErr").css('display','block');
                         jQuery("#submit").attr('disabled', true);
                     } else {
                         jQuery("#emailErr").html('');
                         jQuery("#submit").attr('disabled', false);
-                        jQuery("#emailErr").removeClass("reg_frontErr");
+                        jQuery("#emailErr").css('display','none');
                     }
                 }
             })
@@ -766,6 +791,18 @@ if($row1->Type=='term_checkbox')
 		
 		});
 		
+		jQuery('.crf_termboxrequired').each(function (index, element) { //Validation for number type custom field
+		var checkboxlenght = jQuery(this).children('input[type="checkbox"]:checked');
+		
+        var atLeastOneIsChecked = checkboxlenght.length > 0;
+        if (atLeastOneIsChecked == true) {
+		}else{
+                jQuery(this).children('.custom_error').html('<?php _e('This is a required field.',$textdomain);?>');
+                jQuery(this).children('.custom_error').show();
+            }
+		
+		});
+		
 		jQuery('.crf_radiorequired').each(function (index, element) { //Validation for number type custom field
 		var radiolenght = jQuery(this).children('input[type="radio"]:checked');
 		
@@ -791,4 +828,10 @@ if($row1->Type=='term_checkbox')
             return false;
         }
     });
+jQuery('.crf_required').parent('.formtable').children('.lable-text').children('label').append('<sup class="crf_estric">*</sup>');
+jQuery('.crf_select_required').parent('.formtable').children('.lable-text').children('label').append('<sup class="crf_estric">*</sup>');
+jQuery('.crf_radiorequired').parent('.formtable').children('.lable-text').children('label').append('<sup class="crf_estric">*</sup>');
+jQuery('.crf_checkboxrequired').parent('.formtable').children('.lable-text').children('label').append('<sup class="crf_estric">*</sup>');
+jQuery('.crf_textarearequired').parent('.formtable').children('.lable-text').children('label').append('<sup class="crf_estric">*</sup>');
+
 </script> 

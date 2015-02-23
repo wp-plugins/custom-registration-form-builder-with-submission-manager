@@ -3,7 +3,7 @@
 	Plugin Name: Custom User Registration Form Builder
 	Plugin URI: https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.3.11
+	Version: 1.3.12
 	Author: CMSHelpLive
 	Author URI: https://profiles.wordpress.org/cmshelplive
 	License: gpl2
@@ -11,18 +11,29 @@
 ob_start();
 /*Plugin activation hook*/
 global $crf_db_version;
-$crf_db_version = 1.4;
+$crf_db_version = 1.5;
 
 register_activation_hook ( __FILE__, 'activate_custom_registration_form_with_sm_plugin' );
 function activate_custom_registration_form_with_sm_plugin()
 {
-	add_option('crf_db_version','1.4');
+	add_option('crf_db_version','1.5');
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
 	$crf_option=$wpdb->prefix."crf_option";
 	$crf_fields =$wpdb->prefix."crf_fields";
 	$crf_forms =$wpdb->prefix."crf_forms";
 	$crf_entries =$wpdb->prefix."crf_entries";
+	$crf_stats = $wpdb->prefix."crf_stats";
+	$sqlcreate = "CREATE TABLE IF NOT EXISTS $crf_stats
+	(
+		`id` int NOT NULL AUTO_INCREMENT,
+			`form_id` int(11),
+			`stats_key` varchar(255),
+			`details` longtext,
+			PRIMARY KEY(id)
+	)";
+	dbDelta( $sqlcreate );
+	
 	$sqlcreate = "CREATE TABLE IF NOT EXISTS $crf_option
 	(
 		`id` int NOT NULL AUTO_INCREMENT,
@@ -119,6 +130,18 @@ function crf_update_db_check()
 		(10, 'crf_theme', 'default')";
 		$wpdb->query($insert);
 		
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$crf_stats = $wpdb->prefix."crf_stats";
+		$sqlcreate = "CREATE TABLE IF NOT EXISTS $crf_stats
+		(
+			`id` int NOT NULL AUTO_INCREMENT,
+			`form_id` int(11),
+			`stats_key` varchar(255),
+			`details` longtext,
+			PRIMARY KEY(id)
+		)";
+		dbDelta( $sqlcreate );
+		
 		update_option( "crf_db_version", $crf_db_version );
 	}
 }
@@ -127,7 +150,11 @@ add_action( 'wp_enqueue_scripts', 'crf_frontend_script' );
 add_action( 'admin_init', 'crf_admin_script' );
 /*Defines enqueue style/ script for front end*/
 function crf_frontend_script() {
-	//wp_enqueue_style( 'crf-style.css', plugin_dir_url(__FILE__) . 'css/crf-style.css');
+	global $wpdb;
+	$crf_option=$wpdb->prefix."crf_option";
+	$qry="select `value` from $crf_option where fieldname='crf_theme'";
+	$crf_theme = $wpdb->get_var($qry);
+	wp_enqueue_style( 'crf-style-'.$crf_theme, plugin_dir_url(__FILE__) . 'css/crf-style-'.$crf_theme.'.css');
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script('jquery-ui-datepicker');
 	wp_enqueue_style('jquery-style', 'http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css');
@@ -212,7 +239,11 @@ function crf_manage_form_fields()
 add_shortcode( 'CRF_Form', 'CRF_view_form_fun' );
 function CRF_view_form_fun($content)
 {
-	include 'view-form.php';
+	global $wpdb;
+	$crf_option=$wpdb->prefix."crf_option";
+	$qry="select `value` from $crf_option where fieldname='crf_theme'";
+	$crf_theme = $wpdb->get_var($qry);
+	include 'view-form-'.$crf_theme.'.php';
 }
 
 add_action('wp_ajax_set_field_order', 'CRF_set_field_order');
