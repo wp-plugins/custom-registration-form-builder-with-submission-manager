@@ -329,7 +329,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
         </div>
       </div>
       <div class="crf-form-right-area">
-        <input type="text" name="field_name" id="field_name" value="<?php if(!empty($reg)) echo $reg->Name; ?>" required onKeyUp="check('<?php if(!empty($reg)){echo $reg->Name;}else { echo 'new';} ?>','<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>')">
+        <input type="text" name="field_name" id="field_name" value="<?php if(!empty($reg)) echo $reg->Name; ?>" required onKeyUp="check('<?php if(!empty($reg)){echo $reg->Name;}else { echo 'new';} ?>','<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>')" onBlur="check('<?php if(!empty($reg)){echo $reg->Name;}else { echo 'new';} ?>','<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>')">
         <div id="user-result"></div>
       </div>
     </div>

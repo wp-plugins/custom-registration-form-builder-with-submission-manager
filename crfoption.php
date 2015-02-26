@@ -50,6 +50,7 @@ $crf_theme = $wpdb->get_var($qry);
         <select name="crf_theme" id="crf_theme">
         <option value="default" <?php if($crf_theme=='default')echo 'selected';?>>Classic</option>
         <option value="simple" <?php if($crf_theme=='simple')echo 'selected';?>>Default</option>
+        <option value="md" <?php if($crf_theme=='md')echo 'selected';?>>Material design</option>
         </select>
       </div>
     </div>
