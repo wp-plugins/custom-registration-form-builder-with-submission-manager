@@ -52,7 +52,7 @@ function activate_custom_registration_form_with_sm_plugin()
 		(6, 'adminemail', ''),
 		(7, 'adminnotification', 'no'),
 		(8, 'from_email', ''),
-		(9, 'userip', 'no'),
+		(9, 'userip', 'yes'),
 		(10, 'crf_theme','simple')";
 		$wpdb->query($insert);
 
