@@ -127,6 +127,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
+= 1.3.14 =
+* Bug fixes
+* Fixed an issue with special character labels
+* Default theme CSS fix
+
 = 1.3.13 =
 * Now you can copy shortcode by clicking on it.
 * Bug fixes
@@ -197,6 +202,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.3.14 =
+* Bug fixes
+* Fixed an issue with special character labels
+* Default theme CSS fix
 
 = 1.3.13 =
 * Now you can copy shortcode by clicking on it.

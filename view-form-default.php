@@ -90,11 +90,11 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 {
 			
 	$stats = $wpdb->get_row( "SELECT * FROM $crf_stats where form_id ='".$content['id']."' and stats_key='".$_POST['crf_key']."'");
-	$stats_details = @unserialize($stats->details);
+	$stats_details = maybe_unserialize($stats->details);
 	$stats_details['submitted'] = "yes";
 	$stats_details['submit_time'] = time();
 	$stats_details['total_time'] = $stats_details['submit_time']-$stats_details['timestamp'];
-	$stats_final_details = serialize($stats_details);
+	$stats_final_details = maybe_serialize($stats_details);
 	$stats_update = "update $crf_stats set details ='".$stats_final_details."' where id=".$stats->id;
 	$wpdb->query($stats_update);
 	
@@ -119,7 +119,7 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		if(!empty($row1))
 		{
 			/*file addon start */
-			$Customfield = str_replace(" ","_",$row1->Name);
+			$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
 			
 			if ( is_plugin_active('file-upload-addon/file-upload.php') && $row1->Type=='file') 
 			{
@@ -145,7 +145,7 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		$entry['Browser'] = $_SERVER['HTTP_USER_AGENT'];	
 	}
 	
-	$entries = serialize($entry);
+	$entries = maybe_serialize($entry);
 	$insert_entries = "insert into $crf_entries values('','".$content['id']."','".$form_type."','".$autoapproval."','".$entries."')";
 	$wpdb->query($insert_entries);
 	
@@ -179,7 +179,7 @@ if(!empty($reg1))
  {
 	if(!empty($row1))
 	{
-		$Customfield = str_replace(" ","_",$row1->Name);
+		$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
 		if(!isset($prev_value)) $prev_value='';
 		add_user_meta( $user_id, $Customfield, $_POST[$Customfield], true );
 		update_user_meta( $user_id, $Customfield, $_POST[$Customfield], $prev_value );
@@ -195,7 +195,7 @@ else
 	$random_password = __('User already exists.  Password inherited.',$textdomain);
 ?>
 <!--HTML for displaying error when username already exists (This is different from error shown by jQuery validation.)-->
-<div id="upb-form">
+<div id="upb-formm">
   <div id="main-upb-form">
     <div class="main-edit-profile" align="center"><?php _e( 'Sorry, the username or e-mail is already taken.', $textdomain ); ?><br />
       <br />
@@ -238,7 +238,7 @@ else
 		header('refresh: 5; url='.$url);
 	}
 	?>
-<div id="upb-form">
+<div id="upb-formm">
   <div id="main-upb-form">
     <div class="main-edit-profile" align="center"><?php echo $success_message;?><br />
       <br />
@@ -280,7 +280,7 @@ else
 	  {
 		$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type ='email' order by ordering asc limit 1";
 		 $row1 = $wpdb->get_row($qry1);
-		 $emailfield = str_replace(" ","_",$row1->Name);
+		 $emailfield = sanitize_key($row1->Name).'_'.$row1->Id;
 		 $user_email =  $_POST[$emailfield];  
 	  }
 	  $headers = 'From:'.$from_email_address. "\r\n"; 
@@ -304,6 +304,15 @@ else
 					$val = implode(',',$val);	
 				}
 				$entryval = str_replace("_"," ",$key);
+								
+				$fields= explode("_", $key);
+				$fieldid = $fields[count($fields)-1];
+				if(is_numeric($fieldid))
+				{
+					$nameqry = "select Name from $crf_fields where id=".$fieldid;
+					$entryval = $wpdb->get_var($nameqry);
+				}
+				
 				if($key!="user_pass"):
 				
 			  $notification_message .= '<tr><td><strong>'.$entryval.'</strong>: </td><td>'.$val.'</td></tr>';
@@ -330,20 +339,20 @@ $detail['User_IP'] = $_SERVER['REMOTE_ADDR'];
 $detail['Browser'] = $_SERVER['HTTP_USER_AGENT'];
 $detail['timestamp'] = time();
 $detail['key'] = time().$content['id'];
-$details = serialize($detail);
+$details = maybe_serialize($detail);
 $insert="INSERT INTO $crf_stats VALUES('','".$content['id']."','".$detail['key']."','".$details."')";
 $wpdb->query($insert);
 
 
 ?>
 <!--HTML for displaying registration form-->
-<div id="upb-form">
+<div id="upb-formm">
   <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
       <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
   <input type="hidden" value="<?php echo $detail['key'];?>" name="crf_key" />
-    <div class="info-text"><?php echo $custom_text;?></div>
+    <div class="info-textt bold-tex"><?php echo $custom_text;?></div>
     
-   <div class="crf_contact_form" id="main-upb-form">
+   <div id="main-upb-formm">
       <?php if($form_type=='reg_form'): ?>
       <div class="formtable">
         <div class="lable-text">
@@ -412,7 +421,7 @@ $qry1 = "select * from $crf_fields where Form_Id = '".$content['id']."' order by
 $reg1 = $wpdb->get_results($qry1);
 	 foreach($reg1 as $row1)
 	 {
-		 $key = str_replace(" ","_",$row1->Name);
+		 $key = sanitize_key($row1->Name).'_'.$row1->Id;
 		 $value = $row1->Value;
 		 if($row1->Type=='heading')
 		 {?>
@@ -424,8 +433,7 @@ $reg1 = $wpdb->get_results($qry1);
 		if($row1->Type=='paragraph')
 		 {?>
         <div class="formtable crf_paragraph">
-
-          <p name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
+         <p class="info-textt" name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
         </div>
         <?php }
 if($row1->Type=='term_checkbox')
@@ -439,7 +447,7 @@ if($row1->Type=='term_checkbox')
           
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?><?php if($row1->Require==1)echo '<sup class="crf_estric">*</sup>';?></label>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
-            <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
+            <textarea disabled rows="3" class="textareaa"><?php echo $row1->Description;?></textarea>
             
           </div>
         </div>
@@ -496,7 +504,7 @@ if($row1->Type=='term_checkbox')
 		if($row1->Type=='textarea')
 		{?>
         <div class="formtable">
-          <div class="lable-text">
+          <div class="lable-text radio-label">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
           <div class="input-box <?php if($row1->Require==1)echo 'crf_textarearequired';?>">
@@ -510,17 +518,20 @@ if($row1->Type=='term_checkbox')
 			 $array_value = explode(',',$value);
 			?>
         <div class="formtable">
-          <div class="lable-text">
+          <div class="lable-text radio-label">
             <label for="<?php echo $key;?>"><?php echo $row1->Name;?></label>
           </div>
-          <div class="input-box <?php if($row1->Require==1)echo 'crf_radiorequired';?>">
+          <div class="input-box radio-box <?php if($row1->Require==1)echo 'crf_radiorequired';?>">
             <?php 
 									$arr_radio = explode(',',$row1->Option_Value);
 									foreach($arr_radio as $radio)
 									{?>
-            <div class="radio_option"><?php echo $radio; ?></div>
-            <input type="radio" class="regular-text  <?php echo $row1->Class;?>" value="<?php echo $radio;?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> id="<?php echo $key;?>" style="width:50px;" name="<?php echo $key;?>"  <?php if($row1->Readonly==1)echo 'disabled';?>>
-            <?php } ?>
+            <div class="upb-check-text">
+			<div class="Checkbox">
+			<label><?php echo $radio; ?></label>
+            <input type="radio" class="regular-text  <?php echo $row1->Class;?>" value="<?php echo $radio;?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> id="<?php echo $key;?>" name="<?php echo $key;?>"  <?php if($row1->Readonly==1)echo 'disabled';?>>
+            </div></div>
+			<?php } ?>
             <br class="clear">
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
@@ -532,7 +543,7 @@ if($row1->Type=='term_checkbox')
 		   $array_value = explode(',',$value);
 		   ?>
         <div class="formtable">
-          <div class="lable-text">
+          <div class="lable-text radio-label">
             <label for="<?php echo $key;?>"><?php echo $row1->Name; ?></label>
           </div>
           <div class="input-box crf_checkbox <?php if($row1->Require==1)echo 'crf_checkboxrequired';?>">
@@ -541,8 +552,10 @@ if($row1->Type=='term_checkbox')
 			$radio_count = 1;
 			foreach($arr_radio as $radio)
 			{?>
-            <div class="upb-check-text"><?php echo $radio; ?></div>
-            <input type="checkbox" class="regular-text <?php echo $row1->Class;?>" value="<?php echo $radio;?>" id="<?php echo $key;?>"  name="<?php echo $row1->Name.'[]';?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> <?php if($row1->Readonly==1)echo 'disabled';?>>
+            <div class="upb-check-text">
+			<div class="checkbox">
+			<label><?php echo $radio; ?></label>
+            <input type="checkbox" class="regular-text <?php echo $row1->Class;?>" value="<?php echo $radio;?>" id="<?php echo $key;?>"  name="<?php echo $key.'[]';?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> <?php if($row1->Readonly==1)echo 'disabled';?>></div></div>
             <?php $radio_count++; 
 			} ?>
              <br class="clear">
@@ -618,7 +631,7 @@ if($row1->Type=='term_checkbox')
       
       <!-- Custom fields in Registration form ends -->
       <?php if($enable_captcha=='yes') : ?>
-      <div class="formtable" align="center"> <div class="lable-text">
+      <div class="formtablee" align="center"> <div class="lable-text">
             <label>&nbsp;</label>
           </div>
        <div class="input-box input-box_captcha"> <?php echo recaptcha_get_html($publickey, $error); ?> </div></div>
@@ -630,7 +643,7 @@ if($row1->Type=='term_checkbox')
     
     <div class="customcrferror" style="display:none"></div>
     <div class="UltimatePB-Button-area" >
-      <input type="submit" value="Submit" class="button button-primary button-large" id="submit" name="submit">
+      <input type="submit" value="Submit" class="button button-primary button-large" style="color:#fff;" id="submit" name="submit">
       <input type="reset" value="Reset" class="button button-primary button-large" id="reset" name="reset" />
     </div>
   </form>

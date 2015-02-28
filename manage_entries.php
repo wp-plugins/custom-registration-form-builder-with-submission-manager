@@ -71,7 +71,7 @@ if($_REQUEST['form_id']!="")
 {
   $total = $wpdb->get_var( "SELECT count(*) FROM $crf_entries where form_id ='".$form_id."'" );
   $num_of_pages = ceil( $total / $limit );
-  $entries = $wpdb->get_results( "SELECT * FROM $crf_entries where form_id ='".$form_id."' LIMIT $offset, $limit" );
+  $entries = $wpdb->get_results( "SELECT * FROM $crf_entries where form_id ='".$form_id."' order by id desc LIMIT $offset, $limit");
 }
 
 if(empty($entries))
@@ -142,16 +142,28 @@ echo $fieldnamehalf.'...';
         <div class="cols" style="width:30px;"><a href="admin.php?page=crf_view_entry&id=<?php echo $entry->id;?>"><?php echo $i; ?></a></div>
         <?php
 	 $field =1;
-	 $value = @unserialize($entry->value); 
+	 $value = maybe_unserialize($entry->value); 
 	foreach($reg as $row)
 	{
 	$Customfield = str_replace(" ","_",$row->Name);
+	$Customfield1 = sanitize_key($row->Name).'_'.$row->Id;
 	if($field<=$show_field):
-	if(empty($value[$Customfield]))
-	{$result = "";}
+	
+	if(empty($value[$Customfield]) && empty($value[$Customfield1]) )
+	{
+		$result = "";
+	}
 	else
 	{
-	$result = 	$value[$Customfield];
+		if(!empty($value[$Customfield]) )
+		{
+			$result = 	$value[$Customfield];
+		}
+		else
+		{
+			$result = 	$value[$Customfield1];
+		}
+	
 	}
 	
 	if(is_array($result))

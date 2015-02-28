@@ -90,11 +90,11 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 {
 		
 	$stats = $wpdb->get_row( "SELECT * FROM $crf_stats where form_id ='".$content['id']."' and stats_key='".$_POST['crf_key']."'");
-	$stats_details = @unserialize($stats->details);
+	$stats_details = maybe_unserialize($stats->details);
 	$stats_details['submitted'] = "yes";
 	$stats_details['submit_time'] = time();
 	$stats_details['total_time'] = $stats_details['submit_time']-$stats_details['timestamp'];
-	$stats_final_details = serialize($stats_details);
+	$stats_final_details = maybe_serialize($stats_details);
 	$stats_update = "update $crf_stats set details ='".$stats_final_details."' where id=".$stats->id;
 	$wpdb->query($stats_update);
 	
@@ -119,7 +119,7 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		if(!empty($row1))
 		{
 			/*file addon start */
-			$Customfield = str_replace(" ","_",$row1->Name);
+			$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
 			
 			if ( is_plugin_active('file-upload-addon/file-upload.php') && $row1->Type=='file') 
 			{
@@ -145,7 +145,7 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		$entry['Browser'] = $_SERVER['HTTP_USER_AGENT'];	
 	}
 	
-	$entries = serialize($entry);
+	$entries = maybe_serialize($entry);
 	$insert_entries = "insert into $crf_entries values('','".$content['id']."','".$form_type."','".$autoapproval."','".$entries."')";
 	$wpdb->query($insert_entries);
 	
@@ -178,7 +178,7 @@ if(!empty($reg1))
  {
 	if(!empty($row1))
 	{
-		$Customfield = str_replace(" ","_",$row1->Name);
+		$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
 		if(!isset($prev_value)) $prev_value='';
 		add_user_meta( $newuser_id, $Customfield, $_POST[$Customfield], true );
 		update_user_meta( $newuser_id, $Customfield, $_POST[$Customfield], $prev_value );
@@ -280,7 +280,7 @@ else
 	  {
 		$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type ='email' order by ordering asc limit 1";
 		 $row1 = $wpdb->get_row($qry1);
-		 $emailfield = str_replace(" ","_",$row1->Name);
+		 $emailfield = sanitize_key($row1->Name).'_'.$row1->Id;
 		 $user_email =  $_POST[$emailfield];  
 	  }
 	  $headers = 'From:'.$from_email_address. "\r\n"; 
@@ -304,7 +304,16 @@ else
 					$val = implode(',',$val);	
 				}
 				$entryval = str_replace("_"," ",$key);
-				if($key!="user_pass"):
+				
+				$fields= explode("_", $key);
+				$fieldid = $fields[count($fields)-1];
+				if(is_numeric($fieldid))
+				{
+					$nameqry = "select Name from $crf_fields where id=".$fieldid;
+					$entryval = $wpdb->get_var($nameqry);
+				}
+				
+			  if($key!="user_pass"):
 				
 			  $notification_message .= '<tr><td><strong>'.$entryval.'</strong>: </td><td>'.$val.'</td></tr>';
 				endif;
@@ -330,7 +339,7 @@ $detail['User_IP'] = $_SERVER['REMOTE_ADDR'];
 $detail['Browser'] = $_SERVER['HTTP_USER_AGENT'];
 $detail['timestamp'] = time();
 $detail['key'] = time().$content['id'];
-$details = serialize($detail);
+$details = maybe_serialize($detail);
 $insert="INSERT INTO $crf_stats VALUES('','".$content['id']."','".$detail['key']."','".$details."')";
 $wpdb->query($insert);
 
@@ -411,7 +420,7 @@ $qry1 = "select * from $crf_fields where Form_Id = '".$content['id']."' order by
 $reg1 = $wpdb->get_results($qry1);
 	 foreach($reg1 as $row1)
 	 {
-		 $key = str_replace(" ","_",$row1->Name);
+		 $key = sanitize_key($row1->Name).'_'.$row1->Id;
 		 $value = $row1->Value;
 		 if($row1->Type=='heading')
 		 {?>
@@ -434,7 +443,7 @@ if($row1->Type=='term_checkbox')
             <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>">
    <label for="<?php echo $key;?>"><?php echo $row1->Name;?><?php if($row1->Require==1)echo '<sup class="crf_estric">*</sup>';?></label>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
-            <textarea disabled rows="4"><?php echo $row1->Description;?></textarea>
+            <textarea disabled rows="4" class="textareaa"><?php echo $row1->Description;?></textarea>
             
           </div>
         </div>
@@ -514,7 +523,7 @@ if($row1->Type=='term_checkbox')
 									foreach($arr_radio as $radio)
 									{?>
             <label><?php echo $radio; ?></label>
-            <input type="radio" class="regular-text  <?php echo $row1->Class;?>" value="<?php echo $radio;?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> id="<?php echo $key;?>" style="width:50px;" name="<?php echo $key;?>"  <?php if($row1->Readonly==1)echo 'disabled';?>>
+            <input type="radio" class="regular-text  <?php echo $row1->Class;?>" value="<?php echo $radio;?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> id="<?php echo $key;?>" name="<?php echo $key;?>"  <?php if($row1->Readonly==1)echo 'disabled';?>>
             <?php } ?>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
           </div>
@@ -536,7 +545,7 @@ if($row1->Type=='term_checkbox')
 			foreach($arr_radio as $radio)
 			{?>
             <label><?php echo $radio; ?></label>
-            <input type="checkbox" class="regular-text <?php echo $row1->Class;?>" value="<?php echo $radio;?>" id="<?php echo $key;?>"  name="<?php echo $row1->Name.'[]';?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> <?php if($row1->Readonly==1)echo 'disabled';?>>
+            <input type="checkbox" class="regular-text <?php echo $row1->Class;?>" value="<?php echo $radio;?>" id="<?php echo $key;?>"  name="<?php echo $key.'[]';?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> <?php if($row1->Readonly==1)echo 'disabled';?>>
             <?php $radio_count++; 
 			} ?>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
@@ -611,7 +620,7 @@ if($row1->Type=='term_checkbox')
       
       <!-- Custom fields in Registration form ends -->
       <?php if($enable_captcha=='yes') : ?>
-      <div class="formtable" align="center"><div class="crf_input crf_input_captcha"> <?php echo recaptcha_get_html($publickey, $error); ?> </div></div>
+      <div class="formtablee" align="center"><div class="crf_input crf_input_captcha"> <?php echo recaptcha_get_html($publickey, $error); ?> </div></div>
       <div class="reg_frontErr custom_error crf_error_text" id="divrecaptcha_response_field" style="display:none;"></div>
       <?php /*?><div class="reg_frontErr"  style="display:none;width: 299px !important; margin-left: 170px !important;"> <?php _e('Please fill this to prove you aren\'t a robot.',$textdomain);?> </div><?php */?>
       <?php endif; ?>

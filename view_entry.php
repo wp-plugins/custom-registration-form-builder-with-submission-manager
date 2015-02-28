@@ -25,7 +25,7 @@ if(isset($_REQUEST['delete_entry']) && isset($_REQUEST['id']))
 
 $qry = "select form_name from $crf_forms where id=".$entry->form_id;
 $form_name = $wpdb->get_var($qry);
-$value = @unserialize($entry->value);
+$value = maybe_unserialize($entry->value);
 
 if(isset($_REQUEST['user_enable']) && isset($_REQUEST['id']))
 {
@@ -83,7 +83,7 @@ if(isset($_REQUEST['user_enable']) && isset($_REQUEST['id']))
 	   {
 		  if(!empty($row1))
 		  {
-			  $Customfield = str_replace(" ","_",$row1->Name);
+			  $Customfield = sanitize_key($row1->Name).$row1->Id;
 			  if(!isset($prev_value)) $prev_value='';
 			  add_user_meta( $user_id, $Customfield, $value[$Customfield], true );
 			  update_user_meta( $user_id, $Customfield, $value[$Customfield], $prev_value );
@@ -174,10 +174,19 @@ if(!empty($value))
 			$val = implode(',',$val);	
 		}
 		$Customfield = str_replace("_"," ",$key);
+		$fields= explode("_", $key);
+		$fieldid = $fields[count($fields)-1];
+		if(is_numeric($fieldid))
+		{
+			$qry = "select Name from $crf_fields where id=".$fieldid;
+			$Customfield = $wpdb->get_var($qry);
+		}
+		
 		/*file addon start */
 		global $filefields; 
 		if(isset($filefields) && in_array($key,$filefields)) continue;
 		/*file addon end */
+		
 		if($key!="user_pass" && $key!="User_IP" && $key!="user_ip"):
   		?>
       <p><span class="entry_heading"><?php echo $Customfield; ?> : </span><span class="entry_Value"><?php echo $val; ?></span></p>

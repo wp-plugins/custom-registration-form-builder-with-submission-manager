@@ -1,10 +1,60 @@
 /*
 * styles for settings page
 */
+
+.entry-title{
+	margin:10px auto !important;
+} 
+.crf_contact_form input[type=radio]{
+  -webkit-appearance: radio !important;
+   -moz-appearance:radio !important;
+   appearance: radio !important;
+   margin:0 !important;
+   width:auto;
+   border:none \9;
+   border:none \8;
+   border:none \7;
+}
+.crf_contact_form input[type=checkbox]{
+	 -webkit-appearance: checkbox !important;
+   -moz-appearance:checkbox !important;
+   appearance: checkbox !important;
+   margin:0 !important;
+   width:auto;
+   border:none \9;
+   border:none \8;
+   border:none \7;
+  
+ }
+ #recaptcha_response_field{
+	display:inline-block;
+	height:17px;
+}
+#recaptcha_widget_div table{
+	table-layout:inherit;
+}
+#recaptcha_widget_div table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td{
+	line-height:normal !important;
+}
+th:empty, td:empty, th.pad, td.pad {
+    opacity:1;
+}
 .crf_contact_form * {
     text-align: left !important;
-    line-height: normal !important;
+    
 }
+.recaptcha_input_area #recaptcha_response_field{
+	min-height:17px !important;
+	margin-top:inherit;
+}
+
+
+.crf_contact_form input[type="checkbox"], .crf_contact_form input[type="radio"] {
+	top:1px;
+	*margin:0px;
+	float:none;
+}
+.crf_contact_form .crf_heading h1{}
 .crf_contact_form p,
 .widget .crf_contact_form p {
     margin: 0 !important;
@@ -30,7 +80,7 @@
 .crf_input,
 .crf_select,
 .crf_checkbox {
-   max-width: 320px;
+   max-width: 350px;
 }
 .crf_input_captcha {
     margin: 20px 0;
@@ -52,6 +102,10 @@
 }
 .crf_input_submit {
     padding: 10px 0 0;
+}
+.crf_contact_form label {
+	display:inline-block;
+	width:auto;
 }
 .crf_contact_form input.crf_contact_submit {
     cursor: pointer !important;
@@ -80,7 +134,7 @@
 .crf_contact_form input[type="checkbox"],
 .crf_contact_form input[type="radio"] {
 	position: relative;
-	top: 2px
+	
 }
 .crf_info {
 	color: rgb(136, 136, 136);
@@ -100,6 +154,10 @@
 .crf_action_after_send_block  input[type="text"] {
 	width: 250px;
 }
+.formtable input[type="text"] {
+	min-height:30px;}
+.formtable select{
+	min-height:33px;}	
 .crf_label_language_tab {
 	float: left;
 	padding: 2px 5px;
@@ -197,6 +255,16 @@
 	white-space:nowrap;
 	background: #EAEAEA;
 }
+.textareaa{
+	line-height:normal;
+	resize:none;
+	overflow:auto !important;
+	overflow:auto \9;
+	overflow:auto \8;
+	overflow:auto \7;
+	overflow:auto \6;
+
+}
 /* crf_settings_table */
 .crf_settings_table th, .crf_settings_table td {
 	border-bottom: 1px solid #DFDFDF;
@@ -223,3 +291,6 @@ font-weight: bold; text-align:left;}
 .crf_contact_attachment .fileinput a {padding-top: 10px;
 float: left;}
 .crf_estric{ font-weight:bold; color:red;}
+.crf_label label{
+	margin-bottom:3px;
+}
