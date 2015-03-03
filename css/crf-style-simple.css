@@ -121,7 +121,7 @@ th:empty, td:empty, th.pad, td.pad {
 }
 .crf_input,
 .crf_select {
-    position: relative;
+    /*position: relative;*/
 }
 .crf_error_text {
 	color: red;

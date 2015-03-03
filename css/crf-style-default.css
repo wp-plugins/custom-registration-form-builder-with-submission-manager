@@ -219,6 +219,9 @@ th:empty, td:empty, th.pad, td.pad {
 .term-box{
 	margin-bottom:10px;
 }
+.Checkbox label{
+	cursor:pointer;
+}
 
 .UltimatePB-Button-area #submit,.UltimatePB-Button-area #reset {
 	background-color:#FFAE00;

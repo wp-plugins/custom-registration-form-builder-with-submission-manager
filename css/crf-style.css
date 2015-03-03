@@ -350,7 +350,7 @@ html {
 
 
 
-	width: 45%;
+	width: 66%;
 	padding:2px;
 	border-top-right-radius:0px !important ;
 	border-bottom-right-radius:0px !important ;
@@ -3378,7 +3378,8 @@ width: 100%;}
     cursor: pointer;
     display: inline-block;
     font-size: 11px;
-	margin-top:-3px;
+	margin-top:0px;
+	line-height:1.5;
     line-height:11px;
 	margin-right:3px;
     margin-bottom: 0;

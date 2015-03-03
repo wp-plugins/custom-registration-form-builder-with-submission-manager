@@ -443,9 +443,10 @@ if($row1->Type=='term_checkbox')
             <label>&nbsp;</label>
           </div>
           <div class="input-box <?php if($row1->Require==1)echo 'crf_termboxrequired';?>">
+          <div class="term-box">
             <input type="checkbox" value="<?php echo 'yes';?>" id="<?php echo $key;?>" name="<?php echo $key;?>"  class="regular-text <?php echo $row1->Class;?>">
           
-            <label for="<?php echo $key;?>"><?php echo $row1->Name;?><?php if($row1->Require==1)echo '<sup class="crf_estric">*</sup>';?></label>
+            <label for="<?php echo $key;?>"><?php echo $row1->Name;?><?php if($row1->Require==1)echo '<sup class="crf_estric">*</sup>';?></label></div>
             <div class="reg_frontErr custom_error crf_error_text" style="display:none;"></div>
             <textarea disabled rows="3" class="textareaa"><?php echo $row1->Description;?></textarea>
             
@@ -553,7 +554,7 @@ if($row1->Type=='term_checkbox')
 			foreach($arr_radio as $radio)
 			{?>
             <div class="upb-check-text">
-			<div class="checkbox">
+			<div class="Checkbox">
 			<label><?php echo $radio; ?></label>
             <input type="checkbox" class="regular-text <?php echo $row1->Class;?>" value="<?php echo $radio;?>" id="<?php echo $key;?>"  name="<?php echo $key.'[]';?>" <?php if($value!=""){if(in_array($radio,$array_value))echo 'checked';} ?> <?php if($row1->Readonly==1)echo 'disabled';?>></div></div>
             <?php $radio_count++; 
@@ -793,7 +794,7 @@ if($row1->Type=='term_checkbox')
         });
 		
 		jQuery('.crf_checkboxrequired').each(function (index, element) { //Validation for number type custom field
-		var checkboxlenght = jQuery(this).children('input[type="checkbox"]:checked');
+		var checkboxlenght = jQuery(this).children('.upb-check-text').children('.Checkbox').children('input[type="checkbox"]:checked');
 		
         var atLeastOneIsChecked = checkboxlenght.length > 0;
         if (atLeastOneIsChecked == true) {
@@ -805,7 +806,7 @@ if($row1->Type=='term_checkbox')
 		});
 		
 		jQuery('.crf_termboxrequired').each(function (index, element) { //Validation for number type custom field
-		var checkboxlenght = jQuery(this).children('input[type="checkbox"]:checked');
+		var checkboxlenght = jQuery(this).children('.term-box').children('input[type="checkbox"]:checked');
 		
         var atLeastOneIsChecked = checkboxlenght.length > 0;
         if (atLeastOneIsChecked == true) {
@@ -817,7 +818,7 @@ if($row1->Type=='term_checkbox')
 		});
 		
 		jQuery('.crf_radiorequired').each(function (index, element) { //Validation for number type custom field
-		var radiolenght = jQuery(this).children('input[type="radio"]:checked');
+		var radiolenght = jQuery(this).children('.upb-check-text').children('.Checkbox').children('input[type="radio"]:checked');
 		
         var atLeastOneIsChecked = radiolenght.length > 0;
         if (atLeastOneIsChecked == true) {
