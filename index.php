@@ -3,7 +3,7 @@
 	Plugin Name: Custom User Registration Form Builder
 	Plugin URI: https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.3.15
+	Version: 1.3.16
 	Author: CMSHelpLive
 	Author URI: https://profiles.wordpress.org/cmshelplive
 	License: gpl2
@@ -11,12 +11,12 @@
 ob_start();
 /*Plugin activation hook*/
 global $crf_db_version;
-$crf_db_version = 1.5;
+$crf_db_version = 1.6;
 
 register_activation_hook ( __FILE__, 'activate_custom_registration_form_with_sm_plugin' );
 function activate_custom_registration_form_with_sm_plugin()
 {
-	add_option('crf_db_version','1.5');
+	add_option('crf_db_version','1.6');
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
 	$crf_option=$wpdb->prefix."crf_option";
@@ -80,6 +80,7 @@ function activate_custom_registration_form_with_sm_plugin()
   `redirect_page_id` int(11) NOT NULL,
   `redirect_url_url` longtext NOT NULL,
   `send_email` int(11) NOT NULL,
+  `form_option` longtext,
   PRIMARY KEY (`id`)
 )";
 	dbDelta( $sqlcreate );
@@ -141,6 +142,10 @@ function crf_update_db_check()
 			PRIMARY KEY(id)
 		)";
 		dbDelta( $sqlcreate );
+				
+		$crf_forms =$wpdb->prefix."crf_forms";
+		$sqlcreate = "ALTER TABLE $crf_forms ADD form_option longtext";
+		$wpdb->query($sqlcreate);
 		
 		update_option( "crf_db_version", $crf_db_version );
 	}

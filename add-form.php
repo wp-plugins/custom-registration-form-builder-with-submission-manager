@@ -6,13 +6,17 @@ $crf_forms =$wpdb->prefix."crf_forms";
 $path =  plugin_dir_url(__FILE__); 
 if(isset($_POST['submit_form']) && trim($_POST['form_name'])!="")
 {
+	$formoptions = array();
+	$formoptions['submit_button_label'] = $_POST['submit_button_label'];
+	$options = maybe_serialize($formoptions);
+	
 	if(isset($_POST['form_id']) && $_POST['form_id']==0)
 	{
-	$qry = "insert into $crf_forms values('','".$_POST['form_name']."','".$_POST['form_des']."','".$_POST['form_type']."','".$_POST['form_custom_text']."','".$_POST['welcome_email_subject']."','".$_POST['success_message']."','".$_POST['welcome_email_message']."','".$_POST['redirect_option']."','".$_POST['page_id']."','".$_POST['redirect_url']."','".$_POST['send_email']."')";	
+	$qry = "insert into $crf_forms values('','".$_POST['form_name']."','".$_POST['form_des']."','".$_POST['form_type']."','".$_POST['form_custom_text']."','".$_POST['welcome_email_subject']."','".$_POST['success_message']."','".$_POST['welcome_email_message']."','".$_POST['redirect_option']."','".$_POST['page_id']."','".$_POST['redirect_url']."','".$_POST['send_email']."','".$options."')";	
 	}
 	else
 	{
-	$qry = "update $crf_forms set form_name = '".$_POST['form_name']."',form_desc='".$_POST['form_des']."',form_type='".$_POST['form_type']."',custom_text='".$_POST['form_custom_text']."',crf_welcome_email_subject='".$_POST['welcome_email_subject']."',success_message='".$_POST['success_message']."',crf_welcome_email_message='".$_POST['welcome_email_message']."',redirect_option='".$_POST['redirect_option']."',redirect_page_id='".$_POST['page_id']."',redirect_url_url='".$_POST['redirect_url']."',send_email='".$_POST['send_email']."' where id='".$_POST['form_id']."'";	
+	$qry = "update $crf_forms set form_name = '".$_POST['form_name']."',form_desc='".$_POST['form_des']."',form_type='".$_POST['form_type']."',custom_text='".$_POST['form_custom_text']."',crf_welcome_email_subject='".$_POST['welcome_email_subject']."',success_message='".$_POST['success_message']."',crf_welcome_email_message='".$_POST['welcome_email_message']."',redirect_option='".$_POST['redirect_option']."',redirect_page_id='".$_POST['page_id']."',redirect_url_url='".$_POST['redirect_url']."',send_email='".$_POST['send_email']."',form_option='".$options."' where id='".$_POST['form_id']."'";	
 	}
 	$wpdb->query($qry);
 	wp_redirect('admin.php?page=crf_manage_forms');exit;
@@ -21,6 +25,8 @@ if(isset($_REQUEST['id']))
 {
 	$qry = "select * from $crf_forms where id =".$_REQUEST['id'];
 	$row = $wpdb->get_row($qry);
+	$form_options = maybe_unserialize($row->form_option);
+	$submit_button_label = $form_options['submit_button_label'];
 }
 else
 {
@@ -176,6 +182,18 @@ $args = array(
         <textarea name="success_message" id="success_message" tabindex="13" required><?php if(!empty($row)) echo $row->success_message; ?></textarea>
       </div>
     </div>
+    
+        <div class="crf-form-setting">
+      <div class="crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Submit Button Label:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="crf-form-right-area">
+       <input type="text" name="submit_button_label" id="submit_button_label" tabindex="14" value="<?php if(isset($submit_button_label)) echo $submit_button_label;?>" />
+      </div>
+    </div>
+
     <div class="crf-form-footer">
       <div class="crf-form-button">
         <input type="hidden" name="form_id" id="form_id" value="<?php if(isset($_REQUEST['id'])) echo $_REQUEST['id']?>" />

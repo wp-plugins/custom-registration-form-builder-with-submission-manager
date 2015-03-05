@@ -19,6 +19,11 @@ $form_type = $wpdb->get_var($qry);
 $qry="select `form_name` from $crf_forms where id=".$content['id'];
 $form_name = $wpdb->get_var($qry);
 
+$qry="select `form_option` from $crf_forms where id=".$content['id'];
+$form_options = $wpdb->get_var($qry);
+$form_option = maybe_unserialize($form_options);
+$submit_button_label = $form_option['submit_button_label'];
+
 $qry="select `value` from $crf_option where fieldname='userip'";
 $userip = $wpdb->get_var($qry);
 
@@ -629,7 +634,7 @@ if($row1->Type=='term_checkbox')
     
     <div class="customcrferror crf_error_text" style="display:none"></div>
     <div class="UltimatePB-Button-area crf_input crf_input_submit" >
-      <input type="submit" value="Submit" class="crf_contact_submit" id="submit" name="submit">
+      <input type="submit" value="<?php if($submit_button_label!="")echo $submit_button_label;else echo 'Submit'?>" class="crf_contact_submit" id="submit" name="submit">
      
     </div>
   </form>
