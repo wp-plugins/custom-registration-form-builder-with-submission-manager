@@ -2,12 +2,13 @@
 /*Controls registration form behavior on the front end*/
 global $wpdb;
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+//date_default_timezone_set(get_option('timezone_string')); 
 wp_enqueue_style( 'crf-style', plugin_dir_url(__FILE__) . 'css/crf-style.css');
 $textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
-$path =  plugin_dir_url(__FILE__);
 $crf_stats =$wpdb->prefix."crf_stats";
+$path =  plugin_dir_url(__FILE__);
 $crf_option=$wpdb->prefix."crf_option";
 $crf_entries =$wpdb->prefix."crf_entries";
 $select="select `value` from $crf_option where fieldname='enable_captcha'";
@@ -23,6 +24,7 @@ $qry="select `form_option` from $crf_forms where id=".$content['id'];
 $form_options = $wpdb->get_var($qry);
 $form_option = maybe_unserialize($form_options);
 $submit_button_label = $form_option['submit_button_label'];
+$role = 'subscriber'; 
 
 $qry="select `value` from $crf_option where fieldname='userip'";
 $userip = $wpdb->get_var($qry);
@@ -93,7 +95,7 @@ else
 }
 if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pressed or not
 {
-			
+		
 	$stats = $wpdb->get_row( "SELECT * FROM $crf_stats where form_id ='".$content['id']."' and stats_key='".$_POST['crf_key']."'");
 	$stats_details = maybe_unserialize($stats->details);
 	$stats_details['submitted'] = "yes";
@@ -103,7 +105,6 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 	$stats_update = "update $crf_stats set details ='".$stats_final_details."' where id=".$stats->id;
 	$wpdb->query($stats_update);
 	
-
 	$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
 	$reg1 = $wpdb->get_results($qry1);
 	$entry= array();
@@ -114,7 +115,7 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 			$entry['user_name'] =  $_POST['user_name'];
 			$entry['user_email'] =  $_POST['user_email'];
 			$entry['user_pass'] =  $_POST['inputPassword'];
-			$entry['role']	= 'Subscriber';	
+			$entry['role']	= $role;
 	}
 	
 	if(!empty($reg1))
@@ -150,70 +151,73 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 		$entry['Browser'] = $_SERVER['HTTP_USER_AGENT'];	
 	}
 	
+	$entry['crf_key'] = $_POST['crf_key'];
+	$entry['crf_timestamp'] = time();
+	
+	
 	$entries = maybe_serialize($entry);
 	$insert_entries = "insert into $crf_entries values('','".$content['id']."','".$form_type."','".$autoapproval."','".$entries."')";
 	$wpdb->query($insert_entries);
 	
 	if($form_type=='reg_form' && $autoapproval=='yes')
 	{
-$user_name = $_POST['user_name']; // receiving username
-$user_email = $_POST['user_email']; // receiving email address
-$inputPassword = $_POST['inputPassword']; // receiving password
-$user_confirm_password = $_POST['user_confirm_password']; // receiving confirm password
-$user_id = username_exists( $user_name ); // Checks if username is already exists.
-
-if ( !$user_id and email_exists($user_email) == false )//Creates password if password auto-generation is turned on in the settings
-{
-	if($pwd_show != "no")
-	{
-		$random_password = $inputPassword;
-	}
-	else
-	{
-		$random_password = $inputPassword;
-	}
-$user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
-
-$role = 'subscriber';
-/*Insert custom field values if displayed in registration form*/
-$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
-$reg1 = $wpdb->get_results($qry1);
-if(!empty($reg1))
-{
- foreach($reg1 as $row1)
- {
-	if(!empty($row1))
-	{
-		$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
-		if(!isset($prev_value)) $prev_value='';
-		add_user_meta( $user_id, $Customfield, $_POST[$Customfield], true );
-		update_user_meta( $user_id, $Customfield, $_POST[$Customfield], $prev_value );
-	}
- }
-}
-$role = 'subscriber';
-$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
-/*Assigns user role to newly registered user*/
-}
-else
-{
-	$random_password = __('User already exists.  Password inherited.',$textdomain);
-?>
-<!--HTML for displaying error when username already exists (This is different from error shown by jQuery validation.)-->
-<div id="upb-formm">
-  <div id="main-upb-form">
-    <div class="main-edit-profile" align="center"><?php _e( 'Sorry, the username or e-mail is already taken.', $textdomain ); ?><br />
-      <br />
-      <div align="center" style="width:430px;"> <a href="javascript:void(0);" onclick="javascript:history.back();" title="Registration">
-        <div class="UltimatePB-Button"><?php _e( 'Go back to Registration.', $textdomain ); ?></div>
-        </a> &nbsp; <a href="<?php echo site_url(); ?>">
-        <div class="UltimatePB-Button"><?php _e( 'Go back to Home-Page.', $textdomain ); ?></div>
-        </a> </div>
-    </div>
-  </div>
-</div>
-<?php
-	}
+	  $user_name = $_POST['user_name']; // receiving username
+	  $user_email = $_POST['user_email']; // receiving email address
+	  $inputPassword = $_POST['inputPassword']; // receiving password
+	  $user_confirm_password = $_POST['user_confirm_password']; // receiving confirm password
+	  $user_id = username_exists( $user_name ); // Checks if username is already exists.
+	  
+	  if ( !$user_id and email_exists($user_email) == false )//Creates password if password auto-generation is turned on in the settings
+	  {
+		  if($pwd_show != "no")
+		  {
+			  $random_password = $inputPassword;
+		  }
+		  else
+		  {
+			  $random_password = $inputPassword;
+		  }
+		  $user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
+		  $user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
+		  
+		  /*Insert custom field values if displayed in registration form*/
+		  $qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
+		  $reg1 = $wpdb->get_results($qry1);
+			if(!empty($reg1))
+			{
+			   foreach($reg1 as $row1)
+			   {
+				  if(!empty($row1))
+				  {
+					  $Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
+					  if(!isset($prev_value)) $prev_value='';
+					  if(!isset($_POST[$Customfield]))$_POST[$Customfield]='';
+					  add_user_meta( $user_id, $Customfield, $_POST[$Customfield], true );
+					  update_user_meta( $user_id, $Customfield, $_POST[$Customfield], $prev_value );
+				  }
+			   }
+			}
+	  }
+	  else
+	  {
+		  $random_password = __('User already exists.  Password inherited.',$textdomain);
+	  ?>
+	  <!--HTML for displaying error when username already exists (This is different from error shown by jQuery validation.)-->
+	  <div id="upb-formm">
+		<div id="main-upb-form">
+		  <div class="main-edit-profile" align="center"><?php _e( 'Sorry, the username or e-mail is already taken.', $textdomain ); ?><br />
+			<br />
+			<div align="center" style="width:430px;"> <a href="javascript:void(0);" onclick="javascript:history.back();" title="Registration">
+			  <div class="UltimatePB-Button"><?php _e( 'Go back to Registration.', $textdomain ); ?></div>
+			  </a> &nbsp; <a href="<?php echo site_url(); ?>">
+			  <div class="UltimatePB-Button"><?php _e( 'Go back to Home-Page.', $textdomain ); ?></div>
+			  </a> </div>
+		  </div>
+		</div>
+	  </div>
+	  <?php
+		  }
+	
 	}
 	$qry="SELECT success_message FROM $crf_forms WHERE id=".$content['id'];
 	$success_message = $wpdb->get_var($qry);
@@ -285,11 +289,19 @@ else
 	  {
 		$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type ='email' order by ordering asc limit 1";
 		 $row1 = $wpdb->get_row($qry1);
+		 if(isset($row1))
+		 {
 		 $emailfield = sanitize_key($row1->Name).'_'.$row1->Id;
 		 $user_email =  $_POST[$emailfield];  
+		 }
 	  }
 	  $headers = 'From:'.$from_email_address. "\r\n"; 
-	  wp_mail( $user_email, $subject, $message, $headers );//Sends email to user on successful registration
+	  
+	  if(isset($user_email))
+	  {
+	  	wp_mail( $user_email, $subject, $message, $headers );//Sends email to user on successful registration
+	  }
+	  
 	  }
 	  /*admin notification start */
 	  $qry="select `value` from $crf_option where fieldname='adminnotification'";
@@ -309,7 +321,7 @@ else
 					$val = implode(',',$val);	
 				}
 				$entryval = str_replace("_"," ",$key);
-								
+				
 				$fields= explode("_", $key);
 				$fieldid = $fields[count($fields)-1];
 				if(is_numeric($fieldid))
@@ -348,16 +360,16 @@ $details = maybe_serialize($detail);
 $insert="INSERT INTO $crf_stats VALUES('','".$content['id']."','".$detail['key']."','".$details."')";
 $wpdb->query($insert);
 
-
+	
 ?>
 <!--HTML for displaying registration form-->
 <div id="upb-formm">
   <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
-      <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
+    <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
   <input type="hidden" value="<?php echo $detail['key'];?>" name="crf_key" />
     <div class="info-textt bold-tex"><?php echo $custom_text;?></div>
     
-   <div id="main-upb-formm">
+    <div id="main-upb-formm">
       <?php if($form_type=='reg_form'): ?>
       <div class="formtable">
         <div class="lable-text">
@@ -438,7 +450,8 @@ $reg1 = $wpdb->get_results($qry1);
 		if($row1->Type=='paragraph')
 		 {?>
         <div class="formtable crf_paragraph">
-         <p class="info-textt" name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
+
+          <p class="info-textt" name="<?php echo $key;?>" class="<?php echo $row1->Class;?>"><?php echo $row1->Option_Value;?></p>
         </div>
         <?php }
 if($row1->Type=='term_checkbox')
@@ -649,7 +662,7 @@ if($row1->Type=='term_checkbox')
     
     <div class="customcrferror" style="display:none"></div>
     <div class="UltimatePB-Button-area" >
-      <input type="submit" value="<?php if($submit_button_label!="")echo $submit_button_label;else echo 'Submit'?>" class="button button-primary button-large" style="color:#fff;" id="submit" name="submit">
+      <input type="submit" value="<?php if($submit_button_label!="")echo $submit_button_label;else echo 'Submit'?>" class="button button-primary button-large" style="color:#fff;" id="submit" name="submit" >
       <input type="reset" value="Reset" class="button button-primary button-large" id="reset" name="reset" />
     </div>
   </form>

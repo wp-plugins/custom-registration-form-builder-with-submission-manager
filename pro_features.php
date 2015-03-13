@@ -19,6 +19,33 @@ $path =  plugin_dir_url(__FILE__);
       
       <div class="coming-soon-box">
         <div class="File-Upload-box">
+           <div class="File-Upload-box-left green">
+            <img src="<?php echo $path; ?>images/green-icon.png">
+           </div>
+           <div class="File-Upload-box-right">
+            <h3>Analytics Pack</h3>
+            <p>A whole new way of looking at your forms! This comprehensive add-on puts two new menu items at your disposal, which track and create beautiful looking graphs from data captured by your forms. Comes handy to analyze and experiment for increasing conversions.</p>
+            <div class="cler"></div>
+            <?php
+			/*file addon start */
+			if ( is_plugin_active('analytics-pack/analytics.php') ) {
+				?>
+                <a style="cursor:default" class="purchased">Purchased</a>
+                <?php }
+                else
+				{
+					?>
+                    <a target="_blank" href="http://cmshelplive.com/accounts/cart.php?a=add&pid=64">Buy Now</a>
+             <span>Only 49.95 US$</span>
+                    <?php
+				}
+                ?>
+            
+             <div class="cler"></div>
+           </div>
+           <div class="cler"></div>
+        </div>
+        <div class="File-Upload-box File-Upload-box2">
            <div class="File-Upload-box-left">
             <img src="<?php echo $path; ?>images/fill-upload-icon.png">
            </div>
@@ -51,6 +78,7 @@ $path =  plugin_dir_url(__FILE__);
            <p>watch out for this space</p>
          
         </div>
+        
         
       </div>
     

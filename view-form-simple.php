@@ -2,12 +2,13 @@
 /*Controls registration form behavior on the front end*/
 global $wpdb;
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+//date_default_timezone_set(get_option('timezone_string')); 
 wp_enqueue_style( 'crf-style-simple', plugin_dir_url(__FILE__) . 'css/crf-style-simple.css');
 $textdomain = 'custom-registration-form-pro-with-submission-manager';
 $crf_forms =$wpdb->prefix."crf_forms";
 $crf_fields =$wpdb->prefix."crf_fields";
-$path =  plugin_dir_url(__FILE__);
 $crf_stats =$wpdb->prefix."crf_stats";
+$path =  plugin_dir_url(__FILE__);
 $crf_option=$wpdb->prefix."crf_option";
 $crf_entries =$wpdb->prefix."crf_entries";
 $select="select `value` from $crf_option where fieldname='enable_captcha'";
@@ -23,6 +24,7 @@ $qry="select `form_option` from $crf_forms where id=".$content['id'];
 $form_options = $wpdb->get_var($qry);
 $form_option = maybe_unserialize($form_options);
 $submit_button_label = $form_option['submit_button_label'];
+$role = 'subscriber'; 
 
 $qry="select `value` from $crf_option where fieldname='userip'";
 $userip = $wpdb->get_var($qry);
@@ -93,7 +95,7 @@ else
 }
 if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pressed or not
 {
-		
+	
 	$stats = $wpdb->get_row( "SELECT * FROM $crf_stats where form_id ='".$content['id']."' and stats_key='".$_POST['crf_key']."'");
 	$stats_details = maybe_unserialize($stats->details);
 	$stats_details['submitted'] = "yes";
@@ -103,18 +105,16 @@ if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pre
 	$stats_update = "update $crf_stats set details ='".$stats_final_details."' where id=".$stats->id;
 	$wpdb->query($stats_update);
 	
-
 	$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
 	$reg1 = $wpdb->get_results($qry1);
 	$entry= array();
-	
 	if($form_type=='reg_form')
 	{
 			$user_email = $_POST['user_email'];
 			$entry['user_name'] =  $_POST['user_name'];
 			$entry['user_email'] =  $_POST['user_email'];
 			$entry['user_pass'] =  $_POST['inputPassword'];
-			$entry['role']	= 'Subscriber';	
+			$entry['role']	= $role;
 	}
 	
 	if(!empty($reg1))
@@ -172,28 +172,28 @@ if ( !$user_id and email_exists($user_email) == false )//Creates password if pas
 	{
 		$random_password = $inputPassword;
 	}
-$newuser_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
-$role = 'subscriber';
-/*Insert custom field values if displayed in registration form*/
-$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
-$reg1 = $wpdb->get_results($qry1);
-if(!empty($reg1))
-{
- foreach($reg1 as $row1)
- {
-	if(!empty($row1))
+	$user_id = wp_create_user( $user_name, $random_password, $user_email );//Creates new WP user after successful registration
+	$user_id = wp_update_user( array( 'ID' => $user_id, 'role' => $role ) );
+	
+	/*Insert custom field values if displayed in registration form*/
+	$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type not in('heading','paragraph') order by ordering asc";
+	$reg1 = $wpdb->get_results($qry1);
+	if(!empty($reg1))
 	{
-		$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
-		if(!isset($prev_value)) $prev_value='';
-		add_user_meta( $newuser_id, $Customfield, $_POST[$Customfield], true );
-		update_user_meta( $newuser_id, $Customfield, $_POST[$Customfield], $prev_value );
+	 foreach($reg1 as $row1)
+	 {
+		if(!empty($row1))
+		{
+			$Customfield = sanitize_key($row1->Name).'_'.$row1->Id;
+			if(!isset($prev_value)) $prev_value='';
+			if(!isset($_POST[$Customfield]))$_POST[$Customfield]='';
+			add_user_meta( $user_id, $Customfield, $_POST[$Customfield], true );
+			update_user_meta( $user_id, $Customfield, $_POST[$Customfield], $prev_value );
+		}
+	 }
 	}
- }
-}
 
-/*Assigns user role to newly registered user*/
-$role = 'subscriber';
-$newuser_id = wp_update_user( array( 'ID' => $newuser_id, 'role' => $role ) );
+
 }
 else
 {
@@ -285,11 +285,18 @@ else
 	  {
 		$qry1 = "select * from $crf_fields where Form_Id= '".$content['id']."' and Type ='email' order by ordering asc limit 1";
 		 $row1 = $wpdb->get_row($qry1);
+		 if(isset($row1)){
 		 $emailfield = sanitize_key($row1->Name).'_'.$row1->Id;
 		 $user_email =  $_POST[$emailfield];  
+		 }
 	  }
 	  $headers = 'From:'.$from_email_address. "\r\n"; 
-	  wp_mail( $user_email, $subject, $message, $headers );//Sends email to user on successful registration
+	  
+	  if(isset($user_email))
+	  {
+	 	 wp_mail( $user_email, $subject, $message, $headers );//Sends email to user on successful registration
+	  }
+	  
 	  }
 	  /*admin notification start */
 	  $qry="select `value` from $crf_option where fieldname='adminnotification'";
@@ -309,7 +316,7 @@ else
 					$val = implode(',',$val);	
 				}
 				$entryval = str_replace("_"," ",$key);
-				
+								
 				$fields= explode("_", $key);
 				$fieldid = $fields[count($fields)-1];
 				if(is_numeric($fieldid))
@@ -318,7 +325,7 @@ else
 					$entryval = $wpdb->get_var($nameqry);
 				}
 				
-			  if($key!="user_pass"):
+				if($key!="user_pass"):
 				
 			  $notification_message .= '<tr><td><strong>'.$entryval.'</strong>: </td><td>'.$val.'</td></tr>';
 				endif;
@@ -347,16 +354,15 @@ $detail['key'] = time().$content['id'];
 $details = maybe_serialize($detail);
 $insert="INSERT INTO $crf_stats VALUES('','".$content['id']."','".$detail['key']."','".$details."')";
 $wpdb->query($insert);
-
 ?>
 <!--HTML for displaying registration form-->
 <div id="crf-form">
   <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
-    <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
+  <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
   <input type="hidden" value="<?php echo $detail['key'];?>" name="crf_key" />
     <div class="info-text"><?php echo $custom_text;?></div>
     
-    <div class="crf_contact_form">
+   <div class="crf_contact_form">
       <?php if($form_type=='reg_form'): ?>
       <div class="formtable">
         <div class="crf_label">

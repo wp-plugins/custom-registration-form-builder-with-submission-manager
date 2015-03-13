@@ -14,7 +14,7 @@ if(!empty($_POST['selected']) && isset($_POST['copy']))
 	{
 	foreach($results as $entry)
 	{
-		$qry = "insert into $crf_forms values('','".$entry->form_name."','".$entry->form_desc."','".$entry->form_type."','".$entry->custom_text."','".$entry->crf_welcome_email_subject."','".$entry->success_message."','".$entry->crf_welcome_email_message."','".$entry->redirect_option."','".$entry->redirect_page_id."','".$entry->redirect_url_url."','".$entry->send_email."')";	
+		$qry = "insert into $crf_forms values('','".$entry->form_name."','".$entry->form_desc."','".$entry->form_type."','".$entry->custom_text."','".$entry->crf_welcome_email_subject."','".$entry->success_message."','".$entry->crf_welcome_email_message."','".$entry->redirect_option."','".$entry->redirect_page_id."','".$entry->redirect_url_url."','".$entry->send_email."','".$entry->form_option."')";	
 		$wpdb->query($qry);	
 	}
 	}
@@ -38,6 +38,7 @@ $entries = $wpdb->get_results( "SELECT * FROM $crf_forms order by id asc LIMIT $
 
 <form name="forms" id="forms" method="post" action="admin.php?page=crf_manage_forms" >
 <div class="ucf_pro_banner" style="margin-bottom:0 !important; overflow:visible;">
+<div class="analytics_banner"><a target="_blank" href="http://cmshelplive.com/accounts/cart.php?a=add&pid=64"><img src="<?php echo $path;?>images/analytics_banner.jpg" /></a></div>
 
 	<div class="banner" id="bannerclose">
        <div  class="shap">
