@@ -3,7 +3,7 @@
 	Plugin Name: Custom User Registration Form Builder
 	Plugin URI: https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.3.18
+	Version: 1.3.19
 	Author: CMSHelpLive
 	Author URI: https://profiles.wordpress.org/cmshelplive
 	License: gpl2
@@ -11,12 +11,12 @@
 ob_start();
 /*Plugin activation hook*/
 global $crf_db_version;
-$crf_db_version = 1.6;
+$crf_db_version = 1.7;
 
 register_activation_hook ( __FILE__, 'activate_custom_registration_form_with_sm_plugin' );
 function activate_custom_registration_form_with_sm_plugin()
 {
-	add_option('crf_db_version','1.6');
+	add_option('crf_db_version','1.7');
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	global $wpdb;
 	$crf_option=$wpdb->prefix."crf_option";
@@ -53,7 +53,7 @@ function activate_custom_registration_form_with_sm_plugin()
 		(7, 'adminnotification', 'no'),
 		(8, 'from_email', ''),
 		(9, 'userip', 'yes'),
-		(10, 'crf_theme','simple')";
+		(10, 'crf_theme','default')";
 		$wpdb->query($insert);
 
 	$sqlcreate = "CREATE TABLE IF NOT EXISTS $crf_entries
@@ -114,20 +114,35 @@ function crf_update_db_check()
 	 $save_db_version =  floatval(get_site_option( 'crf_db_version','1.0' ));
     if ( $save_db_version < $crf_db_version ) 
 	{	
-		$insert="INSERT INTO $crf_option VALUES
+		$insert="INSERT IGNORE INTO $crf_option VALUES
 		(6, 'adminemail', ''),
 		(7, 'adminnotification', 'no')";
 		$wpdb->query($insert);
 		
-		$insert="INSERT INTO $crf_option VALUES
+		$insert="INSERT IGNORE INTO $crf_option VALUES
 		(8, 'from_email', '')";
 		$wpdb->query($insert);
 		
-		$insert="INSERT INTO $crf_option VALUES
+		$insert="INSERT IGNORE INTO $crf_option VALUES
 		(9, 'userip', 'no')";
 		$wpdb->query($insert);
 		
-		$insert="INSERT INTO $crf_option VALUES
+		$qry="select `value` from $crf_option where fieldname='crf_theme'";
+		$crf_theme = $wpdb->get_var($qry);
+		
+		if(isset($crf_theme) && $crf_theme!="")
+		{
+			if($crf_theme=='default')
+			{
+				$wpdb->query("update $crf_option set value='classic' where fieldname='crf_theme'");
+			}
+			else
+			{
+				$wpdb->query("update $crf_option set value='default' where fieldname='crf_theme'");	
+			}
+		}
+		
+		$insert="INSERT IGNORE INTO $crf_option VALUES
 		(10, 'crf_theme', 'default')";
 		$wpdb->query($insert);
 		
@@ -142,12 +157,16 @@ function crf_update_db_check()
 			PRIMARY KEY(id)
 		)";
 		dbDelta( $sqlcreate );
-				
+		
 		$crf_forms =$wpdb->prefix."crf_forms";
-		$sqlcreate = "ALTER TABLE $crf_forms ADD form_option longtext";
-		$wpdb->query($sqlcreate);
+		$crfform = $wpdb->get_row("SELECT * FROM $crf_forms");
+		//Add column if not present.
+		if(!isset($crfform->form_option)){
+			$wpdb->query("ALTER TABLE $crf_forms ADD form_option longtext");
+		}
 		
 		update_option( "crf_db_version", $crf_db_version );
+		
 	}
 }
 
@@ -174,7 +193,9 @@ function crf_admin_script() {
 	wp_register_style('crf_googleFonts', 'http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700');
     wp_enqueue_style( 'crf_googleFonts');
 	wp_enqueue_script( 'ZeroClipboard.js',  plugin_dir_url(__FILE__) . 'js/ZeroClipboard.js');	
-	wp_enqueue_script( 'jquery-ui-tooltip');	
+	wp_enqueue_script( 'jquery-ui-tooltip');
+	wp_enqueue_style( 'crf_analytics', plugin_dir_url(__FILE__) . 'css/crf_analytics.css');
+	wp_enqueue_script( 'crf_jsapi', 'https://www.google.com/jsapi');	
 }
 
 /*Defines menu and sub-menu items in dashboard*/
@@ -188,7 +209,8 @@ function custom_registration_form_with_sm_menu()
 	add_submenu_page("","Manage Form Fields","Manage Form Fields","manage_options","crf_manage_form_fields","crf_manage_form_fields");
 	add_submenu_page("","View Entry","View Entry","manage_options","crf_view_entry","crf_view_entry");
 	add_submenu_page("","Add Field","Add Field","manage_options","crf_add_field","crf_add_field");
-	add_submenu_page("crf_manage_forms","Pro Features","Pro Features","manage_options","crf_Pro","crf_Pro");
+	add_submenu_page("crf_manage_forms","Upgrade","Upgrade","manage_options","crf_Pro","crf_Pro");
+	add_submenu_page("crf_manage_forms","Analytics (Demo)","Analytics (Demo)","manage_options","analytics_demo","analytics_demo");
 	add_submenu_page("crf_manage_forms","Support","Support","manage_options","crf_support","crf_support");
 }
 
@@ -207,6 +229,11 @@ add_action( 'wp_before_admin_bar_render', 'add_crf_menu_adminbar' );
 function crf_Pro()
 {
 	include 'pro_features.php';	
+}
+
+function analytics_demo()
+{
+	include 'crf_analytics.php';	
 }
 
 function crf_support()

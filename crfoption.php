@@ -48,9 +48,8 @@ $crf_theme = $wpdb->get_var($qry);
       </div>
       <div class="user-group-option crf-form-right-area">
         <select name="crf_theme" id="crf_theme">
-        <option value="default" <?php if($crf_theme=='default')echo 'selected';?>>Classic</option>
-        <option value="simple" <?php if($crf_theme=='simple')echo 'selected';?>>Default</option>
-        <!--<option value="md" <?php //if($crf_theme=='md')echo 'selected';?>>Material design</option>-->
+        <option value="classic" <?php if($crf_theme=='classic')echo 'selected';?>>Classic</option>
+        <option value="default" <?php if($crf_theme=='default')echo 'selected';?>>Default</option>
         </select>
       </div>
     </div>

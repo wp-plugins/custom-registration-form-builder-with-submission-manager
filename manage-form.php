@@ -38,19 +38,10 @@ $entries = $wpdb->get_results( "SELECT * FROM $crf_forms order by id asc LIMIT $
 
 <form name="forms" id="forms" method="post" action="admin.php?page=crf_manage_forms" >
 <div class="ucf_pro_banner" style="margin-bottom:0 !important; overflow:visible;">
-<div class="analytics_banner"><a target="_blank" href="http://cmshelplive.com/accounts/cart.php?a=add&pid=64"><img src="<?php echo $path;?>images/analytics_banner.jpg" /></a></div>
+<div class="analytics_banner"><a href="admin.php?page=analytics_demo"><img src="<?php echo $path;?>images/analytics_banner.jpg" /></a></div>
 
 	<div class="banner" id="bannerclose">
-       <div  class="shap">
-      <h3>Welcome to Custom Registration Form Builder!</h3> 
-    <p>If you like it, <span><a href="https://wordpress.org/support/view/plugin-reviews/custom-registration-form-builder-with-submission-manager" style="color:#fff;" target="_blank">please rate it</a></span> on WordPress.org. Your few kind words mean a lot to us.</p>
-     <span class="close"><a onClick="bannertoggle()">Close</a></span>
-    </div>
-        <div class="bottem-shap">
-        <div class="shap-bottem">
-        <p>Find exciting new features in Premium version. <a href="admin.php?page=crf_Pro"><strong>Explore now!</strong></a></p>
-        </div>
-        </div>
+       <a href="admin.php?page=crf_Pro"><img src="<?php echo $path;?>images/ucf_form_banner.jpg" /></a>
      </div>
 
 

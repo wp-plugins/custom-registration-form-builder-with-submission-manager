@@ -1,0 +1,258 @@
+.radio input{ 
+  max-width:none \9;
+}
+ .Checkbox input{
+	 max-width:none \9;
+}
+ #main-upb-formm{
+		line-height: 1.5;
+	}
+#upb-formm{
+	height:auto;
+	clear:both;
+	font-size:15px;
+	width:100%;
+	color:inherit;
+}
+#upb-formm #crf_contact_formm{
+	margin:0;
+	padding:0;
+	width:100%;
+}
+.bold-tex{
+	font-weight:bold;
+}
+#upb-formm #crf_contact_form .info-textt{
+	text-align:justify;
+	color:inherit;
+	margin-bottom:20px;
+	line-height: 1.71429;
+	width:100%;
+}
+#upb-formm #crf_contact_form .textareaa{
+	line-height:normal;
+	resize:none;
+	overflow:auto !important;
+}
+
+#main-upb-formm{
+	padding:20px;
+	background:#f9f9f9;
+	border-top:8px solid #000000;
+}
+#main-upb-formm .crf_heading{
+	margin-bottom:0;
+	padding-bottom:0;
+}
+#main-upb-formm .crf_heading h1{
+	margin:0;
+	border-bottom:1px solid #ebebeb;
+	padding-bottom:15px;
+	font-size:28px;
+}
+#main-upb-formm  .formtable{
+	padding-bottom:15px;
+	width:100%;
+}
+#main-upb-formm .crf_paragraph{ 
+    margin-bottom:15px; 
+    padding-bottom:0;
+}
+#upb-formm input,textarea{
+	margin:0 !important;
+}
+#main-upb-formm .formtable .lable-text{
+	float:left;
+	width:30%;
+	margin-bottom:0;
+	margin-top:5px;
+	margin-bottom:5px;
+	padding-right: 25px;
+}
+#main-upb-formm .formtable .lable-text label{
+	color:inherit;
+	font-size:15px;
+	font-weight:inherit;
+	margin-bottom:0;
+	display: inline-block;
+
+}
+#main-upb-formm .formtable .input-box{
+	width:60%;
+}
+#main-upb-formm  .formtable .input-box input[type=text]{
+	width:90%;
+	padding:0px 6px !important;
+	background:#fff;
+	color: #555;
+	display: block;
+	font-size:14px !important;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+	line-height: 1.42857;
+	height:34px !important;
+	border:1px solid #ebebeb;
+	-webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    border-radius: 4px !important;
+	 background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+#main-upb-formm  .formtable .input-box input[type=text]:focus {
+    border-color: #f1b900;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+ #recaptcha_response_field{
+	display:inline-block;
+	height:17px;
+}
+#recaptcha_widget_div table{
+	table-layout:inherit;
+}
+#recaptcha_widget_div table thead tr th, table tfoot tr th, table tbody tr td, table tr td, table tfoot tr td{
+	line-height:normal !important;
+}
+th:empty, td:empty, th.pad, td.pad {
+    opacity:1;
+}
+.formtable .radio-label{
+	margin-top:0 !important;
+}
+#main-upb-form .formtable crf_paragraph p{
+	margin:0 !important;
+}
+#main-upb-formm  .formtable .input-box textarea{
+	width:90%;
+	padding:0px 6px !important;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+	line-height:normal;
+	line-height: 1.42857;
+	background:#fff;
+	color: #555;
+	font-size:14px !important;
+     border: 1px solid #ccc;
+	 -webkit-border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    border-radius: 4px !important;
+}
+#main-upb-formm  .formtable .input-box textarea:focus {
+    border-color: #f1b900;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+#main-upb-formm  .formtable .input-box select {
+	width:90%;
+	padding:0px 6px !important;
+	font-size:15px;
+	background:#fff;
+	color: #555;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+	height:34px !important;
+	border:1px solid #ebebeb;
+
+}
+#main-upb-formm  .formtable .input-box select:focus {
+    border-color: #f1b900;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+.radio_option{
+	margin-bottom:8px;
+}
+
+.upb-check-text .Checkbox{
+	display: block;
+    margin-bottom: 10px;
+	font-size:14px !important;
+	margin-right:10px;
+    margin-top: 0px !important;
+    position: relative;
+}
+#main-upb-formm label{
+	display:inline-block;
+	margin:0;
+	font-weight:normal;
+}
+#main-upb-formm input[type=checkbox]{
+	 -webkit-appearance: checkbox !important;
+   -moz-appearance:checkbox !important;
+   appearance: checkbox !important;
+   width:auto !important;
+   margin-top:0 !important;
+   padding:0 !important;
+   cursor:pointer;
+   border:none;
+   outline:none;
+   float:none !important;
+   position:relative;
+   top:2px;
+}
+#main-upb-formm input[type=checkbox]{}
+#main-upb-formm .radio-box {
+	padding-top:2px;
+}
+#main-upb-formm .crf_checkbox{
+	padding-top:2px;
+}
+#main-upb-formm input[type=radio]{
+  -webkit-appearance: radio !important;
+   -moz-appearance:radio !important;
+   outline:none;
+   appearance: radio !important;
+   padding:0 !important;
+   cursor:pointer;
+   width:auto !important;
+   margin-top:0 !important;
+   border:none;
+   float:none !important;
+   position:relative;
+   top:2px;
+ }
+.radio_option .radio{
+	margin-right:10px;
+}
+.term-box{
+	margin-bottom:10px;
+}
+.Checkbox label{
+	cursor:pointer;
+}
+
+.UltimatePB-Button-area #submit,.UltimatePB-Button-area #reset {
+	background-color:#FFAE00;
+	background-image: 
+	-webkit-gradient(linear,left top,left bottom,color-stop(0, #FFDD00),color-stop(1, #FFAE00));
+    background-image: -o-linear-gradient(bottom, #FFDD00 10%, #FFAE00 60%);
+    background-image: -moz-linear-gradient(bottom, #FFDD00 10%, #FFAE00 60%);
+    background-image: -webkit-linear-gradient(bottom, #FFDD00 10%, #FFAE00 60%);
+    background-image: -ms-linear-gradient(bottom, #FFDD00 10%, #FFAE00 60%) \9;
+    background-image: linear-gradient(to bottom, #FFDD00 10%, #FFAE00 60%);
+    border-image: none;
+   -webkit-border-radius: 4px ;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: #fff;
+	font-size:15px;
+	text-transform:uppercase;
+	font-weight:normal;
+    display: inline-block;
+    padding: 6px 30px 6px !important;
+    text-decoration: none;
+	border:1px solid #ffc600;
+	cursor:pointer;
+	width:auto;
+}
+#recaptcha_area{
+	margin-left:85px;
+}
+
+.UltimatePB-Button-area #submit:hover,.UltimatePB-Button-area #reset:hover{
+	border:1px solid #e3a415;
+	background:#f1b900;
+}
+

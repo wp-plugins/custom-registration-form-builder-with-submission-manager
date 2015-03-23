@@ -1,0 +1,284 @@
+.crf-main-form .crf-form-name-heading-Submissions .hedding-icon{
+	background:url("../images/stats-icon.png") no-repeat left center;
+	margin-left:23px;
+	padding-left:45px !important;
+	font-weight:300 !important;
+	font-size:28px;
+	padding-bottom:0px !important;
+	margin-top:9px!important;
+	margin-bottom:9px;
+	line-height:36px;
+}
+.fieldanalytics-icon { 
+background:url("../images/field-analytics.png") no-repeat left center;
+	margin-left:23px;
+	padding-left:45px !important;
+	font-weight:300 !important;
+	font-size:28px;
+	padding-bottom:0px !important;
+	margin-top:9px!important;
+	margin-bottom:9px;
+	line-height:36px;
+}
+.cler{
+	clear:both;
+}
+.crf-main-form2{
+	margin-top:25px;
+	background:none !important;
+	box-shadow:none !important; 
+}
+.crf-main-form .main-chat{
+	width:400px !important;
+	float:left;
+	margin-right:83px;
+	background:#fff;
+	box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+}
+.crf-main-form .main-chat1{
+	width:400px !important;
+	float:left;
+	background:#fff;
+	box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+}
+.crf-main-form .main-chat h1{
+	margin-bottom:0 !important;
+	display:block;
+	padding-bottom:10px;
+	border-bottom:1px solid #e1e1e1;
+	min-height:30px;
+	font-family: "Roboto",sans-serif;
+	font-weight:normal;
+	margin-top:10px !important;
+	font-size:24px;
+	color: #78b0be;
+	padding-left:20px;
+	line-height:30px;
+
+}
+.crf-main-form .main-chat1 h1{
+	margin-bottom:0 !important;
+	display:block;
+	padding-bottom:10px;
+	border-bottom:1px solid #e1e1e1;
+	min-height:30px;
+	font-family: "Roboto",sans-serif;
+	margin-top:10px !important;
+    font-weight:normal;
+	font-size:24px;
+	color: #78b0be;
+	padding-left:20px;
+	line-height:30px;
+
+}
+.crf-main-form .main-chat h1 .icon{
+	background:url("../images/stats-icon1.png") no-repeat;
+	display:none;
+	float:right;
+	height:30px;
+	width:30px;
+	margin-right:10px;
+}
+.crf-main-form .main-chat1 h1 .icon{
+	background:url("../images/stats-icon1.png") no-repeat;
+	display:none;
+	float:right;
+	height:30px;
+	width:30px;
+	margin-right:10px;
+}
+.crf-main-form .chartss h1{
+	margin:0 !important;
+}
+.crf-main-form .chartss h1 .icon{
+	background:url("../images/stats-icon2.png") no-repeat;
+	display:none;
+	float:right;
+	height:30px;
+	width:30px;
+	margin-right:10px;
+	margin-top:5px;
+}
+.crf-main-form .chartss{
+	margin-top:75px !important;
+}
+.crf-main-form .charts{
+	margin-bottom:0 !important;
+}
+.crf-main-form .success-div{
+	width:400px !important;
+	text-align:center;
+	float:left;
+	color:#fff;
+	margin-right:83px !important;
+	background:#dd2c00;
+	box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+}
+.crf-main-form #field_div1{
+	width:400px !important;
+	float:left;
+	color:#fff;
+	margin-right:83px !important;
+	box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+}
+.crf-main-form .percent_rate .tex-average{
+	color:#fff;
+	font-size:55px;
+	font-weight:normal;
+	position:relative;
+	opacity:1 !important;
+	z-index:1;
+	top:90px;
+}
+.crf-main-form #field_div2{
+	width:400px !important;
+	float:left;
+	color:#fff;
+	box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+}
+.crf-main-form .tex-color1{
+	color:#dd2c00;
+	font-weight:bold;
+}
+.crf-main-form .tex-color2{
+	color:#feaf0e;
+	font-weight:bold;
+}
+.crf-main-form .percent_rate{
+	background:#e57b61;
+	height:200px;
+	width:200px;
+	border-radius:100%;
+	margin-top:45px;
+	margin-bottom:45px;
+	margin-left:100px;
+}
+.crf-main-form .oreng{
+	background:#ffcb60 !important;
+}
+.crf-main-form .charts_title h2{
+	color:#fff;
+	font-size:24px;
+	font-weight:normal;
+}
+.crf-main-form .barchart{
+	margin-top:75px !important;
+	background:#fff;
+	box-shadow: 0 1px 2px -1px #c7c7c7;
+	text-align:center;
+}
+.crf-main-form .barchart h1{
+	margin:0 !important;
+	display:block;
+	padding-bottom:10px;
+	padding-top:10px;
+	border-bottom:1px solid #e1e1e1;
+	min-height:30px;
+	text-align:left;
+	 font-family: "Roboto",sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+	color: #78b0be;
+	padding-left:20px;
+	line-height:30px;
+}
+.crf-main-form #crf_barchart_values{
+	padding-left:100px;
+}
+.crf-main-form .regionss{
+	margin-top:75px !important;
+	background:#fff;
+	box-shadow: 0 1px 2px -1px #c7c7c7;
+}
+.crf-main-form .regionss h1{
+	margin:0 !important;
+	display:block;
+	padding-bottom:10px;
+	padding-top:10px;
+	border-bottom:1px solid #e1e1e1;
+	min-height:30px;
+	text-align:left;
+	font-family: "Roboto",sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+	color: #78b0be;
+	padding-left:20px;
+	line-height:30px;
+}
+.crf-main-form .barchart h1 .icon{
+	background:url("../images/stats-icon1.png") no-repeat;
+	display:none;
+	float:right;
+	height:30px;
+	width:30px;
+	margin-right:10px;
+}
+.crf-main-form .regionss h1 .icon{
+	background:url("../images/stats-icon1.png") no-repeat;
+	display:none;
+	float:right;
+	height:30px;
+	width:30px;
+	margin-right:10px;
+}
+.crf-main-form .Time-div{
+	width:400px !important;
+	text-align:center;
+	float:left;
+	color:#fff;
+	background:#feaf0e;
+	box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+}
+.crf-main-form .reset-butten{
+	background:none;
+	border:none;
+	color:#ff6c6c;
+	font-size:18px;
+	font-weight:normal;
+	text-transform:uppercase;
+	padding:0px;
+	margin-top:5px;
+}
+.crf-main-form .crf-chart-top{
+	background-color: #fff;
+    box-shadow: 0 1px 2px -1px #c7c7c7;
+    float: left;
+    font-family: "Roboto",sans-serif;
+    width: 100%;
+}
+.crf-main-form .crf-chart-top .crf-form-name-heading-Submissions{
+	border-bottom:none !important;
+	width:auto !important;
+	float:left;
+	margin-bottom:0 !important;
+}
+.crf-main-form .crf-chart-top .crf-form-name-heading-Submissions h1{
+	font-size: 28px;
+    line-height: 36px !important;
+    margin-bottom: 9px !important;
+    margin-top: 9px !important;
+    padding-bottom: 0 !important;
+}
+.crf-main-form .crf-chart-top .crf-add-remove-field-submissions{
+	float:right !important;
+	width:auto !important;
+}
+.crf-main-form .charts-2{
+	margin-top:35px;
+}
+.crf-main-form .charts-main-box{
+	height:auto;
+}
+.crf-main-form .charts-main-box .main-chat #field_div1{
+	margin-right:0 !important;
+}
+.crf-main-form .charts-main-box .main-chat{
+	background: none repeat scroll 0 0 #fff;
+    box-shadow: 0 1px 2px -1px #c7c7c7 !important;
+    float: left;
+    width: 400px !important;
+	margin-bottom:35px;
+}
+.crf-main-form .charts-main-box .crf_main_chart_even{
+	margin-right:0 !important;
+}
