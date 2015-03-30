@@ -113,6 +113,7 @@ margin-bottom: 50px;
 	font-weight:bold;
 	font-size:35px;
 	color:#969696;
+	cursor:default !important;
 
 }
 .pro-features-gold-right .pro-gold-btn{
@@ -126,6 +127,7 @@ margin-bottom: 50px;
 	font-weight:bold;
 	font-size:35px;
 	color:#ffc107;
+	cursor:default !important;
 }
 .pro-footer{
 	text-align:center;
@@ -308,10 +310,27 @@ border:0px;
 	padding:15px;
 	margin-right:10px;
 	margin-bottom:10px; float:left;}
+.pro-features-banner{
+	margin-bottom:23px;
+}
+.red-texs{
+	color:#e16868;
+	text-decoration:line-through;
+}
 
+.limited-tex{
+	color:#969696;
+	margin-left:290px;
+	position:absolute;
+	  margin-top: 35px;
+}
 </style>
 
 <div id="pro-features">
+
+     <!--<div class="pro-features-banner">
+     <div class="cfp-copy" onMouseOver="bannertooltip1(this)" onClick="bannertooltip2(this)" title="" data-clipboard-text="GOLD50RF"><img src="<?php echo $path; ?>images/offerimagerf.png" width="884"></div>       
+      </div>-->
 
     <div class="pro-features-silver-left">
         <h1>Custom User Registration Form Builder</h1>
@@ -347,7 +366,8 @@ border:0px;
         <li class="field-analytics"><span>Field Analytics<span class="pro-right-icon" onMouseOver="crftooltip2(this,'.field-analytics-popup')" title=""></span></span></span></li>
         </ul>
         <div class="pro-footer">
-        <h4>All this for 49.95 USD Only</h4>
+        <h4>All this for <span class="red-texs">49.95</span> <span style="color:#66bb6a;">19.95</span> USD Only</h4>
+        <p class="limited-tex">*Limited time offer</p>
         <div class="green-box">
         <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66" target="_blank">BUY NOW</a></div>
         </div>
@@ -474,3 +494,33 @@ function crftooltip2(a,b) {
     });
   });
   </script>
+  
+  <script>
+var swfPath = ZeroClipboard.config("swfPath");
+var client = new ZeroClipboard( jQuery(".cfp-copy") );
+
+function bannertooltip1(a)
+{
+	jQuery(a).tooltip({
+		content:'Copy to Clipboard'	,
+		width:'50px',
+		position: {
+        my: "left top",
+        at: "right+5 top-5"
+      }	
+		});	
+}
+
+function bannertooltip2(a)
+{
+	jQuery(a).tooltip({
+		content:'Copied!',
+		width:'50px',
+		position: {
+        my: "left top",
+        at: "right+5 top-5"
+      }
+		});	
+}
+
+</script>

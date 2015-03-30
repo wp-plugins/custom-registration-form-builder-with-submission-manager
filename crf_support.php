@@ -97,9 +97,6 @@ a:visited{
 <li><a href="http://cmshelplive.com/accounts/index.php?m=forum&action=viewboard&id=5" target="_blank">BUG REPORTS</a></li>
   </ul>
   </div>
-  <div class="analytics-addon">
-  <a href="http://cmshelplive.com/accounts/index.php?m=forum&action=viewboard&id=12" target="_blank">analytics addon</a>
-  </div>
   
 
 </div>
