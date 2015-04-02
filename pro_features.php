@@ -114,6 +114,7 @@ margin-bottom: 50px;
 	font-size:35px;
 	color:#969696;
 	cursor:default !important;
+	outline:none !important;
 
 }
 .pro-features-gold-right .pro-gold-btn{
@@ -128,6 +129,7 @@ margin-bottom: 50px;
 	font-size:35px;
 	color:#ffc107;
 	cursor:default !important;
+	outline:none !important;
 }
 .pro-footer{
 	text-align:center;
@@ -329,7 +331,7 @@ border:0px;
 <div id="pro-features">
 
      <!--<div class="pro-features-banner">
-     <div class="cfp-copy" onMouseOver="bannertooltip1(this)" onClick="bannertooltip2(this)" title="" data-clipboard-text="GOLD50RF"><img src="<?php echo $path; ?>images/offerimagerf.png" width="884"></div>       
+     <div class="cfp-copy" onMouseOver="bannertooltip1(this)" onClick="bannertooltip2(this)" title="" data-clipboard-text="GOLD50RF"><img src="<?php //echo $path; ?>images/offerimagerf.png" width="884"></div>       
       </div>-->
 
     <div class="pro-features-silver-left">
