@@ -368,8 +368,8 @@ border:0px;
         <li class="field-analytics"><span>Field Analytics<span class="pro-right-icon" onMouseOver="crftooltip2(this,'.field-analytics-popup')" title=""></span></span></span></li>
         </ul>
         <div class="pro-footer">
-        <h4>All this for <span class="red-texs">49.95</span> <span style="color:#66bb6a;">19.95</span> USD Only</h4>
-        <p class="limited-tex">*Limited time offer</p>
+        <h4>All this for <span>19.90</span> USD Only</h4>
+        <!--<p class="limited-tex">*Limited time offer</p>-->
         <div class="green-box">
         <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66" target="_blank">BUY NOW</a></div>
         </div>
