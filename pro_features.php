@@ -32,6 +32,8 @@ margin-bottom: 50px;
 	height:auto;
 	padding:10px;
 	padding-bottom:60px;
+	z-index:9;
+	position:relative;
 }
 
 #pro-features .pro-features-gold-right{
@@ -42,6 +44,8 @@ margin-bottom: 50px;
 	width:400px;
 	padding:10px;
 	padding-bottom:60px;
+	z-index:9;
+	position:relative;
 }
 #pro-features h1{
 	color:#646464;
@@ -326,6 +330,35 @@ border:0px;
 	position:absolute;
 	  margin-top: 35px;
 }
+.green-color{
+	color:#66bb6a;
+
+}
+.discount-coupons-banner{
+	background:url(<?php echo $path; ?>images/coupons-banner-img.jpg) no-repeat;
+	height:343px;
+	position:relative;
+	top:-110px;
+	z-index:0;
+}
+.discount-coupons-banner a{
+	display:inline;
+	cursor:pointer;
+	position:absolute;
+	bottom:25px;
+	right:90px;
+	cursor:pointer;
+	z-index: 99;
+   visibility: visible;
+   outline:none; 
+}
+.discount-coupons-banner a:focus{
+	border:none;
+	box-shadow:none;
+	outline:none;
+}
+
+
 </style>
 
 <div id="pro-features">
@@ -346,7 +379,7 @@ border:0px;
         <li class="file-icon"><span>File Attachment Field (Repeatable)<span class="pro-right-icon" onMouseOver="crftooltip2(this,'.file-attachment-popup')" title=""></span></span></span></li>
         </ul>
         <div class="pro-footer">
-        <h4>All this for 9.95 USD Only</h4>
+        <h4>All this for <span class="green-color">9.95</span> USD Only</h4>
         <div class="green-box">
         <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=65" target="_blank">BUY NOW</a></div>
         </div>
@@ -368,7 +401,7 @@ border:0px;
         <li class="field-analytics"><span>Field Analytics<span class="pro-right-icon" onMouseOver="crftooltip2(this,'.field-analytics-popup')" title=""></span></span></span></li>
         </ul>
         <div class="pro-footer">
-        <h4>All this for <span>19.90</span> USD Only</h4>
+        <h4>All this for <span class="green-color">19.95</span> USD Only</h4>
         <!--<p class="limited-tex">*Limited time offer</p>-->
         <div class="green-box">
         <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66" target="_blank">BUY NOW</a></div>
@@ -376,6 +409,10 @@ border:0px;
     
     
     </div><!-------pro-features-gold-right----->
+    <div class="cler"></div><!------clerdiv-------->
+    <div class="discount-coupons-banner">
+      <a href="http://cmshelplive.com/coupon-form.html" target="_blank"><img src="<?php echo $path; ?>images/get-the-coupon-btn.png"></a>
+    </div>
     <div class="cler"></div><!------clerdiv-------->
     <div id="popup" style="display:none;">
        <div class="manual-approval-popup">
