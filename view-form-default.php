@@ -23,7 +23,54 @@ $form_name = $wpdb->get_var($qry);
 $qry="select `form_option` from $crf_forms where id=".$content['id'];
 $form_options = $wpdb->get_var($qry);
 $form_option = maybe_unserialize($form_options);
-$submit_button_label = $form_option['submit_button_label'];
+$submit_button_label = @$form_option['submit_button_label'];
+
+$auto_expires = @$form_option['auto_expires'];
+$expiry_type = @$form_option['expiry_type'];
+$submission_limit = @$form_option['submission_limit'];
+$expiry_date = @$form_option['expiry_date'];
+$expiry_message = @$form_option['expiry_message'];
+
+if(isset($auto_expires) && $auto_expires==1)
+{
+	if($expiry_type=='submission' || $expiry_type=='both' )
+	{
+		  $total = $wpdb->get_var( "SELECT count(*) FROM $crf_entries where form_id ='".$content['id']."'" );	
+		  if($submission_limit<=$total)
+		  {
+				$form_expired = 1;  
+		  }
+	}
+	
+	if($expiry_type=='date' || $expiry_type=='both')
+	{
+		$today = date("Y-m-d");	
+		$today_time = strtotime($today);
+		$expire_time = strtotime($expiry_date);
+		
+		if ($expire_time < $today_time) 
+		{  
+			$form_expired = 1;
+		}	
+	}
+	
+	if(isset($form_expired) && $form_expired==1)
+	{?>
+    
+    <div id="crf-form">
+      <div id="main-crf-form">
+        <div class="main-edit-profile"><?php echo $expiry_message;?><br />
+          <br />
+        </div>
+      </div>
+    </div>
+	<?php	
+	return false;
+	}
+	
+}
+
+
 $role = 'subscriber'; 
 
 $qry="select `value` from $crf_option where fieldname='userip'";
@@ -95,6 +142,8 @@ else
 }
 if(isset($_POST['submit']) && $submit==1 ) // Checks if the submit button is pressed or not
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'view_crf_form' ) ) die( 'Failed security check' );
 	
 	$stats = $wpdb->get_row( "SELECT * FROM $crf_stats where form_id ='".$content['id']."' and stats_key='".$_POST['crf_key']."'");
 	$stats_details = maybe_unserialize($stats->details);
@@ -358,6 +407,7 @@ $wpdb->query($insert);
 <!--HTML for displaying registration form-->
 <div id="crf-form">
   <form enctype="multipart/form-data" method="post" action="" id="crf_contact_form" name="crf_contact_form">
+   <?php wp_nonce_field('view_crf_form'); ?>
   <input type="hidden" value="<?php echo time();?>" name="crf_timestamp" />
   <input type="hidden" value="<?php echo $detail['key'];?>" name="crf_key" />
     <div class="info-text"><?php echo $custom_text;?></div>

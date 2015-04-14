@@ -10,6 +10,9 @@ $ordering = $lastrow+1;
 if(isset($_REQUEST['type'])) $str = $_REQUEST['type'];
 if(isset($_REQUEST['action']) && $_REQUEST['action']=='delete')
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'delete_crf_field' ) ) die( 'Failed security check' );
+	
 	$qry = "delete from $crf_fields where Id=".$_REQUEST['id'];	
 	$reg = $wpdb->query($qry);	
 	wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_REQUEST['formid']);exit;
@@ -24,6 +27,9 @@ if(isset($_REQUEST['id']))
 
 if(isset($_POST['field_submit']) && empty($_POST['field_id']))/*Saves the field after clicking save button*/
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'save_crf_add_field' ) ) die( 'Failed security check' );
+	
 $qry = "insert into $crf_fields values('','".$_POST['form_id']."','".$_POST['select_type']."','".$_POST['field_name']."','".$_POST['field_value']."','".$_POST['field_class']."','".$_POST['field_maxLenght']."','".$_POST['field_cols']."','".$_POST['field_rows']."','".$_POST['field_Options']."','".$_POST['field_Des']."','".$_POST['field_require']."','".$_POST['field_readonly']."','".$_POST['field_visibility']."','".$ordering."')";
 $row = $wpdb->query($qry);	
 wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);exit;
@@ -31,6 +37,9 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
 
 if(isset($_POST['field_submit']) && !empty($_POST['field_id']))
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'save_crf_add_field' ) ) die( 'Failed security check' );
+	
 	$qry = "update $crf_fields set Form_Id='".$_POST['form_id']."',Type ='".$_POST['select_type']."',Name ='".$_POST['field_name']."',`Value` ='".$_POST['field_value']."',Class='".$_POST['field_class']."',Max_Length='".$_POST['field_maxLenght']."',Cols='".$_POST['field_cols']."',Rows='".$_POST['field_rows']."',Option_Value='".$_POST['field_Options']."',Description='".$_POST['field_Des']."',`Require`='".$_POST['field_require']."',Readonly='".$_POST['field_readonly']."',Visibility='".$_POST['field_visibility']."' where Id='".$_POST['field_id']."'";
 $row = $wpdb->query($qry);	
 wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);exit;
@@ -452,6 +461,7 @@ wp_redirect('admin.php?page=crf_manage_form_fields&form_id='.$_POST['form_id']);
     </div>
     <div class="crf-form-footer">
       <div class="crf-form-button">
+      	 <?php wp_nonce_field('save_crf_add_field'); ?>
         <input type="hidden" name="form_id" id="form_id" value="<?php if(isset($_REQUEST['formid'])) echo $_REQUEST['formid']?>" />
         <input type="hidden" name="field_id" id="field_id" value="<?php if(isset($_REQUEST['id'])) echo $_REQUEST['id']?>" />
         <input type="submit" value="Save" name="field_submit" id="field_submit" />

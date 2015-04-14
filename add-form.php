@@ -1,4 +1,4 @@
-<?php
+ <?php
 /*Controls custom field creation in the dashboard area*/
 global $wpdb;
 $textdomain = 'custom-registration-form-pro-with-submission-manager';
@@ -6,8 +6,18 @@ $crf_forms =$wpdb->prefix."crf_forms";
 $path =  plugin_dir_url(__FILE__); 
 if(isset($_POST['submit_form']) && trim($_POST['form_name'])!="")
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'save_crf_add_form' ) ) die( 'Failed security check' );
+	
 	$formoptions = array();
+	
 	$formoptions['submit_button_label'] = $_POST['submit_button_label'];
+	$formoptions['auto_expires'] = $_POST['auto_expires'];
+	$formoptions['expiry_type'] = $_POST['expiry_type'];
+	$formoptions['submission_limit'] = $_POST['submission_limit'];
+	$formoptions['expiry_date'] = $_POST['expiry_date'];
+	$formoptions['expiry_message'] = $_POST['expiry_message'];
+	
 	$options = maybe_serialize($formoptions);
 	
 	if(isset($_POST['form_id']) && $_POST['form_id']==0)
@@ -27,6 +37,12 @@ if(isset($_REQUEST['id']))
 	$row = $wpdb->get_row($qry);
 	$form_options = maybe_unserialize($row->form_option);
 	$submit_button_label = $form_options['submit_button_label'];
+	$auto_expires = $form_options['auto_expires'];
+	$expiry_type = $form_options['expiry_type'];
+	$submission_limit = $form_options['submission_limit'];
+	$expiry_date = $form_options['expiry_date'];
+	$expiry_message = $form_options['expiry_message'];
+	
 }
 else
 {
@@ -194,10 +210,80 @@ $args = array(
       </div>
     </div>
 
+<div class="crf-form-setting">
+      <div class="crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( ' Auto Expires?:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="crf-form-right-area">
+        <input name="auto_expires" id="auto_expires" type="checkbox" tabindex="15" class="upb_toggle" value="1" <?php if(isset($auto_expires) && $auto_expires==1){ echo "checked";}?> style="display:none;" />
+        <label for="auto_expires"></label>
+      </div>
+    </div>
+	
+    <div class="auto_expires_html"  style="display:<?php if(isset($auto_expires) && $auto_expires==1){ echo "block";}else {echo 'none';}?>">
+    <div class="crf-form-setting">
+      <div class="crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Expiry Type:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="crf-form-right-area">
+        <label>
+          <input type="radio" name="expiry_type" id="expiry_type_submission" value="submission" onClick="showhidelimitation(this.value)" <?php if(isset($expiry_type) && $expiry_type=='submission') echo 'checked'; ?> tabindex="16">
+          <span><?php _e( 'By Submissions', $textdomain ); ?></span></label>
+        <label>
+          <input type="radio" name="expiry_type" id="expiry_type_date" value="date" tabindex="17" onClick="showhidelimitation(this.value)" <?php if(isset($expiry_type) && $expiry_type=='date') echo 'checked'; ?>>
+          <span><?php _e( 'By Date', $textdomain ); ?></span></label>
+        <label>
+          <input type="radio" name="expiry_type" id="expiry_type_both" value="both" tabindex="18" onClick="showhidelimitation(this.value)" <?php if(isset($expiry_type) && $expiry_type=='both') echo 'checked'; ?>>
+          <span><?php _e( 'Set Both <small>(Whichever is earlier)</small>', $textdomain ); ?></span></label>
+      </div>
+    </div>
+    
+    <div class="crf-form-setting" id="limitation_submission_html" style="display:<?php if(isset($expiry_type) && ($expiry_type=='submission' || $expiry_type=='both')) echo 'block'; else echo 'none';?>;">
+      <div class="crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Submissions Limit:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="crf-form-right-area">
+         <input type="text" name="submission_limit" id="submission_limit" tabindex="19" value="<?php if(isset($submission_limit)) echo $submission_limit; ?>" class="crf_number" onBlur="check_number()" />
+         <div class="crf_number_message" style="color:red;"></div>
+      </div>
+    </div>
+    
+    <div class="crf-form-setting" id="limitation_date_html" style="display:<?php if(isset($expiry_type) && ($expiry_type=='date' || $expiry_type=='both')) echo 'block'; else echo 'none';?>;">
+      <div class="crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Expiry Date:', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="crf-form-right-area">
+         <input type="text" name="expiry_date" id="expiry_date" tabindex="20" value="<?php if(isset($expiry_date)) echo $expiry_date; ?>" class="crf_date" onBlur="check_date()" />
+         <div class="crf_date_message" style="color:red;"></div>
+      </div>
+    </div>
+    
+    <div class="crf-form-setting">
+      <div class="crf-form-left-area">
+        <div class="crf-label">
+          <?php _e( 'Message for visitor after Expiry', $textdomain ); ?>
+        </div>
+      </div>
+      <div class="crf-form-right-area">
+         <textarea name="expiry_message" id="expiry_message" tabindex="21"><?php if(isset($expiry_message)) echo $expiry_message; ?></textarea>
+      </div>
+    </div>
+    
+    </div>
+
     <div class="crf-form-footer">
       <div class="crf-form-button">
         <input type="hidden" name="form_id" id="form_id" value="<?php if(isset($_REQUEST['id'])) echo $_REQUEST['id']?>" />
-        <input type="submit" value="Save" name="submit_form" id="submit_form" tabindex="14" />
+        <?php wp_nonce_field('save_crf_add_form'); ?>
+        <input type="submit" value="Save" name="submit_form" id="submit_form" tabindex="14" onClick="return validationform()"  />
         <input type="reset" />
         <a href="admin.php?page=crf_manage_forms" class="cancel_button">Cancel</a>
       </div>
@@ -205,6 +291,56 @@ $args = array(
   </form>
 </div>
 <script>
+function validationform()
+{
+	a = jQuery('.crf_number_message').html();
+	b = jQuery('.crf_date_message').html();
+	c = jQuery('#user-result').html();
+	if(a=="" && b=="" && c=="")
+	{
+		return true;	
+	}
+	else
+	{
+		return false;	
+	}
+}
+function check_number() {
+	var number = jQuery('.crf_number').val();
+	var isnumber = jQuery.isNumeric(number);
+	if (isnumber == false && number != "") {
+		jQuery('.crf_number_message').html('<?php _e('Please enter a valid number',$textdomain);?>');
+		jQuery('.crf_number_message').show();
+	}
+	else
+	{
+		jQuery('.crf_number_message').html('');
+		jQuery('.crf_number_message').hide();
+	}
+}
+
+function check_date() {
+            var date = jQuery('.crf_date').val();
+			var datepattern = /^\d{4}-\d{2}-\d{2}$/;
+ 			 is_date = date.match(datepattern);
+            if (is_date == null && date !="") {
+                jQuery('.crf_date_message').html('<?php _e('Please enter a valid date(yyyy-mm-dd).',$textdomain);?>');
+                jQuery('.crf_date_message').show();
+            }
+			else
+			{
+				jQuery('.crf_date_message').html('');
+				jQuery('.crf_date_message').hide();
+			}
+
+}
+
+jQuery(document).ready(function () {
+        //for date picker
+        jQuery('.crf_date').datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
     function showhideredirect(a) {
         if (a == 'page') {
             jQuery('#page_html').show(500);
@@ -218,6 +354,31 @@ $args = array(
         }
     }
 </script>
+
+<script>
+    function showhidelimitation(a) {
+        if (a == 'submission') {
+            jQuery('#limitation_submission_html').show(500);
+            jQuery('#limitation_date_html').hide(500);
+        } else if (a == 'date') {
+            jQuery('#limitation_submission_html').hide(500);
+            jQuery('#limitation_date_html').show(500);
+        } else {
+            jQuery('#limitation_submission_html').show(500);
+            jQuery('#limitation_date_html').show(500);
+        }
+    }
+	
+	jQuery("#auto_expires").click(function () {
+        a = jQuery(this).is(':checked');
+        if (a == true) {
+            jQuery(".auto_expires_html").show(500);
+        } else {
+            jQuery(".auto_expires_html").hide(500);
+        }
+    });
+</script>
+
 <script>
     jQuery("#send_email").click(function () {
         a = jQuery(this).is(':checked');

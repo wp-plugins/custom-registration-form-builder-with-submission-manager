@@ -6,6 +6,9 @@ $crf_option=$wpdb->prefix."crf_option";
 $path =  plugin_dir_url(__FILE__); 
 if(isset($_REQUEST['saveoption']))
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'save_crf_global_setting' ) ) die( 'Failed security check' );
+	
 	if(!isset($_REQUEST['enable_captcha'])) $_REQUEST['enable_captcha']='no';
 	if(!isset($_REQUEST['autogenerate_pass'])) $_REQUEST['autogenerate_pass']='no';
 	if(!isset($_REQUEST['user_auto_approval'])) $_REQUEST['user_auto_approval']='yes';
@@ -152,6 +155,7 @@ $crf_theme = $wpdb->get_var($qry);
     <br>
     <div class="crf-form-footer">
       <div class="crf-form-button">
+      	<?php wp_nonce_field('save_crf_global_setting'); ?>
         <input type="submit"  class="button-primary" value="Save" name="saveoption" id="saveoption" />
         <a href="admin.php?page=crf_manage_forms" class="cancel_button">Cancel</a>
       </div>

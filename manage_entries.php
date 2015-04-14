@@ -19,6 +19,9 @@ else
 }
 if(!empty($_POST['selected']) && isset($_POST['remove']))
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'manage_crf_entries' ) ) die( 'Failed security check' );
+	
 	$ids = implode(',',$_POST['selected']);
 	$query = "delete from $crf_entries where id in($ids)";
 	$wpdb->get_results($query);
@@ -26,6 +29,7 @@ if(!empty($_POST['selected']) && isset($_POST['remove']))
 ?>
 
 <form name="field_list" id="field_list" method="post">
+<?php wp_nonce_field('manage_crf_entries'); ?>
   <div class="crf-main-form">
     <div class="crf-form-name-heading-Submissions">
       <h1><?php _e('Submissions', $textdomain ); ?></h1>

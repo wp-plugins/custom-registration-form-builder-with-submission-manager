@@ -7,6 +7,9 @@ $crf_entries =$wpdb->prefix."crf_entries";
 $path =  plugin_dir_url(__FILE__); 
 if(!empty($_POST['selected']) && isset($_POST['copy']))
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'manage_crf_form' ) ) die( 'Failed security check' );
+	
 	$ids = implode(',',$_POST['selected']);
 	$query = "select * from $crf_forms where id in($ids)";
 	$results = $wpdb->get_results($query);
@@ -22,6 +25,9 @@ if(!empty($_POST['selected']) && isset($_POST['copy']))
 
 if(!empty($_POST['selected']) && isset($_POST['delete']))
 {
+	$retrieved_nonce = $_REQUEST['_wpnonce'];
+	if (!wp_verify_nonce($retrieved_nonce, 'manage_crf_form' ) ) die( 'Failed security check' );
+		
 	$ids = implode(',',$_POST['selected']);
 	$query = "delete from $crf_forms where id in($ids)";
 	$wpdb->get_results($query);
@@ -37,6 +43,7 @@ $entries = $wpdb->get_results( "SELECT * FROM $crf_forms order by id asc LIMIT $
 ?>
 
 <form name="forms" id="forms" method="post" action="admin.php?page=crf_manage_forms" >
+<?php wp_nonce_field('manage_crf_form'); ?>
 <div class="ucf_pro_banner" style="margin-bottom:0 !important; overflow:visible;">
 <div class="analytics_banner"><a href="admin.php?page=analytics_demo"><img src="<?php echo $path;?>images/analytics_banner.jpg" /></a></div>
 
