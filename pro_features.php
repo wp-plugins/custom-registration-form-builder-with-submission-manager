@@ -31,7 +31,7 @@ margin-bottom: 50px;
     box-shadow: 0 1px 2px -1px #c7c7c7;
 	height:auto;
 	padding:10px;
-	padding-bottom:60px;
+	padding-bottom:15px;
 	z-index:9;
 	position:relative;
 }
@@ -43,7 +43,7 @@ margin-bottom: 50px;
 	float:left;
 	width:400px;
 	padding:10px;
-	padding-bottom:60px;
+	padding-bottom:15px;
 	z-index:9;
 	position:relative;
 }
@@ -142,12 +142,10 @@ margin-bottom: 50px;
 }
 .pro-footer h4{
 	color:#969696;
-	font-weight:bold;
-	border-top:1px solid #e1e1e1;
-	padding-top:15px;
-	margin-top:50px;
-	margin-bottom:15px;
-	font-size:14px;
+	font-weight:normal;
+	margin-top:5px;
+	margin-bottom:0;
+	font-size:12px !important;
 }
 .pro-footer a{
 	text-decoration:none;
@@ -155,20 +153,35 @@ margin-bottom: 50px;
 	font-size:15px;
 	text-transform:uppercase;
 	font-weight:normal;
-	line-height:100px;
+
 }
-.pro-footer .green-box{
-	box-shadow: 0 1px 2px -1px #c7c7c7;
-	position:absolute;
+.pro-footer p{
+	font-size:14px;
+	margin-top:5px;
+	margin-bottom:5px;
+	color:#8b8b8b;
+	text-transform:uppercase;
+}
+.butten-footer{
+	text-align:center;
+	height:auto;
+}
+.pro-footer .green-buy-box{
+	height:auto;
+   margin-top:50px;
+}
+.pro-features-silver-left .pro-footer .green-buy-box{
+	margin-top:148px;}
+
+.pro-footer .green-buy-box a{
 	background:#66bb6a;
-	border-radius:50%;
-	height:100px;
-	width:100px;
-	margin-left:160px;
-	margin-top:0px;
+	border-radius:3px;
+	padding:7px 18px;
+	display:inline-block;
+
 }
 .pro-features-silver-left .pro-footer h4{
-	margin-top:148px;}
+}
 
 /*******popup-css*******/
 
@@ -335,7 +348,7 @@ border:0px;
 
 }
 .discount-coupons-banner{
-	background:url(<?php echo $path; ?>images/coupons-banner-img.jpg) no-repeat;
+	background:url(<?php echo $path; ?>images/coupon-banner.jpg) no-repeat;
 	height:343px;
 	position:relative;
 	top:-110px;
@@ -356,6 +369,25 @@ border:0px;
 	border:none;
 	box-shadow:none;
 	outline:none;
+}
+.butten-footer ul{
+	margin:0;
+	padding:0;
+}
+.butten-footer ul li{
+	list-style:none;
+	display:inline-block;
+	line-height:30px;
+	margin-bottom:0;
+	margin-left:5px;
+	margin-right:5px;
+}
+.butten-footer ul li a{
+	color:#66bb6a;
+	background:#e6e6e6;
+	border-radius:3px;
+	padding:7px 20px;
+	text-transform:uppercase;
 }
 
 
@@ -379,9 +411,20 @@ border:0px;
         <li class="file-icon"><span>File Attachment Field (Repeatable)<span class="pro-right-icon" onMouseOver="crftooltip2(this,'.file-attachment-popup')" title=""></span></span></span></li>
         </ul>
         <div class="pro-footer">
-        <h4>All this for <span class="green-color">9.95</span> USD Only</h4>
-        <div class="green-box">
+        <div class="green-buy-box">
         <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=65" target="_blank">BUY NOW</a></div>
+      
+        <h4><span class="green-color">( 9.95 USD Only )</span></h4>
+        <p>OR BUY MULTI-SITE LICENSES</p>
+        <div class="butten-footer">
+         <ul>
+         <li><a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=65&configoption[15]=2" target="_blank">2 SITES</a></li>
+         <li><a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=65&configoption[15]=5" target="_blank">5 SITES</a></li>
+         <li><a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=65&configoption[15]=20" target="_blank">20 SITES</a></li>
+         </ul>
+         <div class="cler"></div>
+        </div>
+        <div class="cler"></div>
         </div>
         
     </div>
@@ -401,10 +444,20 @@ border:0px;
         <li class="field-analytics"><span>Field Analytics<span class="pro-right-icon" onMouseOver="crftooltip2(this,'.field-analytics-popup')" title=""></span></span></span></li>
         </ul>
         <div class="pro-footer">
-        <h4>All this for <span class="green-color">19.95</span> USD Only</h4>
-        <!--<p class="limited-tex">*Limited time offer</p>-->
-        <div class="green-box">
-        <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66" target="_blank">BUY NOW</a></div>
+        <div class="green-buy-box">
+        <a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66" target="_blank">BUY NOW</a>
+        </div>
+        <h4><span class="green-color">( 19.95 USD Only )</span></h4>
+        <p>OR BUY MULTI-SITE LICENSES</p>
+        <div class="butten-footer">
+         <ul>
+         <li><a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66&configoption[17]=2" target="_blank">2 SITES</a></li>
+         <li><a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66&configoption[17]=5" target="_blank">5 SITES</a></li>
+         <li><a href="http://cmshelplive.com/accounts/cart.php?a=add&pid=66&configoption[17]=20" target="_blank">20 SITES</a></li>
+         </ul>
+          <div class="cler"></div>
+        </div>
+        <div class="cler"></div>
         </div>
     
     

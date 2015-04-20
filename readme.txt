@@ -5,7 +5,7 @@ Tags: custom registration, custom form fields, custom registration fields, multi
 
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.4
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,7 +127,10 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Changelog ==
 
-= 1.3.4 =
+= 1.4.1 =
+* Minor changes
+
+= 1.4 =
 * Major Security Updates
 * Form Auto Expiry Option Added
 
@@ -232,7 +235,10 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 
 == Upgrade Notice ==
 
-= 1.3.4 =
+= 1.4.1 =
+* Minor changes
+
+= 1.4 =
 * Major Security Updates
 * Form Auto Expiry Option Added
 
