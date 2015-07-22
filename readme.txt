@@ -5,7 +5,7 @@ Tags: custom registration, custom form fields, custom registration fields, multi
 
 Requires at least: 3.5
 Tested up to: 4.1
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,8 @@ Each form card also displays “shortcode” required to display the forms on yo
 * Option to capture IP location of the form submitter
 * Option to capture Browser and OS information of the form submitter
 * View Geo Location through Submission details
+* Auto expire form based on a date.
+* Auto expire form based on submission count.
 
 
 = Pro version =
@@ -76,8 +78,11 @@ Each form card also displays “shortcode” required to display the forms on yo
 [Check out our Pro page](http://cmshelplive.com/custom-user-registration-form-builder-pro.html) which offers these handy extras:
 
 * Ability to download form submissions as excel file
-* File upload field for allowing visitors to add attachments with the form
+* File upload field for allowing visitors to add attachments with the form. This field can be made repeatable for multi attachments.
 * Assigning user roles to registration forms for accepting registrations for specific user roles.
+* Ability to track form statistics (Gold Edition)
+* Ability to track field statistics (Gold Edition)
+* Adds option to allow users to choose roles from front end. Admin can limit the roles allowed.
 
 
 == Installation ==
@@ -116,6 +121,9 @@ Yes, you can set autoresponder for a form by clicking “Edit” button on a for
 
 Yes, you can change field order of custom fields by drag and drop method in dashboard
 
+= How can I inset a form within the content?
+Please update to version 1.4.2. It fixes an old bug that always moved the form above the content.
+
 
 == Screenshots ==
 
@@ -126,6 +134,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 5. Sample Contact Form.
 
 == Changelog ==
+
+= 1.4.2 =
+* Improved HTML Structure
+* Fixed a bug where the form was always appearing on top, despite pasting the shortcode within content.
+* Fixed a bug that did not allowed showing multiple forms on a page.
 
 = 1.4.1 =
 * Minor changes
@@ -234,6 +247,11 @@ Yes, you can change field order of custom fields by drag and drop method in dash
 * Added Custom Fields
 
 == Upgrade Notice ==
+
+= 1.4.2 =
+* Improved HTML Structure
+* Fixed a bug where the form was always appearing on top, despite pasting the shortcode within content.
+* Fixed a bug that did not allowed showing multiple forms on a page.
 
 = 1.4.1 =
 * Minor changes

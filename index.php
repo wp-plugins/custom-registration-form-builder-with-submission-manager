@@ -3,7 +3,7 @@
 	Plugin Name: Custom User Registration Form Builder
 	Plugin URI: https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/
 	Description: An easy to use, simple but powerful registration form system that also tracks your registrations through a nifty interface. You can create unlimited forms with custom fields and use them through shortcode system.
-	Version: 1.4.1
+	Version: 1.4.2
 	Author: CMSHelpLive
 	Author URI: https://profiles.wordpress.org/cmshelplive
 	License: gpl2
@@ -280,11 +280,15 @@ function crf_manage_form_fields()
 add_shortcode( 'CRF_Form', 'CRF_view_form_fun' );
 function CRF_view_form_fun($content)
 {
+	ob_start();
 	global $wpdb;
 	$crf_option=$wpdb->prefix."crf_option";
 	$qry="select `value` from $crf_option where fieldname='crf_theme'";
 	$crf_theme = $wpdb->get_var($qry);
 	include 'view-form-'.$crf_theme.'.php';
+	$output_string=ob_get_contents();
+	ob_end_clean();
+	return $output_string;
 }
 
 add_action('wp_ajax_set_field_order', 'CRF_set_field_order');
